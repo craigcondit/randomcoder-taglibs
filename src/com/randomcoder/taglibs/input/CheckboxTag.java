@@ -4,6 +4,7 @@
 package com.randomcoder.taglibs.input;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import javax.servlet.jsp.*;
 
@@ -38,6 +39,12 @@ import javax.servlet.jsp.*;
 public class CheckboxTag extends InputTagBase {
   private static final long serialVersionUID = -4288046933679612906L;
   
+  private static final String ONE = "1".toUpperCase(Locale.US);
+  private static final String YES = "YES".toUpperCase(Locale.US);
+  private static final String TRUE = "TRUE".toUpperCase(Locale.US);
+  private static final String ON = "ON".toUpperCase(Locale.US);
+  private static final String CHECKED = "CHECKED".toUpperCase(Locale.US);
+  
   /**
    * Value of checked HTML attribute.
    */
@@ -54,9 +61,14 @@ public class CheckboxTag extends InputTagBase {
    * @return true if checkbox is checked, false otherwise
    */
   protected boolean isChecked() {
-    if ("true".equalsIgnoreCase(checked)) return true;
-    if ("1".equalsIgnoreCase(checked)) return true;
-    if ("checked".equalsIgnoreCase(checked)) return true;
+    if (checked == null) return false;
+    String value = checked.toUpperCase(Locale.US);
+    
+    if (TRUE.equals(value)) return true;
+    if (ONE.equals(value)) return true;
+    if (CHECKED.equals(value)) return true;
+    if (ON.equals(value)) return true;
+    if (YES.equals(value)) return true;
 
     return false;
   }

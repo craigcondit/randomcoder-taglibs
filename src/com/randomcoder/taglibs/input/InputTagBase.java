@@ -158,7 +158,7 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
       JspWriter out = pageContext.getOut();
 
       out.write("<input type=\"" + getType() + "\"");
-      out.write(" name=\"" + encodeAttribute(name) + "\"");
+      if (name != null) out.write(" name=\"" + encodeAttribute(name) + "\"");
       if (styleId != null) out.write(" id=\"" + encodeAttribute(styleId) + "\"");
       if (value != null) out.write(" value=\"" + encodeAttribute(value) + "\"");
       out.write(buildOptions());

@@ -47,14 +47,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 		<!-- required attirbutes -->
 		
-		<attribute>
-			<name>name</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-			<description>XHTML attribute</description>
-		</attribute>
-
 		<!-- optional attributes -->
 		
 		<attribute>
@@ -83,6 +75,14 @@ POSSIBILITY OF SUCH DAMAGE.
 
 		<attribute>
 			<name>lang</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>XHTML attribute</description>
+		</attribute>
+
+		<attribute>
+			<name>name</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>
@@ -1852,14 +1852,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 		<!-- required attributes -->
 		
-		<attribute>
-			<name>name</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-			<description>XHTML attribute</description>
-		</attribute>
-
 		<!-- optional attributes -->
 		
 		<attribute>
@@ -1888,6 +1880,14 @@ POSSIBILITY OF SUCH DAMAGE.
 
 		<attribute>
 			<name>lang</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>XHTML attribute</description>
+		</attribute>
+
+		<attribute>
+			<name>name</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>
@@ -2317,14 +2317,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 		<!-- required attributes -->
 		
-		<attribute>
-			<name>name</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
-			<description>XHTML attribute</description>
-		</attribute>
-
 		<!-- optional attributes -->
 		
 		<attribute>
@@ -2353,6 +2345,14 @@ POSSIBILITY OF SUCH DAMAGE.
 
 		<attribute>
 			<name>lang</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>XHTML attribute</description>
+		</attribute>
+
+		<attribute>
+			<name>name</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>
