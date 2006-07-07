@@ -32,7 +32,7 @@
     	
     </target>
     	
-    <target name="dist" depends="compile,javadoc,jar" description="Build dist targets" />
+    <target name="dist" depends="compile,javadoc,tlddoc,jar" description="Build dist targets" />
 	
     <target name="jar" depends="compile" description="Build jar file">
     	<mkdir dir="dist" />
@@ -56,6 +56,16 @@
 		</javadoc>
 	</target>
 
+	<target name="tlddoc" description="Build TLD documentation">		
+		<mkdir dir="docs" />
+		<mkdir dir="docs/tlddocs" />		
+		<java fork="true" jar="tools/tlddoc-1.3.jar" failonerror="true">
+			<arg value="-d" />
+			<arg value="docs/tlddocs" />
+			<arg value="src/META-INF/tlds/randomcoder-security.tld" />
+		</java>
+	</target>
+	
 	<target name="deploy-javadoc" depends="javadoc" description="Copies javadoc to destination folder">
 		<fail unless="javadoc.path" />
 		<mkdir dir="${javadoc.path}" />
@@ -70,11 +80,27 @@
 			</fileset>
 		</copy>
 	</target>
-
+	
+	<target name="deploy-tlddoc" depends="tlddoc" description="Copies tlddoc to destination folder">
+		<fail unless="tlddoc.path" />
+		<mkdir dir="${tlddoc.path}" />
+		<delete>
+			<fileset dir="${tlddoc.path}">
+				<include name="**.*" />
+			</fileset>
+		</delete>
+		<copy todir="${tlddoc.path}">
+			<fileset dir="docs/tlddocs">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+	</target>
+	
 	<target name="clean" description="Clean build targets">
 		<delete dir="dist" />
 		<delete dir="bin" />
 		<delete dir="docs/apidocs" />
+		<delete dir="docs/tlddocs" />
 	</target>
 
 </project>
