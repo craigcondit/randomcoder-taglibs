@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<project name="randomcoder-taglibs" default="dist" basedir=".">	
+    <description>Various tag libraries</description>
+	
+	<path id="classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<property file="local.build.properties" />
+	<property file="build.properties" />
+	
+    <target name="compile" description="Generate java classes">
+        <mkdir dir="bin" />
+		<!-- Copy non-java elements from src to classes -->
+		<copy todir="bin" includeemptydirs="false">
+			<fileset dir="src">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+
+		<!-- Compile java classes -->
+		<javac
+				deprecation="true"
+				classpathref="classpath"
+				srcdir="src"
+				destdir="bin"
+				debug="true">
+			<compilerarg value="-Xlint:unchecked" />
+		</javac>
+    	
+    </target>
+    	
+    <target name="dist" depends="compile,javadoc,jar" description="Build dist targets" />
+	
+    <target name="jar" depends="compile" description="Build jar file">
+    	<mkdir dir="dist" />
+    	<jar destfile="dist/${ant.project.name}-${taglibs.version}.jar" basedir="bin" />
+	</target>
+	
+	<target name="javadoc" description="Build Java documentation">
+		<mkdir dir="docs" />
+		<mkdir dir="docs/apidocs" />
+		<javadoc
+			classpathref="classpath"
+			destdir="docs/apidocs"
+			author="true"
+			charset="UTF-8"
+			docencoding="UTF-8"
+			windowtitle="Taglibs"
+			doctitle="Randomcoder Tag Libraries"
+			verbose="false"			
+			version="true">
+			<fileset dir="src" />
+		</javadoc>
+	</target>
+
+	<target name="deploy-javadoc" depends="javadoc" description="Copies javadoc to destination folder">
+		<fail unless="javadoc.path" />
+		<mkdir dir="${javadoc.path}" />
+		<delete>
+			<fileset dir="${javadoc.path}">
+				<include name="**.*" />
+			</fileset>
+		</delete>
+		<copy todir="${javadoc.path}">
+			<fileset dir="docs/apidocs">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="clean" description="Clean build targets">
+		<delete dir="dist" />
+		<delete dir="bin" />
+		<delete dir="docs/apidocs" />
+	</target>
+
+</project>
