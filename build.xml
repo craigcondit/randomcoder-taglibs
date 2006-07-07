@@ -90,7 +90,8 @@ POSSIBILITY OF SUCH DAMAGE.
 			<arg value="RandomCoder Taglibs" />
 			<arg value="-doctitle" />
 			<arg value="RandomCoder TagLibs" />
-			<arg value="src/META-INF/tlds/*.tld" />
+			<arg value="src/META-INF/tlds/randomcoder-input.tld" />
+			<arg value="src/META-INF/tlds/randomcoder-security.tld" />
 		</java>
 	</target>
 	
