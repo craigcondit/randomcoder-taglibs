@@ -1,5 +1,7 @@
+package com.randomcoder.taglibs.input;
+
 /**
- * Security tag library.
+ * Interface containing setters for all &lt;input&gt; HTML attributes.
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -26,4 +28,29 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre> 
  */
-package com.randomcoder.taglibs.security;
+public interface InputTagAttributes extends HtmlTagAttributes {
+  /**
+   * Sets the disabled HTML attribute.
+   * @param disabled value of disabled attribute
+   */
+  public void setDisabled(String disabled);
+  
+  /**
+   * Sets the readonly HTML attribute.
+   * @param readonly value of readonly attribute
+   */
+  public void setReadonly(String readonly);
+
+  /**
+   * Sets the tabindex HTML attribute.
+   * @param tabindex value of tabindex attribute
+   */
+  public void setTabindex(String tabindex);
+  
+  /**
+   * Sets the accesskey HTML attribute.
+   * @param accesskey value of accesskey attribute
+   */
+  public void setAccesskey(String accesskey);
+  
+}

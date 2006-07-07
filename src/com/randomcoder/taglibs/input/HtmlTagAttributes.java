@@ -1,5 +1,7 @@
+package com.randomcoder.taglibs.input;
+
 /**
- * Security tag library.
+ * Interface containing setters for all common HTML attributes.
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -26,4 +28,34 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre> 
  */
-package com.randomcoder.taglibs.security;
+public interface HtmlTagAttributes {
+  /**
+   * Sets the styleClass (HTML class) attribute.
+   * @param styleClass value of styleClass attribute
+   */
+  public void setStyleClass(String styleClass);
+  
+  /**
+   * Sets the dir HTML attribute.
+   * @param dir value of dir attribute
+   */
+  public void setDir(String dir);
+  
+  /**
+   * Sets the lang HTML attribute.
+   * @param lang value of lang attribute
+   */
+  public void setLang(String lang);
+  
+  /**
+   * Sets the style HTML attribute.
+   * @param style value of lang attribute
+   */
+  public void setStyle(String style);
+  
+  /**
+   * Sets the title HTML attribute.
+   * @param title value of title attribute
+   */
+  public void setTitle(String title);
+}

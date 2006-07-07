@@ -1,5 +1,7 @@
+package com.randomcoder.taglibs.input;
+
 /**
- * Security tag library.
+ * Interface containing setters for all scriptable &lt;input&gt; HTML attributes.
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -26,4 +28,28 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre> 
  */
-package com.randomcoder.taglibs.security;
+public interface ScriptableInputTagAttributes extends InputTagAttributes, ScriptableHtmlTagAttributes {
+  /**
+   * Sets the onblur HTML attribute.
+   * @param onblur value of onblur attribute
+   */
+  public void setOnblur(String onblur);
+  
+  /**
+   * Sets the onchange HTML attribute.
+   * @param onchange value of onchange attribute
+   */
+  public void setOnchange(String onchange);
+    
+  /**
+   * Sets the onfocus HTML attribute.
+   * @param onfocus value of onfocus attribute
+   */
+  public void setOnfocus(String onfocus);
+  
+  /**
+   * Sets the onselect HTML attribute.
+   * @param onselect value of onselect attribute
+   */
+  public void setOnselect(String onselect);
+}

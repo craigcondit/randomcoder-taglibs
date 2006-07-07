@@ -1,5 +1,10 @@
+/*
+ * $Id: RadioTag.java 20 2005-02-09 20:13:51Z ccondit $
+ */
+package com.randomcoder.taglibs.input;
+
 /**
- * Security tag library.
+ * Tag class which produces &lt;input type="radio"&gt;.
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -26,4 +31,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre> 
  */
-package com.randomcoder.taglibs.security;
+public class RadioTag extends CheckboxTag {
+  private static final long serialVersionUID = -1997866321950086673L;
+
+  @Override
+  protected String getType() { return "radio"; }
+}

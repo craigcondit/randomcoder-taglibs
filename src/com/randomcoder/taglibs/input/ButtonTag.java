@@ -1,5 +1,10 @@
+/*
+ * $Id: ButtonTag.java 20 2005-02-09 20:13:51Z ccondit $
+ */
+package com.randomcoder.taglibs.input;
+
 /**
- * Security tag library.
+ * Tag class which produces &lt;input type="button"&gt;.
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -26,4 +31,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre> 
  */
-package com.randomcoder.taglibs.security;
+public class ButtonTag extends InputTagBase {
+  private static final long serialVersionUID = 5800589874656648910L;
+
+  @Override
+  protected String getType() { return "button"; }
+}

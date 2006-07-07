@@ -1,5 +1,10 @@
+/*
+ * $Id: ImageTag.java 20 2005-02-09 20:13:51Z ccondit $
+ */
+package com.randomcoder.taglibs.input;
+
 /**
- * Security tag library.
+ * Tag class which produces &lt;input type="image"&gt;.
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -26,4 +31,44 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre> 
  */
-package com.randomcoder.taglibs.security;
+public class ImageTag extends InputTagBase {
+
+  private static final long serialVersionUID = 3150293924162011410L;
+
+  /**
+   * Not used.
+   * 
+   * @throws IllegalArgumentException always
+   */
+  @Override
+  public void setValue(String value) throws IllegalArgumentException {
+    throw new IllegalArgumentException("Attribute 'value' is not allowed");		
+  }
+  
+  /**
+   * Sets the src HTML attribute.
+   * @param src value of src attribute
+   */
+  public void setSrc(String src) { getParams().put("src", src); }
+  
+  /**
+   * Sets the alt HTML attribute.
+   * @param alt value of alt attribute
+   */
+  public void setAlt(String alt) { getParams().put("alt", alt); }
+  
+  /**
+   * Sets the usemap HTML attribute.
+   * @param usemap value of usemap attribute
+   */
+  public void setUsemap(String usemap) { getParams().put("usemap", usemap); }
+  
+  /**
+   * Sets the align HTML attribute.
+   * @param align value of align attribute
+   */
+  public void setAlign(String align) { getParams().put("align", align); }
+
+  @Override
+  protected String getType() { return "image"; }
+}

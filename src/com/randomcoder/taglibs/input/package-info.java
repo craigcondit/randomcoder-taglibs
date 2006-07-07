@@ -1,5 +1,5 @@
 /**
- * Security tag library.
+ * Input tag library.
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -26,4 +26,4 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre> 
  */
-package com.randomcoder.taglibs.security;
+package com.randomcoder.taglibs.input;
