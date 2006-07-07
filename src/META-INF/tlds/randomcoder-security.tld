@@ -1,49 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE taglib PUBLIC 
-    "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
-    "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+    "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+    "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
 
 <taglib>
-  <tlibversion>1.0</tlibversion>
-  <jspversion>1.1</jspversion>
-  <shortname>security</shortname>
-  <uri>http://randomcoder.com/tags-security</uri>
-  <info>JSTL-compatible tag library to handle common security tasks.</info>
-  
-  <tag>
-    <name>inRole</name>
-    <tagclass>com.randomcoder.taglibs.security.InRoleTag</tagclass>
-    <bodycontent>JSP</bodycontent>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>security</short-name>
+	<uri>http://randomcoder.com/tags-security</uri>
+	<display-name>Security</display-name>
+	<description>
+		JSTL-compatible tag library to handle common security tasks.
+	</description>
 
-    <attribute>
-      <name>role</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
+	<tag>
+		<name>inRole</name>
+		<tag-class>com.randomcoder.taglibs.security.InRoleTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>inRole</display-name>
+		<description>
+			Processes the body if and only if the current user has the given role.
+		</description>
 
-  <tag>
-    <name>notInRole</name>
-    <tagclass>com.randomcoder.taglibs.security.NotInRoleTag</tagclass>
-    <bodycontent>JSP</bodycontent>
+		<attribute>
+			<name>role</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Role name required to display body content.
+			</description>
+		</attribute>
+		
+		<example>
+		</example>
+	</tag>
 
-    <attribute>
-      <name>role</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
-  
-  <tag>
-    <name>loggedIn</name>
-    <tagclass>com.randomcoder.taglibs.security.LoggedInTag</tagclass>
-    <bodycontent>JSP</bodycontent>
-  </tag>
-  
-  <tag>
-    <name>notLoggedIn</name>
-    <tagclass>com.randomcoder.taglibs.security.NotLoggedInTag</tagclass>
-    <bodycontent>JSP</bodycontent>
-  </tag>
+	<tag>
+		<name>notInRole</name>
+		<tag-class>com.randomcoder.taglibs.security.NotInRoleTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>notInRole</display-name>
+		<description>
+			Processes the body if and only if the current user does not have the given role.
+		</description>
+
+		<attribute>
+			<name>role</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Role name not allowed to display body content.
+			</description>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>loggedIn</name>
+		<tag-class>com.randomcoder.taglibs.security.LoggedInTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>loggedIn</display-name>
+		<description>
+			Processes the body if a valid user is logged in.
+		</description>
+		<example>
+		</example>
+	</tag>
+
+	<tag>
+		<name>notLoggedIn</name>
+		<tag-class>com.randomcoder.taglibs.security.NotLoggedInTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>notLoggedIn</display-name>
+		<description>
+			Processes the body if a valid user is not logged in.
+		</description>
+		<example>
+		</example>
+	</tag>
 
 </taglib>

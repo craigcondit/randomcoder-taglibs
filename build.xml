@@ -62,7 +62,11 @@
 		<java fork="true" jar="tools/tlddoc-1.3.jar" failonerror="true">
 			<arg value="-d" />
 			<arg value="docs/tlddocs" />
-			<arg value="src/META-INF/tlds/randomcoder-security.tld" />
+			<arg value="-windowtitle" />
+			<arg value="RandomCoder Taglibs" />
+			<arg value="-doctitle" />
+			<arg value="RandomCoder TagLibs" />
+			<arg value="src/META-INF/tlds/*.tld" />
 		</java>
 	</target>
 	
