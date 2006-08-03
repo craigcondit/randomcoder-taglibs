@@ -471,7 +471,7 @@ public class CalendarTag extends BodyTagSupport {
   protected String encodePCData(String pcData) {
     if (pcData == null) return "";
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
 
     for (int i = 0; i < pcData.length(); i++) {
       char c = pcData.charAt(i);
@@ -493,7 +493,7 @@ public class CalendarTag extends BodyTagSupport {
   protected String encodeAttribute(String attributeValue) {
     if (attributeValue == null) return "";
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
 
     for (int i = 0; i < attributeValue.length(); i++) {
       char c = attributeValue.charAt(i);
