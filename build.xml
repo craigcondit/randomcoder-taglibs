@@ -92,6 +92,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<arg value="RandomCoder TagLibs" />
 			<arg value="src/META-INF/tlds/randomcoder-input.tld" />
 			<arg value="src/META-INF/tlds/randomcoder-security.tld" />
+			<arg value="src/META-INF/tlds/randomcoder-ui.tld" />
 		</java>
 	</target>
 	
