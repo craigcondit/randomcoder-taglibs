@@ -1,22 +1,18 @@
 package com.randomcoder.taglibs.ui;
 
-import java.io.IOException;
-import java.text.DateFormatSymbols;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-import java.util.TimeZone;
+import java.io.*;
+import java.net.URLEncoder;
+import java.text.*;
+import java.util.*;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.*;
 import javax.servlet.jsp.jstl.core.Config;
 import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
+import org.apache.commons.logging.*;
 
 /**
  * Tag class which implements a calendar control.
@@ -54,6 +50,14 @@ public class CalendarTag extends BodyTagSupport {
   private static final String DEFAULT_PREV_CONTENT = "&#171;";
   private static final String DEFAULT_NEXT_CONTENT = "&#187;";
 
+  private static final String REQUEST_URI_ATTRIBUTE = "javax.servlet.forward.request_uri";
+  private static final String CONTEXT_PATH_ATTRIBUTE = "javax.servlet.forward.context_path";
+  private static final String SERVLET_PATH_ATTRIBUTE = "javax.servlet.forward.servlet_path";
+  private static final String PATH_INFO_ATTRIBUTE = "javax.servlet.forward.path_info";
+  private static final String QUERY_STRING_ATTRIBUTE = "javax.servlet.forward.query_string";
+  
+  private static final Log logger = LogFactory.getLog(CalendarTag.class);
+  
   private final DecimalFormat dfDay = new DecimalFormat("##");
   
   private PageContext pageContext;
@@ -69,6 +73,8 @@ public class CalendarTag extends BodyTagSupport {
   private String weekendClass;
   private String prevClass;
   private String nextClass;
+  private String prevLink;
+  private String nextLink;
   private String captionFormat = DEFAULT_CAPTION_FORMAT;
   private boolean captionVisible = true;
   private String bundlePrefix = DEFAULT_BUNDLE_PREFIX;
@@ -139,6 +145,7 @@ public class CalendarTag extends BodyTagSupport {
   
   @Override  
   public void release() {
+    logger.debug("release()");
     showDate = null;    
     selectedDate = null;
     outerId = null;
@@ -158,6 +165,8 @@ public class CalendarTag extends BodyTagSupport {
     dateFormatSymbols = null;
     prevContent = DEFAULT_PREV_CONTENT;
     nextContent = DEFAULT_NEXT_CONTENT;
+    prevLink = null;
+    nextLink = null;
     pageContext = null;
   }
 
@@ -169,8 +178,7 @@ public class CalendarTag extends BodyTagSupport {
 
   @Override
   public int doEndTag() throws JspException {
-    try {
-      
+    try {      
       JspWriter out = pageContext.getOut();
 
       // get locale-specific stuff
@@ -178,6 +186,7 @@ public class CalendarTag extends BodyTagSupport {
       if (resourceBundle == null) resourceBundle = getDefaultResourceBundle();
       if (timeZone == null) timeZone = getDefaultTimeZone();
       if (dateFormatSymbols == null) dateFormatSymbols = getDefaultDateFormatSymbols();
+      
       
       Date currentTime = new Date();
       
@@ -208,6 +217,12 @@ public class CalendarTag extends BodyTagSupport {
       out.print(">");
 
       if (captionVisible) {
+        logger.debug("Prev link: " + prevLink);
+        logger.debug("Next link: " + nextLink);
+        
+        if (prevLink == null) prevLink = getDefaultPrevLink(current);
+        if (nextLink == null) nextLink = getDefaultNextLink(current);
+        
         out.print("<caption>");
         renderPrevLink(out);
         renderCaption(out, current);
@@ -279,6 +294,9 @@ public class CalendarTag extends BodyTagSupport {
       
     } catch (IOException e) {
       throw new JspException(e);
+    } finally {
+      // TODO is this correct?
+      release();
     }
   }
   
@@ -309,7 +327,11 @@ public class CalendarTag extends BodyTagSupport {
   }
   
   private void renderPrevLink(JspWriter out) throws IOException {
-    out.write("<a href=\"#\"");
+    if (prevLink == null) return;
+    
+    out.write("<a href=\"");
+    out.write(encodeAttribute(prevLink));
+    out.write("\"");
     if (prevClass != null) {
       out.write(" class=\"");
       out.write(encodeAttribute(prevClass));
@@ -321,7 +343,11 @@ public class CalendarTag extends BodyTagSupport {
   }
   
   private void renderNextLink(JspWriter out) throws IOException {
-    out.write(" <a href=\"#\"");
+    if (nextLink == null) return;
+    
+    out.write(" <a href=\"");
+    out.write(encodeAttribute(nextLink));
+    out.write("\"");
     if (nextClass != null) {
       out.write(" class=\"");
       out.write(encodeAttribute(nextClass));
@@ -363,6 +389,133 @@ public class CalendarTag extends BodyTagSupport {
     }
     
     out.print("</tr>");
+  }
+  
+  private String getDefaultPrevLink(Calendar current) {
+    logger.debug("prev link, month=" + current.get(Calendar.MONTH));
+    Calendar prevCal = Calendar.getInstance(timeZone, locale);
+    prevCal.setTime(current.getTime());
+    prevCal.add(Calendar.MONTH, -1);    
+    return getDefaultNavLink(prevCal);
+  }
+  
+  private String getDefaultNextLink(Calendar current) {
+    logger.debug("next link, month=" + current.get(Calendar.MONTH));
+    Calendar nextCal = Calendar.getInstance(timeZone, locale);    
+    nextCal.setTime(current.getTime());
+    nextCal.add(Calendar.MONTH, 1);    
+    return getDefaultNavLink(nextCal);
+  }
+  
+  private String getDefaultNavLink(Calendar cal) {
+    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+    
+    DecimalFormat dfMonth = new DecimalFormat("##");
+    DecimalFormat dfYear = new DecimalFormat("####");
+    
+    Map<String, String> params = new HashMap<String, String>();
+    params.put("month", dfMonth.format(cal.get(Calendar.MONTH) + 1));
+    params.put("year", dfYear.format(cal.get(Calendar.YEAR)));
+    
+    return getCurrentUrl(request) + getQueryString(params);
+  }
+
+  private String getQueryString(Map<String, String> additionalParams) {
+    try {
+      StringBuilder buf = new StringBuilder();
+      
+      HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+      
+      Enumeration parameterNames = request.getParameterNames();
+      while (parameterNames.hasMoreElements()) {
+        String parameterName = (String) parameterNames.nextElement();
+        String override = additionalParams.remove(parameterName);
+        if (override == null) {
+          String[] parameterValues = request.getParameterValues(parameterName);
+          for (String parameterValue : parameterValues) {
+            buf.append(buf.length() == 0 ? "?" : "&");
+            buf.append(URLEncoder.encode(parameterName, "UTF-8"));
+            buf.append("=");
+            buf.append(URLEncoder.encode(parameterValue, "UTF-8"));
+          }
+        } else {
+          buf.append(buf.length() == 0 ? "?" : "&");
+          buf.append(URLEncoder.encode(parameterName, "UTF-8"));
+          buf.append("=");
+          buf.append(URLEncoder.encode(override, "UTF-8"));
+        }
+      }
+      for (String parameterName : additionalParams.keySet()) {
+        String parameterValue = additionalParams.get(parameterName);
+        if (parameterValue != null) {
+          buf.append(buf.length() == 0 ? "?" : "&");
+          buf.append(URLEncoder.encode(parameterName, "UTF-8"));
+          buf.append("=");
+          buf.append(URLEncoder.encode(parameterValue, "UTF-8"));
+        }
+      }
+          
+      return buf.toString();
+      
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  
+  private String getCurrentUrl(HttpServletRequest request) {
+    StringBuilder buf = new StringBuilder();
+    
+    String forwardUri = (String) request.getAttribute(REQUEST_URI_ATTRIBUTE);
+    if (forwardUri == null) {
+      // use old style method
+      String contextPath = request.getContextPath();
+      if (contextPath != null)
+        buf.append(contextPath);
+      
+      String servletPath = request.getServletPath();
+      if (servletPath != null)
+        buf.append(servletPath);
+      
+      String pathInfo = request.getPathInfo();
+      if (pathInfo != null)
+        buf.append(pathInfo);
+      
+    } else {
+      // use forwarded attributes
+      buf.append(forwardUri);      
+    }
+
+    logger.debug("request_uri: " + request.getAttribute("javax.servlet.forward.request_uri"));
+    logger.debug("context_path: " + request.getAttribute("javax.servlet.forward.context_path"));
+    logger.debug("servlet_path: " + request.getAttribute("javax.servlet.forward.servlet_path"));
+    logger.debug("path_info: " + request.getAttribute("javax.servlet.forward.path_info"));
+    logger.debug("query_string: " + request.getAttribute("javax.servlet.forward.query_string"));
+    
+    logger.debug("");
+    
+    logger.debug("request.requestURI: " + request.getRequestURI());
+    logger.debug("request.contextPath: " + request.getContextPath());
+    logger.debug("request.servletPath: " + request.getServletPath());
+    logger.debug("request.pathInfo: " + request.getPathInfo());
+    logger.debug("request.queryString: " + request.getQueryString());
+    
+    logger.debug("parameters:");
+    
+    Enumeration parameterNames = request.getParameterNames();
+    while (parameterNames.hasMoreElements()) {
+      String parameterName = (String) parameterNames.nextElement();
+      String[] parameterValues = request.getParameterValues(parameterName);
+      for (String parameterValue : parameterValues) {
+        logger.debug("  " + parameterName + "=" + parameterValue);
+      }
+    }
+    
+    String name = buf.toString();
+    
+    logger.debug("Current URL: " + name);
+    
+    return name;
   }
   
   private DateFormatSymbols getDefaultDateFormatSymbols() {
