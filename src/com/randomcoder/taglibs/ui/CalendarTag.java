@@ -1,12 +1,12 @@
 package com.randomcoder.taglibs.ui;
 
 import java.io.*;
-import java.net.URLEncoder;
+import java.net.*;
 import java.text.*;
 import java.util.*;
+import java.util.Map.Entry;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.jstl.core.Config;
 import javax.servlet.jsp.jstl.fmt.LocalizationContext;
@@ -49,12 +49,13 @@ public class CalendarTag extends BodyTagSupport {
   private static final String DEFAULT_BUNDLE_PREFIX = CalendarTag.class.getName() + ".";
   private static final String DEFAULT_PREV_CONTENT = "&#171;";
   private static final String DEFAULT_NEXT_CONTENT = "&#187;";
-
+  
   private static final String REQUEST_URI_ATTRIBUTE = "javax.servlet.forward.request_uri";
-  private static final String CONTEXT_PATH_ATTRIBUTE = "javax.servlet.forward.context_path";
-  private static final String SERVLET_PATH_ATTRIBUTE = "javax.servlet.forward.servlet_path";
-  private static final String PATH_INFO_ATTRIBUTE = "javax.servlet.forward.path_info";
   private static final String QUERY_STRING_ATTRIBUTE = "javax.servlet.forward.query_string";
+//private static final String CONTEXT_PATH_ATTRIBUTE = "javax.servlet.forward.context_path";
+//private static final String SERVLET_PATH_ATTRIBUTE = "javax.servlet.forward.servlet_path";
+//private static final String PATH_INFO_ATTRIBUTE = "javax.servlet.forward.path_info";
+  
   
   private static final Log logger = LogFactory.getLog(CalendarTag.class);
   
@@ -67,7 +68,6 @@ public class CalendarTag extends BodyTagSupport {
   
   private String outerClass;
   private String outerId;
-  private String dayClass;
   private String todayClass;
   private String selectedClass;
   private String weekendClass;
@@ -84,15 +84,12 @@ public class CalendarTag extends BodyTagSupport {
   private ResourceBundle resourceBundle;
   private TimeZone timeZone;
   private DateFormatSymbols dateFormatSymbols;
-  
+  private final CalendarDaySpec[] daySpecs = new CalendarDaySpec[32];
+                          
   public void setShowDate(Date showDate) {
     this.showDate = showDate;
   }
   
-  public void setDayClass(String dayClass) {
-    this.dayClass = dayClass;
-  }
-
   public void setOuterId(String outerId) {
     this.outerId = outerId;
   }
@@ -142,15 +139,25 @@ public class CalendarTag extends BodyTagSupport {
     super.setPageContext(pageContext);
     this.pageContext = pageContext;
   }
+
+  void setDaySpec(Integer day, CalendarDaySpec spec) {
+    if (day == null) day = 0;
+    if (day < 0) return;
+    if (day > 31) return;
+    daySpecs[day] = spec;
+  }
   
   @Override  
   public void release() {
-    logger.debug("release()");
+    super.release();
+    cleanup();
+  }
+  
+  private void cleanup() {
     showDate = null;    
     selectedDate = null;
     outerId = null;
     outerClass = null;
-    dayClass = null;
     todayClass = null;
     selectedClass = null;
     weekendClass = null;
@@ -164,9 +171,12 @@ public class CalendarTag extends BodyTagSupport {
     bundlePrefix = DEFAULT_BUNDLE_PREFIX;
     dateFormatSymbols = null;
     prevContent = DEFAULT_PREV_CONTENT;
-    nextContent = DEFAULT_NEXT_CONTENT;
+    nextContent = DEFAULT_NEXT_CONTENT;    
     prevLink = null;
     nextLink = null;
+    
+    for (int i = 0; i < 31; i++) daySpecs[i] = null;
+    
     pageContext = null;
   }
 
@@ -245,7 +255,7 @@ public class CalendarTag extends BodyTagSupport {
       
       // go to first day of month
       current.set(Calendar.DAY_OF_MONTH, 1);
-            
+
       int col = 0;
       out.print("<tr>");
       int firstDow = current.getFirstDayOfWeek();
@@ -271,7 +281,7 @@ public class CalendarTag extends BodyTagSupport {
         // add current day      
         col++;
         
-        renderDay(out, i, dow, isSameDay(current, now), isSameDay(current, selected));
+        renderDay(out, current, dow, isSameDay(current, now), isSameDay(current, selected));
               
         if (i == endDay) {
           // populate last row with empty cells
@@ -295,8 +305,7 @@ public class CalendarTag extends BodyTagSupport {
     } catch (IOException e) {
       throw new JspException(e);
     } finally {
-      // TODO is this correct?
-      release();
+      cleanup();
     }
   }
   
@@ -358,6 +367,52 @@ public class CalendarTag extends BodyTagSupport {
     out.write("</a>");
   }
   
+  private Map<String, List<String>> parseParameters(String query)
+  throws UnsupportedEncodingException {
+    
+    // get the request encoding
+    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+    String encoding = request.getCharacterEncoding();
+    
+    // not found, fallback to UTF-8
+    if (encoding == null) encoding = "UTF-8";
+    
+    Map<String, List<String>> data = new HashMap<String, List<String>>();
+    
+    // query not specified
+    if (query == null) return data;
+    
+    StringTokenizer st = new StringTokenizer(query, "?&=", true);
+    
+    String prev = null;
+    while (st.hasMoreTokens())
+    {
+       String tk = st.nextToken();
+       if ("?".equals(tk)) continue;
+       if ("&".equals(tk)) continue;
+       if ("=".equals(tk)) {
+         if (prev == null) continue; // no previous entry...
+         if (!st.hasMoreTokens()) continue; // no more data
+         
+         String key = URLDecoder.decode(prev, encoding);
+         String value = URLDecoder.decode(st.nextToken(), encoding);
+         
+         List<String> params = data.get(key);
+         if (params == null) {
+           params = new ArrayList<String>();
+           data.put(key, params);
+         }
+         params.add(value);
+         
+         prev = null;
+       } else {
+         // this is a key
+         prev = tk;
+       }
+    }
+    return data;
+  }
+  
   private void renderCaption(JspWriter out, Calendar cal) throws IOException {
     SimpleDateFormat sdfTitle = new SimpleDateFormat(captionFormat, locale);
     sdfTitle.setDateFormatSymbols(dateFormatSymbols);
@@ -391,7 +446,7 @@ public class CalendarTag extends BodyTagSupport {
     out.print("</tr>");
   }
   
-  private String getDefaultPrevLink(Calendar current) {
+  private String getDefaultPrevLink(Calendar current) throws MalformedURLException, UnsupportedEncodingException {
     logger.debug("prev link, month=" + current.get(Calendar.MONTH));
     Calendar prevCal = Calendar.getInstance(timeZone, locale);
     prevCal.setTime(current.getTime());
@@ -399,7 +454,7 @@ public class CalendarTag extends BodyTagSupport {
     return getDefaultNavLink(prevCal);
   }
   
-  private String getDefaultNextLink(Calendar current) {
+  private String getDefaultNextLink(Calendar current) throws MalformedURLException, UnsupportedEncodingException {
     logger.debug("next link, month=" + current.get(Calendar.MONTH));
     Calendar nextCal = Calendar.getInstance(timeZone, locale);    
     nextCal.setTime(current.getTime());
@@ -407,7 +462,7 @@ public class CalendarTag extends BodyTagSupport {
     return getDefaultNavLink(nextCal);
   }
   
-  private String getDefaultNavLink(Calendar cal) {
+  private String getDefaultNavLink(Calendar cal) throws MalformedURLException, UnsupportedEncodingException {
     HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
     
     DecimalFormat dfMonth = new DecimalFormat("##");
@@ -417,54 +472,93 @@ public class CalendarTag extends BodyTagSupport {
     params.put("month", dfMonth.format(cal.get(Calendar.MONTH) + 1));
     params.put("year", dfYear.format(cal.get(Calendar.YEAR)));
     
-    return getCurrentUrl(request) + getQueryString(params);
+    URL url = getCurrentUrl(request); // this will be relative
+    
+    HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
+    
+    URL completeUrl = appendParameters(url, params);
+    
+    // make site-relative
+    String file = completeUrl.getFile();
+    if (!file.startsWith("/")) file = "/" + file;
+    
+    return response.encodeURL(file);
   }
 
-  private String getQueryString(Map<String, String> additionalParams) {
-    try {
-      StringBuilder buf = new StringBuilder();
-      
-      HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-      
-      Enumeration parameterNames = request.getParameterNames();
-      while (parameterNames.hasMoreElements()) {
-        String parameterName = (String) parameterNames.nextElement();
-        String override = additionalParams.remove(parameterName);
-        if (override == null) {
-          String[] parameterValues = request.getParameterValues(parameterName);
-          for (String parameterValue : parameterValues) {
-            buf.append(buf.length() == 0 ? "?" : "&");
-            buf.append(URLEncoder.encode(parameterName, "UTF-8"));
-            buf.append("=");
-            buf.append(URLEncoder.encode(parameterValue, "UTF-8"));
-          }
-        } else {
-          buf.append(buf.length() == 0 ? "?" : "&");
-          buf.append(URLEncoder.encode(parameterName, "UTF-8"));
-          buf.append("=");
-          buf.append(URLEncoder.encode(override, "UTF-8"));
-        }
-      }
-      for (String parameterName : additionalParams.keySet()) {
-        String parameterValue = additionalParams.get(parameterName);
-        if (parameterValue != null) {
-          buf.append(buf.length() == 0 ? "?" : "&");
-          buf.append(URLEncoder.encode(parameterName, "UTF-8"));
-          buf.append("=");
-          buf.append(URLEncoder.encode(parameterValue, "UTF-8"));
-        }
-      }
-          
-      return buf.toString();
-      
-    } catch (UnsupportedEncodingException e) {
-      throw new RuntimeException(e);
+  private URL appendParameters(URL url, Map<String, String> additionalParams)
+  throws UnsupportedEncodingException, MalformedURLException {
+    
+    // get the request encoding
+    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+    String encoding = request.getCharacterEncoding();
+    
+    // not found, fallback to UTF-8
+    if (encoding == null) encoding = "UTF-8";
+    
+    logger.debug("Original URL: " + url.toExternalForm());
+    
+    String queryString = url.getQuery();
+    String path = url.getPath();
+    logger.debug("Original path: " + path);
+    logger.debug("Original query string: " + queryString);
+
+    Map<String, List<String>> params = parseParameters(queryString);
+
+    // merge new parameters 
+    for (Entry<String, String> entry : additionalParams.entrySet()) {
+      List<String> values = new ArrayList<String>(1);
+      values.add(entry.getValue());
+      params.put(entry.getKey(), values);
     }
+      
+    // convert to query string
+    StringBuilder queryBuf = new StringBuilder();
+    for (Entry<String, List<String>> entry : params.entrySet()) {
+      String key = entry.getKey();
+      for (String value : entry.getValue()) {
+        if (queryBuf.length() > 0) {
+          queryBuf.append("&");
+        }
+        queryBuf.append(URLEncoder.encode(key, encoding));
+        queryBuf.append("=");
+        queryBuf.append(URLEncoder.encode(value, encoding));
+      }
+    }
+    
+    queryString = queryBuf.toString();
+    
+    if (queryString.length() > 0) path += "?" + queryString;
+    logger.debug("New query string: " + queryString);
+    
+    URL result = new URL(url.getProtocol(), url.getHost(), url.getPort(), path);
+    
+    logger.debug("New URL: " + result);
+    
+    return result;
   }
   
-  
-  private String getCurrentUrl(HttpServletRequest request) {
+  private URL getCurrentUrl(HttpServletRequest request)
+  throws MalformedURLException {
     StringBuilder buf = new StringBuilder();
+    
+    String scheme = request.getScheme();
+    int port = request.getServerPort();
+    
+    buf.append(scheme);
+    buf.append("://");
+    buf.append(request.getServerName());
+    
+    if ("http".equals(scheme) && port == 80) {
+      // do nothing
+    } else if ("https".equals(scheme) && port == 443) {
+      // do nothing
+    } else if (port < 0) {
+      // do nothing
+    } else {
+      buf.append(":");
+      DecimalFormat dfPort = new DecimalFormat("#####");
+      buf.append(dfPort.format(port));
+    }
     
     String forwardUri = (String) request.getAttribute(REQUEST_URI_ATTRIBUTE);
     if (forwardUri == null) {
@@ -481,11 +575,22 @@ public class CalendarTag extends BodyTagSupport {
       if (pathInfo != null)
         buf.append(pathInfo);
       
+      String queryString = request.getQueryString();
+      if (queryString != null && queryString.length() > 0) {
+        if (!('?' == queryString.charAt(0))) buf.append("?");
+        buf.append(queryString);
+      }      
     } else {
       // use forwarded attributes
-      buf.append(forwardUri);      
+      buf.append(forwardUri);
+      
+      String queryString = (String) request.getAttribute(QUERY_STRING_ATTRIBUTE);
+      if (queryString != null && queryString.length() > 0) {
+        if (!('?' == queryString.charAt(0))) buf.append("?");
+        buf.append(queryString);
+      }      
     }
-
+    
     logger.debug("request_uri: " + request.getAttribute("javax.servlet.forward.request_uri"));
     logger.debug("context_path: " + request.getAttribute("javax.servlet.forward.context_path"));
     logger.debug("servlet_path: " + request.getAttribute("javax.servlet.forward.servlet_path"));
@@ -515,7 +620,7 @@ public class CalendarTag extends BodyTagSupport {
     
     logger.debug("Current URL: " + name);
     
-    return name;
+    return new URL(name);
   }
   
   private DateFormatSymbols getDefaultDateFormatSymbols() {
@@ -618,11 +723,120 @@ public class CalendarTag extends BodyTagSupport {
     out.print("</td>");
   }
   
-  private void renderDay(JspWriter out, int day, int dayOfWeek, boolean isToday, boolean isSelected) throws IOException {    
+  private boolean isURLRelative(URL url1, URL url2) {
+    if (url1 == null || url2 == null) return false;
+        
+    String protocol1 = url1.getProtocol();
+    String protocol2 = url2.getProtocol();
+    if (!protocol1.equals(protocol2)) return false;
+    
+    int port1 = url1.getPort();
+    int port2 = url2.getPort();
+    
+    if ("http".equals(protocol1)) {
+      if (port1 < 0) port1 = 80;
+      if (port2 < 0) port2 = 80;
+    }
+
+    if ("https".equals(protocol1)) {
+      if (port1 < 0) port1 = 443;
+      if (port2 < 0) port2 = 443;
+    }
+    
+    if (port1 != port2) return false;
+    
+    String host1 = url1.getHost();
+    String host2 = url2.getHost();
+    if (!host1.equals(host2)) return false;
+    
+    return true;
+  }
+  
+  private void renderDay(JspWriter out, Calendar current, int dayOfWeek, boolean isToday, boolean isSelected) throws IOException {
+    
+    CalendarDaySpec daySpec = daySpecs[current.get(Calendar.DAY_OF_MONTH)];
+    CalendarDaySpec defSpec = daySpecs[0];
+    
+    // get link generation details
+    boolean showLink = true;
+    boolean encodeLink = true;
+    String link = null;
+    String monthParam = "month";
+    String dayParam = "day";
+    String yearParam = "year";
+    String title = null;
+    String content = null;
+    String dayClass = null;
+    String dayId = null;
+    
+    if (defSpec != null) {
+      Boolean defShowLink = defSpec.isShowLink();
+      if (defShowLink != null) showLink = defShowLink;
+      
+      Boolean defEncodeLink = defSpec.isEncodeLink();
+      if (defEncodeLink != null) encodeLink = defEncodeLink;
+      
+      String defLink = defSpec.getLink();
+      if (defLink != null) link = defLink;
+      
+      String defMonthParam = defSpec.getMonthParam();
+      if (defMonthParam != null) monthParam = defMonthParam;
+      
+      String defDayParam = defSpec.getDayParam();
+      if (defDayParam != null) dayParam = defDayParam;
+      
+      String defYearParam = defSpec.getYearParam();
+      if (defYearParam != null) yearParam = defYearParam;
+      
+      String defTitle = defSpec.getTitle();
+      if (defTitle != null) title = defTitle;
+      
+      String defDayClass = defSpec.getDayClass();
+      if (defDayClass != null) dayClass = defDayClass;
+    }
+    
+    if (daySpec != null) {
+      Boolean dayShowLink = daySpec.isShowLink();
+      if (dayShowLink != null) showLink = dayShowLink;
+      
+      Boolean dayEncodeLink = daySpec.isEncodeLink();
+      if (dayEncodeLink != null) encodeLink = dayEncodeLink;
+      
+      String dayLink = daySpec.getLink();
+      if (dayLink != null) link = dayLink;
+      
+      String dayMonthParam = daySpec.getMonthParam();
+      if (dayMonthParam != null) monthParam = dayMonthParam;
+      
+      String dayDayParam = daySpec.getDayParam();
+      if (dayDayParam != null) dayParam = dayDayParam;
+      
+      String dayYearParam = daySpec.getYearParam();
+      if (dayYearParam != null) yearParam = dayYearParam;
+      
+      String dayTitle = daySpec.getTitle();
+      if (dayTitle != null) title = dayTitle;
+      
+      String dayContent = daySpec.getContent();
+      if (dayContent != null) content = dayContent;
+      
+      String dayDayClass = daySpec.getDayClass();
+      if (dayDayClass != null) dayClass = dayDayClass;
+      
+      String dayDayId = daySpec.getDayId();
+      if (dayDayId != null) dayId = dayDayId;
+    }
+    
     out.print("<td");
+    
+    if (dayId != null) {
+      out.print(" id=\"");
+      out.print(encodeAttribute(dayId));
+      out.print("\"");
+    }
+    
     String classes = "";
     
-    // add day class
     if (dayClass != null) {
       classes += " " + encodeAttribute(dayClass.trim());
     }
@@ -632,10 +846,12 @@ public class CalendarTag extends BodyTagSupport {
       classes += " " + encodeAttribute(weekendClass.trim());
     }
     
+    // add today class
     if (isToday && todayClass != null) {
       classes += " " + encodeAttribute(todayClass.trim());
     }
     
+    // add selected class
     if (isSelected && selectedClass != null) {
       classes += " " + encodeAttribute(selectedClass.trim());
     }
@@ -648,9 +864,76 @@ public class CalendarTag extends BodyTagSupport {
     }
     
     out.print(">");
-    out.print("<a href=\"#\">");
-    out.print(dfDay.format(day));
-    out.print("</a>");
+    
+    
+    if (content == null) {
+      // normal processing
+      if (showLink) {
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
+        
+        if (title == null) {
+          DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, locale);
+          title = df.format(current.getTime());
+        }
+        
+        URL targetURL = null;
+        String output = null;
+        boolean relative = false;
+        
+        URL currentPage = getCurrentUrl(request);
+        
+        if (link == null) {
+          // no link specified, use current URL
+          targetURL = currentPage;
+          relative = true;
+        } else {
+          // user link specified
+          targetURL = new URL(currentPage, link);
+          relative = isURLRelative(targetURL, currentPage);
+        }
+        
+        if (encodeLink) {
+          // add month-day-year
+          DecimalFormat df = new DecimalFormat("####");        
+          Map<String, String> params = new HashMap<String, String>();
+          params.put(monthParam, df.format(current.get(Calendar.MONTH) + 1));
+          params.put(dayParam, df.format(current.get(Calendar.DAY_OF_MONTH)));
+          params.put(yearParam, df.format(current.get(Calendar.YEAR)));
+          URL generated = appendParameters(targetURL, params);
+          
+          if (relative) {
+            output = response.encodeURL(generated.getFile());
+          } else {
+            output = response.encodeURL(generated.toExternalForm());
+          }
+        } else {
+          // using URL as-is (maybe javascript, etc.)
+          output = link;
+        }
+        
+        // write it out
+        out.print("<a href=\"");
+        out.print(encodeAttribute(output));
+        out.print("\"");
+        if (title != null) {
+          out.print(" title=\"");
+          out.print(encodeAttribute(title));
+          out.print("\"");
+        }
+        out.print(">");
+      }
+      
+      out.print(dfDay.format(current.get(Calendar.DAY_OF_MONTH)));
+      
+      if (showLink) {
+        out.print("</a>");
+      }
+    } else {
+      // custom content
+      out.print(content);
+    }
+    
     out.print("</td>");
   }
   

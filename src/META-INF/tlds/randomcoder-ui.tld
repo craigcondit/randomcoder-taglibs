@@ -81,15 +81,6 @@ POSSIBILITY OF SUCH DAMAGE.
 			</description>
 		</attribute> 	
 		<attribute>
-			<name>dayClass</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS class name to apply to the day cells.
-			</description>
-		</attribute> 	
-		<attribute>
 			<name>todayClass</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -164,10 +155,9 @@ POSSIBILITY OF SUCH DAMAGE.
 		</attribute> 	
 	</tag>
 	
-	<!-- 
 	<tag>
-		<name>calendar-heading</name>
-		<tag-class>com.randomcoder.taglibs.ui.CalendarHeadingTag</tag-class>
+		<name>calendar-day</name>
+		<tag-class>com.randomcoder.taglibs.ui.CalendarDayTag</tag-class>
 		<body-content>JSP</body-content>
 		<display-name>calendar-heading</display-name>
 		<description>
@@ -176,21 +166,92 @@ POSSIBILITY OF SUCH DAMAGE.
 		<attribute>
 			<name>day</name>
 			<rtexprvalue>true</rtexprvalue>
-			<required>true</required>
+			<required>false</required>
 			<type>java.lang.Integer</type>
 			<description>
-				Day of week number (1-7)
+				Day of month (1-31), not specified means set defaults.
 			</description>
 		</attribute> 	
 		<attribute>
-			<name>longName</name>
+			<name>showLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to show links or not (defaults to true).
+			</description>
+		</attribute>
+		<attribute>
+			<name>link</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
 			<type>java.lang.String</type>
 			<description>
-				Full name for this day of week.
+				Sets the URL to display for this day.
 			</description>
-		</attribute> 	
+		</attribute>
+		<attribute>
+			<name>title</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the title to add to this link.
+			</description>
+		</attribute>
+		<attribute>
+			<name>encodeLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to encode month, day, year into URL (defaults to true).
+			</description>
+		</attribute>
+		<attribute>
+			<name>monthParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the name of the parameter to encode month into.
+			</description>
+		</attribute>
+		<attribute>
+			<name>dayParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the name of the parameter to encode day into.
+			</description>
+		</attribute>
+		<attribute>
+			<name>yearParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the name of the parameter to encode year into.
+			</description>
+		</attribute>
+		<attribute>
+			<name>dayClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to this day cell.
+			</description>
+		</attribute>
+		<attribute>
+			<name>dayId</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS id to apply to this day cell.
+			</description>
+		</attribute>
 	</tag>	
-	-->
 </taglib>
