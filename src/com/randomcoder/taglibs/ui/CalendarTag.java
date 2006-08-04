@@ -12,8 +12,6 @@ import javax.servlet.jsp.jstl.core.Config;
 import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import org.apache.commons.logging.*;
-
 /**
  * Tag class which implements a calendar control.
  * 
@@ -52,12 +50,6 @@ public class CalendarTag extends BodyTagSupport {
   
   private static final String REQUEST_URI_ATTRIBUTE = "javax.servlet.forward.request_uri";
   private static final String QUERY_STRING_ATTRIBUTE = "javax.servlet.forward.query_string";
-//private static final String CONTEXT_PATH_ATTRIBUTE = "javax.servlet.forward.context_path";
-//private static final String SERVLET_PATH_ATTRIBUTE = "javax.servlet.forward.servlet_path";
-//private static final String PATH_INFO_ATTRIBUTE = "javax.servlet.forward.path_info";
-  
-  
-  private static final Log logger = LogFactory.getLog(CalendarTag.class);
   
   private final DecimalFormat dfDay = new DecimalFormat("##");
   
@@ -227,9 +219,6 @@ public class CalendarTag extends BodyTagSupport {
       out.print(">");
 
       if (captionVisible) {
-        logger.debug("Prev link: " + prevLink);
-        logger.debug("Next link: " + nextLink);
-        
         if (prevLink == null) prevLink = getDefaultPrevLink(current);
         if (nextLink == null) nextLink = getDefaultNextLink(current);
         
@@ -447,7 +436,6 @@ public class CalendarTag extends BodyTagSupport {
   }
   
   private String getDefaultPrevLink(Calendar current) throws MalformedURLException, UnsupportedEncodingException {
-    logger.debug("prev link, month=" + current.get(Calendar.MONTH));
     Calendar prevCal = Calendar.getInstance(timeZone, locale);
     prevCal.setTime(current.getTime());
     prevCal.add(Calendar.MONTH, -1);    
@@ -455,7 +443,6 @@ public class CalendarTag extends BodyTagSupport {
   }
   
   private String getDefaultNextLink(Calendar current) throws MalformedURLException, UnsupportedEncodingException {
-    logger.debug("next link, month=" + current.get(Calendar.MONTH));
     Calendar nextCal = Calendar.getInstance(timeZone, locale);    
     nextCal.setTime(current.getTime());
     nextCal.add(Calendar.MONTH, 1);    
@@ -495,12 +482,8 @@ public class CalendarTag extends BodyTagSupport {
     // not found, fallback to UTF-8
     if (encoding == null) encoding = "UTF-8";
     
-    logger.debug("Original URL: " + url.toExternalForm());
-    
     String queryString = url.getQuery();
     String path = url.getPath();
-    logger.debug("Original path: " + path);
-    logger.debug("Original query string: " + queryString);
 
     Map<String, List<String>> params = parseParameters(queryString);
 
@@ -528,11 +511,8 @@ public class CalendarTag extends BodyTagSupport {
     queryString = queryBuf.toString();
     
     if (queryString.length() > 0) path += "?" + queryString;
-    logger.debug("New query string: " + queryString);
     
     URL result = new URL(url.getProtocol(), url.getHost(), url.getPort(), path);
-    
-    logger.debug("New URL: " + result);
     
     return result;
   }
@@ -591,35 +571,7 @@ public class CalendarTag extends BodyTagSupport {
       }      
     }
     
-    logger.debug("request_uri: " + request.getAttribute("javax.servlet.forward.request_uri"));
-    logger.debug("context_path: " + request.getAttribute("javax.servlet.forward.context_path"));
-    logger.debug("servlet_path: " + request.getAttribute("javax.servlet.forward.servlet_path"));
-    logger.debug("path_info: " + request.getAttribute("javax.servlet.forward.path_info"));
-    logger.debug("query_string: " + request.getAttribute("javax.servlet.forward.query_string"));
-    
-    logger.debug("");
-    
-    logger.debug("request.requestURI: " + request.getRequestURI());
-    logger.debug("request.contextPath: " + request.getContextPath());
-    logger.debug("request.servletPath: " + request.getServletPath());
-    logger.debug("request.pathInfo: " + request.getPathInfo());
-    logger.debug("request.queryString: " + request.getQueryString());
-    
-    logger.debug("parameters:");
-    
-    Enumeration parameterNames = request.getParameterNames();
-    while (parameterNames.hasMoreElements()) {
-      String parameterName = (String) parameterNames.nextElement();
-      String[] parameterValues = request.getParameterValues(parameterName);
-      for (String parameterValue : parameterValues) {
-        logger.debug("  " + parameterName + "=" + parameterValue);
-      }
-    }
-    
     String name = buf.toString();
-    
-    logger.debug("Current URL: " + name);
-    
     return new URL(name);
   }
   

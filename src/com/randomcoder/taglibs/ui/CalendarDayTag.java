@@ -3,11 +3,8 @@ package com.randomcoder.taglibs.ui;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.*;
 
-import org.apache.commons.logging.*;
-
 public class CalendarDayTag extends BodyTagSupport {    
   private static final long serialVersionUID = 2379893374923533986L;
-  private static final Log logger = LogFactory.getLog(CalendarDayTag.class);
   
   private Integer day;
   private Boolean showLink;
@@ -76,7 +73,6 @@ public class CalendarDayTag extends BodyTagSupport {
       if (day != null && day >= 1 && day <= 31) {
         BodyContent body = getBodyContent();
         if (body != null) content = body.getString();
-        logger.debug("Body content: " + content);
         if (content == null || content.trim().length() == 0)
           content = null;
       }
