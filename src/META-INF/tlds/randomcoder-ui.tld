@@ -144,15 +144,6 @@ POSSIBILITY OF SUCH DAMAGE.
 			</description>
 		</attribute> 	
 		<attribute>
-			<name>titleClass</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS class name to apply to the title text.
-			</description>
-		</attribute> 	
-		<attribute>
 			<name>captionVisible</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>

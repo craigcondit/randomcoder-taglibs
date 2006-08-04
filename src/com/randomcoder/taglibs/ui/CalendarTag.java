@@ -1,10 +1,19 @@
 package com.randomcoder.taglibs.ui;
 
 import java.io.IOException;
-import java.text.*;
-import java.util.*;
+import java.text.DateFormatSymbols;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+import java.util.TimeZone;
 
-import javax.servlet.jsp.*;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.jstl.core.Config;
 import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -60,7 +69,6 @@ public class CalendarTag extends BodyTagSupport {
   private String weekendClass;
   private String prevClass;
   private String nextClass;
-  private String titleClass;
   private String captionFormat = DEFAULT_CAPTION_FORMAT;
   private boolean captionVisible = true;
   private String bundlePrefix = DEFAULT_BUNDLE_PREFIX;
@@ -123,10 +131,6 @@ public class CalendarTag extends BodyTagSupport {
     this.nextClass = nextClass;
   }
   
-  public void setTitleClass(String titleClass) {
-    this.titleClass = titleClass;
-  }
-  
   @Override
   public void setPageContext(PageContext pageContext) {
     super.setPageContext(pageContext);
@@ -145,7 +149,6 @@ public class CalendarTag extends BodyTagSupport {
     weekendClass = null;
     prevClass = null;
     nextClass = null;
-    titleClass = null;
     locale = null;
     resourceBundle = null;
     timeZone = null;
@@ -191,7 +194,7 @@ public class CalendarTag extends BodyTagSupport {
             
       Calendar current = Calendar.getInstance(timeZone, locale);
       current.setTime(showDate);
-      out.print("<div");
+      out.print("<table");
       if (outerId != null) {
         out.print(" id=\"");
         out.print(encodeAttribute(outerId));
@@ -203,7 +206,6 @@ public class CalendarTag extends BodyTagSupport {
         out.print("\"");
       }
       out.print(">");
-      out.print("<table>");
 
       if (captionVisible) {
         out.print("<caption>");
@@ -272,7 +274,6 @@ public class CalendarTag extends BodyTagSupport {
       
       out.print("</tbody>");
       out.print("</table>");
-      out.print("</div>");
       
       return EVAL_PAGE;
       
@@ -316,11 +317,11 @@ public class CalendarTag extends BodyTagSupport {
     }
     out.write(">");
     out.write(prevContent);
-    out.write("</a>");
+    out.write("</a> ");
   }
   
   private void renderNextLink(JspWriter out) throws IOException {
-    out.write("<a href=\"#\"");
+    out.write(" <a href=\"#\"");
     if (nextClass != null) {
       out.write(" class=\"");
       out.write(encodeAttribute(nextClass));
@@ -334,15 +335,7 @@ public class CalendarTag extends BodyTagSupport {
   private void renderCaption(JspWriter out, Calendar cal) throws IOException {
     SimpleDateFormat sdfTitle = new SimpleDateFormat(captionFormat, locale);
     sdfTitle.setDateFormatSymbols(dateFormatSymbols);
-    out.write("<span");
-    if (titleClass != null) {
-      out.write(" class=\"");
-      out.write(encodeAttribute(titleClass));
-      out.write("\"");
-    }
-    out.write(">");
     out.print(encodePCData(sdfTitle.format(cal.getTime())));
-    out.write("</span>");
   }
   
   private void renderHead(JspWriter out) throws IOException {
@@ -502,7 +495,9 @@ public class CalendarTag extends BodyTagSupport {
     }
     
     out.print(">");
-    out.print(dfDay.format(day));    
+    out.print("<a href=\"#\">");
+    out.print(dfDay.format(day));
+    out.print("</a>");
     out.print("</td>");
   }
   
