@@ -42,6 +42,8 @@ public class CalendarTag extends BodyTagSupport {
   private static final long serialVersionUID = 8927306238278116620L;
   private static final String DEFAULT_CAPTION_FORMAT = "MMM yyyy";
   private static final String DEFAULT_BUNDLE_PREFIX = CalendarTag.class.getName() + ".";
+  private static final String DEFAULT_PREV_CONTENT = "&#171;";
+  private static final String DEFAULT_NEXT_CONTENT = "&#187;";
 
   private final DecimalFormat dfDay = new DecimalFormat("##");
   
@@ -56,9 +58,14 @@ public class CalendarTag extends BodyTagSupport {
   private String todayClass;
   private String selectedClass;
   private String weekendClass;
+  private String prevClass;
+  private String nextClass;
+  private String titleClass;
   private String captionFormat = DEFAULT_CAPTION_FORMAT;
+  private boolean captionVisible = true;
   private String bundlePrefix = DEFAULT_BUNDLE_PREFIX;
-  
+  private String prevContent = DEFAULT_PREV_CONTENT;
+  private String nextContent = DEFAULT_NEXT_CONTENT;
   private Locale locale;
   private ResourceBundle resourceBundle;
   private TimeZone timeZone;
@@ -100,8 +107,24 @@ public class CalendarTag extends BodyTagSupport {
     this.captionFormat = captionFormat;
   }
   
+  public void setCaptionVisible(boolean captionVisible) {
+    this.captionVisible = captionVisible;
+  }
+  
   public void setBundlePrefix(String bundlePrefix) {
     this.bundlePrefix = bundlePrefix;
+  }
+  
+  public void setPrevClass(String prevClass) {
+    this.prevClass = prevClass;
+  }
+  
+  public void setNextClass(String nextClass) {
+    this.nextClass = nextClass;
+  }
+  
+  public void setTitleClass(String titleClass) {
+    this.titleClass = titleClass;
   }
   
   @Override
@@ -120,12 +143,18 @@ public class CalendarTag extends BodyTagSupport {
     todayClass = null;
     selectedClass = null;
     weekendClass = null;
+    prevClass = null;
+    nextClass = null;
+    titleClass = null;
     locale = null;
     resourceBundle = null;
     timeZone = null;
     captionFormat = DEFAULT_CAPTION_FORMAT;
+    captionVisible = true;
     bundlePrefix = DEFAULT_BUNDLE_PREFIX;
     dateFormatSymbols = null;
+    prevContent = DEFAULT_PREV_CONTENT;
+    nextContent = DEFAULT_NEXT_CONTENT;
     pageContext = null;
   }
 
@@ -176,9 +205,13 @@ public class CalendarTag extends BodyTagSupport {
       out.print(">");
       out.print("<table>");
 
-      out.print("<caption>");
-      renderCaption(out, current);
-      out.print("</caption>");
+      if (captionVisible) {
+        out.print("<caption>");
+        renderPrevLink(out);
+        renderCaption(out, current);
+        renderNextLink(out);
+        out.print("</caption>");
+      }
       out.print("<thead>");
       renderHead(out);
       out.print("</thead>");
@@ -274,15 +307,45 @@ public class CalendarTag extends BodyTagSupport {
     return result;
   }
   
+  private void renderPrevLink(JspWriter out) throws IOException {
+    out.write("<a href=\"#\"");
+    if (prevClass != null) {
+      out.write(" class=\"");
+      out.write(encodeAttribute(prevClass));
+      out.write("\"");
+    }
+    out.write(">");
+    out.write(prevContent);
+    out.write("</a>");
+  }
+  
+  private void renderNextLink(JspWriter out) throws IOException {
+    out.write("<a href=\"#\"");
+    if (nextClass != null) {
+      out.write(" class=\"");
+      out.write(encodeAttribute(nextClass));
+      out.write("\"");
+    }
+    out.write(">");
+    out.write(nextContent);
+    out.write("</a>");
+  }
+  
   private void renderCaption(JspWriter out, Calendar cal) throws IOException {
-    // default implementation
     SimpleDateFormat sdfTitle = new SimpleDateFormat(captionFormat, locale);
     sdfTitle.setDateFormatSymbols(dateFormatSymbols);
+    out.write("<span");
+    if (titleClass != null) {
+      out.write(" class=\"");
+      out.write(encodeAttribute(titleClass));
+      out.write("\"");
+    }
+    out.write(">");
     out.print(encodePCData(sdfTitle.format(cal.getTime())));
+    out.write("</span>");
   }
   
   private void renderHead(JspWriter out) throws IOException {
-    // default implementation
     out.print("<tr>");
     
     Calendar cal = Calendar.getInstance(timeZone, locale);

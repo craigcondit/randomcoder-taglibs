@@ -126,6 +126,42 @@ POSSIBILITY OF SUCH DAMAGE.
 			</description>
 		</attribute> 	
 		<attribute>
+			<name>prevClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to the previous month link.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>nextClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to the next month link.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>titleClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to the title text.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>captionVisible</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Determines if the caption will be visible (defaults to true).
+			</description>
+		</attribute> 	
+		<attribute>
 			<name>bundlePrefix</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
