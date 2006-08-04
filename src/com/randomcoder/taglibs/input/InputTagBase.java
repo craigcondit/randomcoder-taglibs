@@ -197,7 +197,7 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
   protected String encodePCData(String pcData) {
     if (pcData == null) return "";
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
 
     for (int i = 0; i < pcData.length(); i++) {
       char c = pcData.charAt(i);
@@ -219,7 +219,7 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
   protected String encodeAttribute(String attributeValue) {
     if (attributeValue == null) return "";
 
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
 
     for (int i = 0; i < attributeValue.length(); i++) {
       char c = attributeValue.charAt(i);
