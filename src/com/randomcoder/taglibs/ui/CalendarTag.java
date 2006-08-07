@@ -146,58 +146,129 @@ public class CalendarTag extends BodyTagSupport {
     this.encodePrevLink = encodePrevLink;
   }
 
-  public void setMonthParam(String monthParam) {
-    this.monthParam = monthParam;    
-  }
-
-  public void setNextClass(String nextClass) {
-    this.nextClass = nextClass;
-  }
-
-  public void setNextContent(String nextContent) {
-    this.nextContent = nextContent;
-  }
-
-  public void setNextLink(String nextLink) {
-    this.nextLink = nextLink;
-  }
-
-  public void setNextTitle(String nextTitle) {
-    this.nextTitle = nextTitle;     
-  }
-
+  /**
+   * Sets the maximum length of the weekday header fields (default is no limit).
+   * 
+   * @param maxWeekdayLength number of characters
+   */
   public void setMaxWeekdayLength(int maxWeekdayLength) {
     this.maxWeekdayLength = maxWeekdayLength;
   }
 
+  /**
+   * Sets the name of the parameter to encode month information into for
+   * navigational links (defaults to 'month').
+   * 
+   * @param monthParam parameter name
+   */
+  public void setMonthParam(String monthParam) {
+    this.monthParam = monthParam;    
+  }
+
+  /**
+   * Sets the CSS class to apply to the generated next link.
+   * 
+   * @param nextClass css class
+   */
+  public void setNextClass(String nextClass) {
+    this.nextClass = nextClass;
+  }
+
+  /**
+   * Sets custom content to use for the next link (defaults to a right
+   * angle quote).
+   * 
+   * @param nextContent HTML content
+   */
+  public void setNextContent(String nextContent) {
+    this.nextContent = nextContent;
+  }
+
+  /**
+   * Sets the URL to use for the next link (defaults to the current page).
+   * @param nextLink URL
+   */
+  public void setNextLink(String nextLink) {
+    this.nextLink = nextLink;
+  }
+
+  /**
+   * Sets the value of the title attribute to apply to the next link.
+   * 
+   * @param nextTitle title text
+   */
+  public void setNextTitle(String nextTitle) {
+    this.nextTitle = nextTitle;     
+  }
+
+  /**
+   * Sets the CSS class to apply to the outer table.
+   * 
+   * @param outerClass CSS class name
+   */
   public void setOuterClass(String outerClass) {
     this.outerClass = outerClass;
   }
 
+  /**
+   * Sets the CSS id to apply to the outer table.
+   * 
+   * @param outerId CSS id
+   */
   public void setOuterId(String outerId) {
     this.outerId = outerId;
   }
 
+  /**
+   * Sets the CSS class to apply to the generated previous link.
+   * 
+   * @param prevClass css class
+   */
   public void setPrevClass(String prevClass) {
     this.prevClass = prevClass;
   }
 
+  /**
+   * Sets custom content to use for the previous link (defaults to a left
+   * angle quote).
+   * 
+   * @param prevContent HTML content
+   */
   public void setPrevContent(String prevContent) {
     this.prevContent = prevContent;
   }
 
+  /**
+   * Sets the URL to use for the previous link (defaults to the current page).
+   * @param prevLink URL
+   */
   public void setPrevLink(String prevLink) {
     this.prevLink = prevLink;
   }
 
+  /**
+   * Sets the value of the title attribute to apply to the previous link.
+   * 
+   * @param prevTitle title text
+   */
   public void setPrevTitle(String prevTitle) {
     this.prevTitle = prevTitle;
   }
 
+  /**
+   * Sets the CSS class to apply to the selected date.
+   * 
+   * @param selectedClass CSS class
+   */
   public void setSelectedClass(String selectedClass) {
     this.selectedClass = selectedClass;
   }
 
+  /**
+   * Sets the date to mark as selected in the calendar.
+   * 
+   * @param selectedDate selected date
+   */
   public void setSelectedDate(Date selectedDate) {
     this.selectedDate = selectedDate;
   }
@@ -211,32 +282,69 @@ public class CalendarTag extends BodyTagSupport {
     this.showDate = showDate;
   }
 
+  /**
+   * Determines if next navigational link should be displayed (defaults to 
+   * true).
+   * 
+   * @param showNextLink true to show next link, false otherwise
+   */
   public void setShowNextLink(boolean showNextLink) {
     this.showNextLink = showNextLink;
   }
 
+  /**
+   * Determines if previous navigational link should be displayed (defaults to 
+   * true).
+   * 
+   * @param showPrevLink true to show previous link, false otherwise
+   */
   public void setShowPrevLink(boolean showPrevLink) {
     this.showPrevLink = showPrevLink;
   }
 
+  /**
+   * Sets the CSS class to apply to the cell containing today's date.
+   * 
+   * @param todayClass CSS class
+   */
   public void setTodayClass(String todayClass) {
     this.todayClass = todayClass;
   }
 
+  /**
+   * Sets the CSS class to apply to the cells containing weekend dates.
+   * 
+   * @param weekendClass CSS class
+   */
   public void setWeekendClass(String weekendClass) {
     this.weekendClass = weekendClass;
   }
 
+  /**
+   * Sets the name of the parameter to encode year information into for
+   * navigational links (defaults to 'year').
+   * 
+   * @param yearParam parameter name
+   */
   public void setYearParam(String yearParam) {
     this.yearParam = yearParam;
   }
   
+  /**
+   * Sets the JSP PageContext variable.
+   */
   @Override
   public void setPageContext(PageContext pageContext) {
     super.setPageContext(pageContext);
     this.pageContext = pageContext;
   }
 
+  /**
+   * Used by CalendarDayTag to apply customization to day rendering.
+   * 
+   * @param day day to apply the spec to, or null for default
+   * @param spec day-specific parameters to apply
+   */
   void setDaySpec(Integer day, CalendarDaySpec spec) {
     if (day == null) day = 0;
     if (day < 0) return;
