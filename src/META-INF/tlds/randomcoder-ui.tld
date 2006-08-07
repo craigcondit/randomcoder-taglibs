@@ -44,69 +44,25 @@ POSSIBILITY OF SUCH DAMAGE.
 		<description>
 			Renders an XHTML Calendar control.
 		</description>
+		
 		<attribute>
-			<name>showDate</name>
+			<name>capitalizeDays</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.util.Date</type>
+			<type>java.lang.Boolean</type>
 			<description>
-				Date to display calendar for (defaults to today).
+				If true, day captions will be capitalized.
 			</description>
-		</attribute> 	
+		</attribute>
 		<attribute>
-			<name>selectedDate</name>
+			<name>capitalizeMonths</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.util.Date</type>
+			<type>java.lang.Boolean</type>
 			<description>
-				Date to display as selected.
+				If true, month captions will be capitalized.
 			</description>
-		</attribute> 	
-		<attribute>
-			<name>outerId</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS ID to apply to the outermost container.
-			</description>
-		</attribute> 	
-		<attribute>
-			<name>outerClass</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS class name to apply to the outermost container.
-			</description>
-		</attribute> 	
-		<attribute>
-			<name>todayClass</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS class name to apply to the today's date cell.
-			</description>
-		</attribute> 	
-		<attribute>
-			<name>selectedClass</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS class name to apply to the selected date's cell.
-			</description>
-		</attribute> 	
-		<attribute>
-			<name>weekendClass</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS class name to apply to the weekend date cells.
-			</description>
-		</attribute> 	
+		</attribute>
 		<attribute>
 			<name>captionFormat</name>
 			<rtexprvalue>true</rtexprvalue>
@@ -114,24 +70,6 @@ POSSIBILITY OF SUCH DAMAGE.
 			<type>java.lang.String</type>
 			<description>
 				Sets the DateFormat to show above the calendar.
-			</description>
-		</attribute> 	
-		<attribute>
-			<name>prevClass</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS class name to apply to the previous month link.
-			</description>
-		</attribute> 	
-		<attribute>
-			<name>nextClass</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS class name to apply to the next month link.
 			</description>
 		</attribute> 	
 		<attribute>
@@ -144,25 +82,215 @@ POSSIBILITY OF SUCH DAMAGE.
 			</description>
 		</attribute> 	
 		<attribute>
-			<name>bundlePrefix</name>
+			<name>encodeNextLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to encode month and year into next URL (defaults to true).
+			</description>
+		</attribute>
+		<attribute>
+			<name>encodePrevLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to encode month and year into previous URL (defaults to true).
+			</description>
+		</attribute>
+		<attribute>
+			<name>maxWeekdayLength</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Integer</type>
+			<description>
+				Sets the maximum length of the weekday captions.
+			</description>
+		</attribute>
+		<attribute>
+			<name>monthParam</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
 			<type>java.lang.String</type>
 			<description>
-				Sets the message bundle prefix to use when looking up 
-				month and weekday names. Defaults to "com.randomcoder.taglibs.ui.CalendarTag.".
+				Sets the name of the parameter to encode month into prev/next nav links.
+			</description>
+		</attribute>
+		<attribute>
+			<name>nextClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to the next month link.
 			</description>
 		</attribute> 	
+		<attribute>
+			<name>nextContent</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the content to display for the next month link.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>nextLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the URL to use for the next month link.
+			</description>
+		</attribute>
+		<attribute>
+			<name>nextTitle</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the title to add to the next month link.
+			</description>
+		</attribute>
+		<attribute>
+			<name>outerClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to the outermost container.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>outerId</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS ID to apply to the outermost container.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>prevClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to the previous month link.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>prevContent</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the content to display for the previous month link.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>prevLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the URL to use for the previous month link.
+			</description>
+		</attribute>
+		<attribute>
+			<name>prevTitle</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the title to add to the previous month link.
+			</description>
+		</attribute>
+		<attribute>
+			<name>selectedDate</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.util.Date</type>
+			<description>
+				Date to display as selected.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>showDate</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.util.Date</type>
+			<description>
+				Date to display calendar for (defaults to today).
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>showNextLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to show next link (defaults to true).
+			</description>
+		</attribute>
+		<attribute>
+			<name>showPrevLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to show previous link (defaults to true).
+			</description>
+		</attribute>
+		<attribute>
+			<name>selectedClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to the selected date's cell.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>todayClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to the today's date cell.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>weekendClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to the weekend date cells.
+			</description>
+		</attribute> 	
+		<attribute>
+			<name>yearParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the name of the parameter to encode year into prev/next nav links.
+			</description>
+		</attribute>
+		
 	</tag>
 	
 	<tag>
 		<name>calendar-day</name>
 		<tag-class>com.randomcoder.taglibs.ui.CalendarDayTag</tag-class>
 		<body-content>JSP</body-content>
-		<display-name>calendar-heading</display-name>
+		<display-name>calendar-day</display-name>
 		<description>
-			Renders a heading cell for the calendar tag.
+			Sets parameters for one or all calendar days.
 		</description>
+		
 		<attribute>
 			<name>day</name>
 			<rtexprvalue>true</rtexprvalue>
@@ -172,69 +300,6 @@ POSSIBILITY OF SUCH DAMAGE.
 				Day of month (1-31), not specified means set defaults.
 			</description>
 		</attribute> 	
-		<attribute>
-			<name>showLink</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.Boolean</type>
-			<description>
-				Sets whether to show links or not (defaults to true).
-			</description>
-		</attribute>
-		<attribute>
-			<name>link</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the URL to display for this day.
-			</description>
-		</attribute>
-		<attribute>
-			<name>title</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the title to add to this link.
-			</description>
-		</attribute>
-		<attribute>
-			<name>encodeLink</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.Boolean</type>
-			<description>
-				Sets whether to encode month, day, year into URL (defaults to true).
-			</description>
-		</attribute>
-		<attribute>
-			<name>monthParam</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the name of the parameter to encode month into.
-			</description>
-		</attribute>
-		<attribute>
-			<name>dayParam</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the name of the parameter to encode day into.
-			</description>
-		</attribute>
-		<attribute>
-			<name>yearParam</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the name of the parameter to encode year into.
-			</description>
-		</attribute>
 		<attribute>
 			<name>dayClass</name>
 			<rtexprvalue>true</rtexprvalue>
@@ -251,6 +316,69 @@ POSSIBILITY OF SUCH DAMAGE.
 			<type>java.lang.String</type>
 			<description>
 				Sets the CSS id to apply to this day cell.
+			</description>
+		</attribute>
+		<attribute>
+			<name>dayParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the name of the parameter to encode day into.
+			</description>
+		</attribute>
+		<attribute>
+			<name>encodeLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to encode month, day, year into URL (defaults to true).
+			</description>
+		</attribute>
+		<attribute>
+			<name>link</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the URL to display for this day.
+			</description>
+		</attribute>
+		<attribute>
+			<name>monthParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the name of the parameter to encode month into.
+			</description>
+		</attribute>
+		<attribute>
+			<name>showLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to show links or not (defaults to true).
+			</description>
+		</attribute>
+		<attribute>
+			<name>title</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the title to add to this link.
+			</description>
+		</attribute>
+		<attribute>
+			<name>yearParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the name of the parameter to encode year into.
 			</description>
 		</attribute>
 	</tag>	

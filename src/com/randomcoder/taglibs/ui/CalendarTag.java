@@ -44,7 +44,6 @@ public class CalendarTag extends BodyTagSupport {
   
   private static final long serialVersionUID = 8927306238278116620L;
   private static final String DEFAULT_CAPTION_FORMAT = "MMM yyyy";
-  private static final String DEFAULT_BUNDLE_PREFIX = CalendarTag.class.getName() + ".";
   private static final String DEFAULT_PREV_CONTENT = "&#171;";
   private static final String DEFAULT_NEXT_CONTENT = "&#187;";
   
@@ -67,23 +66,132 @@ public class CalendarTag extends BodyTagSupport {
   private String nextClass;
   private String prevLink;
   private String nextLink;
+  private String prevTitle;
+  private String nextTitle;
+  private boolean encodePrevLink = true;
+  private boolean encodeNextLink = true;
+  private boolean capitalizeMonths = true;
+  private boolean capitalizeDays = true;
+  private Integer maxWeekdayLength;
+  private String yearParam = "year";
+  private String monthParam = "month";
+  private boolean showPrevLink = true;
+  private boolean showNextLink = true;
   private String captionFormat = DEFAULT_CAPTION_FORMAT;
   private boolean captionVisible = true;
-  private String bundlePrefix = DEFAULT_BUNDLE_PREFIX;
   private String prevContent = DEFAULT_PREV_CONTENT;
   private String nextContent = DEFAULT_NEXT_CONTENT;
   private Locale locale;
   private ResourceBundle resourceBundle;
   private TimeZone timeZone;
   private DateFormatSymbols dateFormatSymbols;
-  private final CalendarDaySpec[] daySpecs = new CalendarDaySpec[32];
-                          
-  public void setShowDate(Date showDate) {
-    this.showDate = showDate;
-  }
   
+  private final CalendarDaySpec[] daySpecs = new CalendarDaySpec[32];
+        
+  /**
+   * Determins if captions for weekdays should be capitalized (defaults to true).
+   *
+   * @param capitalizeDays true to capitalize, false otherwise
+   */
+  public void setCapitalizeDays(boolean capitalizeDays) {
+    this.capitalizeDays = capitalizeDays;
+  }
+
+  /**
+   * Determins if month names should be capitalized (defaults to true).
+   * 
+   * @param capitalizeMonths true to capitalize, false otherwise
+   */
+  public void setCapitalizeMonths(boolean capitalizeMonths) {
+    this.capitalizeMonths = capitalizeMonths;
+  }
+
+  /**
+   * Sets the date format to use for table caption (defaults to 'MMM yyyy'). 
+   * 
+   * @param captionFormat date format to use
+   */
+  public void setCaptionFormat(String captionFormat) {
+    this.captionFormat = captionFormat;
+  }
+
+  /**
+   * Determines if table caption should be displayed (defaults to true).
+   * 
+   * @param captionVisible true to display caption, false otherwise
+   */
+  public void setCaptionVisible(boolean captionVisible) {
+    this.captionVisible = captionVisible;
+  }
+
+  /**
+   * Determines if year and month should be encoded into next link (defaults to
+   * true).
+   * 
+   * @param encodeNextLink
+   *          true if date should be encoded into next link, false otherwise
+   */
+  public void setEncodeNextLink(boolean encodeNextLink) {
+    this.encodeNextLink = encodeNextLink;
+  }
+
+  /**
+   * Determines if year and month should be encoded into previous link (defaults
+   * to true).
+   * 
+   * @param encodePrevLink
+   *          true if date should be encoded into previous link, false otherwise
+   */
+  public void setEncodePrevLink(boolean encodePrevLink) {
+    this.encodePrevLink = encodePrevLink;
+  }
+
+  public void setMonthParam(String monthParam) {
+    this.monthParam = monthParam;    
+  }
+
+  public void setNextClass(String nextClass) {
+    this.nextClass = nextClass;
+  }
+
+  public void setNextContent(String nextContent) {
+    this.nextContent = nextContent;
+  }
+
+  public void setNextLink(String nextLink) {
+    this.nextLink = nextLink;
+  }
+
+  public void setNextTitle(String nextTitle) {
+    this.nextTitle = nextTitle;     
+  }
+
+  public void setMaxWeekdayLength(int maxWeekdayLength) {
+    this.maxWeekdayLength = maxWeekdayLength;
+  }
+
+  public void setOuterClass(String outerClass) {
+    this.outerClass = outerClass;
+  }
+
   public void setOuterId(String outerId) {
     this.outerId = outerId;
+  }
+
+  public void setPrevClass(String prevClass) {
+    this.prevClass = prevClass;
+  }
+
+  public void setPrevContent(String prevContent) {
+    this.prevContent = prevContent;
+  }
+
+  public void setPrevLink(String prevLink) {
+    this.prevLink = prevLink;
+  }
+
+  public void setPrevTitle(String prevTitle) {
+    this.prevTitle = prevTitle;
   }
 
   public void setSelectedClass(String selectedClass) {
@@ -94,6 +202,23 @@ public class CalendarTag extends BodyTagSupport {
     this.selectedDate = selectedDate;
   }
 
+  /**
+   * Sets the date to display a calendar for.
+   * 
+   * @param showDate date to display calendar for, or null for today's date
+   */
+  public void setShowDate(Date showDate) {
+    this.showDate = showDate;
+  }
+
+  public void setShowNextLink(boolean showNextLink) {
+    this.showNextLink = showNextLink;
+  }
+
+  public void setShowPrevLink(boolean showPrevLink) {
+    this.showPrevLink = showPrevLink;
+  }
+
   public void setTodayClass(String todayClass) {
     this.todayClass = todayClass;
   }
@@ -102,28 +227,8 @@ public class CalendarTag extends BodyTagSupport {
     this.weekendClass = weekendClass;
   }
 
-  public void setOuterClass(String outerClass) {
-    this.outerClass = outerClass;
-  }
-  
-  public void setCaptionFormat(String captionFormat) {
-    this.captionFormat = captionFormat;
-  }
-  
-  public void setCaptionVisible(boolean captionVisible) {
-    this.captionVisible = captionVisible;
-  }
-  
-  public void setBundlePrefix(String bundlePrefix) {
-    this.bundlePrefix = bundlePrefix;
-  }
-  
-  public void setPrevClass(String prevClass) {
-    this.prevClass = prevClass;
-  }
-  
-  public void setNextClass(String nextClass) {
-    this.nextClass = nextClass;
+  public void setYearParam(String yearParam) {
+    this.yearParam = yearParam;
   }
   
   @Override
@@ -139,6 +244,9 @@ public class CalendarTag extends BodyTagSupport {
     daySpecs[day] = spec;
   }
   
+  /**
+   * Cleans up any resources associated with this tag.
+   */
   @Override  
   public void release() {
     super.release();
@@ -160,24 +268,40 @@ public class CalendarTag extends BodyTagSupport {
     timeZone = null;
     captionFormat = DEFAULT_CAPTION_FORMAT;
     captionVisible = true;
-    bundlePrefix = DEFAULT_BUNDLE_PREFIX;
     dateFormatSymbols = null;
     prevContent = DEFAULT_PREV_CONTENT;
     nextContent = DEFAULT_NEXT_CONTENT;    
     prevLink = null;
     nextLink = null;
+    showPrevLink = true;
+    showNextLink = true;
+    monthParam = "month";
+    yearParam = "year";
+    prevTitle = null;
+    nextTitle = null;
+    encodePrevLink = true;
+    encodeNextLink = true;
+    capitalizeMonths = true;
+    capitalizeDays = true;
+    maxWeekdayLength = null;
     
     for (int i = 0; i < 31; i++) daySpecs[i] = null;
     
     pageContext = null;
   }
 
+  /**
+   * Called by the Servlet container after body processing.
+   */
   @Override
   public int doAfterBody() throws JspException {
     // this evaluates the body, but doesn't write it out
     return SKIP_BODY;
   }
 
+  /**
+   * Renders the calendar to the current page context's JSPWriter.
+   */
   @Override
   public int doEndTag() throws JspException {
     try {      
@@ -187,9 +311,8 @@ public class CalendarTag extends BodyTagSupport {
       locale = getDefaultLocale();      
       if (resourceBundle == null) resourceBundle = getDefaultResourceBundle();
       if (timeZone == null) timeZone = getDefaultTimeZone();
-      if (dateFormatSymbols == null) dateFormatSymbols = getDefaultDateFormatSymbols();
-      
-      
+      if (dateFormatSymbols == null) dateFormatSymbols = getDateFormatSymbols();
+            
       Date currentTime = new Date();
       
       Calendar selected = null;
@@ -219,13 +342,19 @@ public class CalendarTag extends BodyTagSupport {
       out.print(">");
 
       if (captionVisible) {
-        if (prevLink == null) prevLink = getDefaultPrevLink(current);
-        if (nextLink == null) nextLink = getDefaultNextLink(current);
-        
         out.print("<caption>");
-        renderPrevLink(out);
+        
+        Calendar prevCal = Calendar.getInstance(timeZone, locale);
+        prevCal.setTime(current.getTime());
+        prevCal.add(Calendar.MONTH, -1);    
+        
+        Calendar nextCal = Calendar.getInstance(timeZone, locale);
+        nextCal.setTime(current.getTime());
+        nextCal.add(Calendar.MONTH, 1);    
+        
+        renderPrevLink(out, prevCal.get(Calendar.MONTH) + 1, prevCal.get(Calendar.YEAR));
         renderCaption(out, current);
-        renderNextLink(out);
+        renderNextLink(out, nextCal.get(Calendar.MONTH) + 1, nextCal.get(Calendar.YEAR));
         out.print("</caption>");
       }
       out.print("<thead>");
@@ -324,36 +453,88 @@ public class CalendarTag extends BodyTagSupport {
     return result;
   }
   
-  private void renderPrevLink(JspWriter out) throws IOException {
-    if (prevLink == null) return;
-    
-    out.write("<a href=\"");
-    out.write(encodeAttribute(prevLink));
-    out.write("\"");
-    if (prevClass != null) {
-      out.write(" class=\"");
-      out.write(encodeAttribute(prevClass));
-      out.write("\"");
-    }
-    out.write(">");
-    out.write(prevContent);
-    out.write("</a> ");
+  private void renderPrevLink(JspWriter out, int year, int month) throws IOException {
+    renderNavLink(out, year, month, showPrevLink, encodePrevLink, prevLink, prevTitle, prevClass, prevContent);
+    out.print(" ");
   }
-  
-  private void renderNextLink(JspWriter out) throws IOException {
-    if (nextLink == null) return;
+
+  private void renderNextLink(JspWriter out, int year, int month) throws IOException {
+    out.print(" ");
+    renderNavLink(out, year, month, showNextLink, encodeNextLink, nextLink, nextTitle, nextClass, nextContent);
+  }
+
+  private void renderNavLink(JspWriter out, int year, int month, boolean showLink, boolean encodeLink, String link, String title, String navClass, String text) throws IOException {
     
-    out.write(" <a href=\"");
-    out.write(encodeAttribute(nextLink));
-    out.write("\"");
-    if (nextClass != null) {
-      out.write(" class=\"");
-      out.write(encodeAttribute(nextClass));
-      out.write("\"");
+    if (showLink) {
+      HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+      HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
+
+      URL targetURL = null;
+      String output = null;
+      boolean relative = false;
+      
+      URL currentPage = getCurrentUrl(request);
+      
+      if (link == null) {
+        // no link specified, use current URL
+        targetURL = currentPage;
+        relative = true;
+      } else if (encodeLink) {
+        targetURL = new URL(currentPage, link);
+        relative = isURLRelative(targetURL, currentPage);
+      }
+      
+      if (encodeLink) {
+        // add month-day-year
+        DecimalFormat df = new DecimalFormat("####");        
+        Map<String, String> params = new HashMap<String, String>();
+        params.put(monthParam, df.format(month));
+        params.put(yearParam, df.format(year));
+        URL generated = appendParameters(targetURL, params);
+        
+        if (relative) {
+          output = response.encodeURL(generated.getFile());
+        } else {
+          output = response.encodeURL(generated.toExternalForm());
+        }
+      } else {
+        // using URL as-is (maybe javascript, etc.)
+        output = link;
+      }
+      
+      // write it out
+      out.print("<a href=\"");
+      out.print(encodeAttribute(output));
+      out.print("\"");
+      if (navClass != null) {
+        out.print(" class=\"");
+        out.print(encodeAttribute(navClass));
+        out.print("\"");
+      }
+      if (title != null) {
+        out.print(" title=\"");
+        out.print(encodeAttribute(title));
+        out.print("\"");
+      }
+      out.print(">");
+      
+    } else {
+      out.print("<span");
+      if (navClass != null) {
+        out.print(" class=\"");
+        out.print(encodeAttribute(navClass));
+        out.print("\"");
+      }      
+      out.print(">");
     }
-    out.write(">");
-    out.write(nextContent);
-    out.write("</a>");
+    
+    out.print(text);
+    
+    if (showLink) {
+      out.print("</a>");
+    } else {
+      out.print("</span>");
+    }
   }
   
   private Map<String, List<String>> parseParameters(String query)
@@ -435,43 +616,6 @@ public class CalendarTag extends BodyTagSupport {
     out.print("</tr>");
   }
   
-  private String getDefaultPrevLink(Calendar current) throws MalformedURLException, UnsupportedEncodingException {
-    Calendar prevCal = Calendar.getInstance(timeZone, locale);
-    prevCal.setTime(current.getTime());
-    prevCal.add(Calendar.MONTH, -1);    
-    return getDefaultNavLink(prevCal);
-  }
-  
-  private String getDefaultNextLink(Calendar current) throws MalformedURLException, UnsupportedEncodingException {
-    Calendar nextCal = Calendar.getInstance(timeZone, locale);    
-    nextCal.setTime(current.getTime());
-    nextCal.add(Calendar.MONTH, 1);    
-    return getDefaultNavLink(nextCal);
-  }
-  
-  private String getDefaultNavLink(Calendar cal) throws MalformedURLException, UnsupportedEncodingException {
-    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-    
-    DecimalFormat dfMonth = new DecimalFormat("##");
-    DecimalFormat dfYear = new DecimalFormat("####");
-    
-    Map<String, String> params = new HashMap<String, String>();
-    params.put("month", dfMonth.format(cal.get(Calendar.MONTH) + 1));
-    params.put("year", dfYear.format(cal.get(Calendar.YEAR)));
-    
-    URL url = getCurrentUrl(request); // this will be relative
-    
-    HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
-    
-    URL completeUrl = appendParameters(url, params);
-    
-    // make site-relative
-    String file = completeUrl.getFile();
-    if (!file.startsWith("/")) file = "/" + file;
-    
-    return response.encodeURL(file);
-  }
-
   private URL appendParameters(URL url, Map<String, String> additionalParams)
   throws UnsupportedEncodingException, MalformedURLException {
     
@@ -575,92 +719,59 @@ public class CalendarTag extends BodyTagSupport {
     return new URL(name);
   }
   
-  private DateFormatSymbols getDefaultDateFormatSymbols() {
+  private DateFormatSymbols getDateFormatSymbols() {
     DateFormatSymbols dfs = new DateFormatSymbols(locale);
-    
-    // set weekdays
-    String[] origWeekdays = dfs.getWeekdays();
-    String[] weekdays = new String[origWeekdays.length];
-    
-    weekdays[Calendar.SUNDAY] = getResource(bundlePrefix + "SUNDAY", origWeekdays[Calendar.SUNDAY]);
-    weekdays[Calendar.MONDAY] = getResource(bundlePrefix + "MONDAY", origWeekdays[Calendar.MONDAY]);
-    weekdays[Calendar.TUESDAY] = getResource(bundlePrefix + "TUESDAY", origWeekdays[Calendar.TUESDAY]);
-    weekdays[Calendar.WEDNESDAY] = getResource(bundlePrefix + "WEDNESDAY", origWeekdays[Calendar.WEDNESDAY]);
-    weekdays[Calendar.THURSDAY] = getResource(bundlePrefix + "THURSDAY", origWeekdays[Calendar.THURSDAY]);
-    weekdays[Calendar.FRIDAY] = getResource(bundlePrefix + "FRIDAY", origWeekdays[Calendar.FRIDAY]);
-    weekdays[Calendar.SATURDAY] = getResource(bundlePrefix + "SATURDAY", origWeekdays[Calendar.SATURDAY]);
-    
-    dfs.setWeekdays(weekdays);
-    
-    // set short weekdays
-    String[] origShortWeekdays = dfs.getShortWeekdays();
-    String[] shortWeekdays = new String[origShortWeekdays.length];
-    
-    shortWeekdays[Calendar.SUNDAY] = getResource(bundlePrefix + "SUNDAY_SHORT", origShortWeekdays[Calendar.SUNDAY]);
-    shortWeekdays[Calendar.MONDAY] = getResource(bundlePrefix + "MONDAY_SHORT", origShortWeekdays[Calendar.MONDAY]);
-    shortWeekdays[Calendar.TUESDAY] = getResource(bundlePrefix + "TUESDAY_SHORT", origShortWeekdays[Calendar.TUESDAY]);
-    shortWeekdays[Calendar.WEDNESDAY] = getResource(bundlePrefix + "WEDNESDAY_SHORT", origShortWeekdays[Calendar.WEDNESDAY]);
-    shortWeekdays[Calendar.THURSDAY] = getResource(bundlePrefix + "THURSDAY_SHORT", origShortWeekdays[Calendar.THURSDAY]);
-    shortWeekdays[Calendar.FRIDAY] = getResource(bundlePrefix + "FRIDAY_SHORT", origShortWeekdays[Calendar.FRIDAY]);
-    shortWeekdays[Calendar.SATURDAY] = getResource(bundlePrefix + "SATURDAY_SHORT", origShortWeekdays[Calendar.SATURDAY]);
-    
-    dfs.setShortWeekdays(shortWeekdays);
-    
-    // set months
-    String[] origMonths = dfs.getMonths();
-    String[] months = new String[origMonths.length];
-    
-    months[Calendar.JANUARY] = getResource(bundlePrefix + "JANUARY", origMonths[Calendar.JANUARY]);
-    months[Calendar.FEBRUARY] = getResource(bundlePrefix + "FEBRUARY", origMonths[Calendar.FEBRUARY]);
-    months[Calendar.MARCH] = getResource(bundlePrefix + "MARCH", origMonths[Calendar.MARCH]);
-    months[Calendar.APRIL] = getResource(bundlePrefix + "APRIL", origMonths[Calendar.APRIL]);
-    months[Calendar.MAY] = getResource(bundlePrefix + "MAY", origMonths[Calendar.MAY]);
-    months[Calendar.JUNE] = getResource(bundlePrefix + "JUNE", origMonths[Calendar.JUNE]);
-    months[Calendar.JULY] = getResource(bundlePrefix + "JULY", origMonths[Calendar.JULY]);
-    months[Calendar.AUGUST] = getResource(bundlePrefix + "AUGUST", origMonths[Calendar.AUGUST]);
-    months[Calendar.SEPTEMBER] = getResource(bundlePrefix + "SEPTEMBER", origMonths[Calendar.SEPTEMBER]);
-    months[Calendar.OCTOBER] = getResource(bundlePrefix + "OCTOBER", origMonths[Calendar.OCTOBER]);
-    months[Calendar.NOVEMBER] = getResource(bundlePrefix + "NOVEMBER", origMonths[Calendar.NOVEMBER]);
-    months[Calendar.DECEMBER] = getResource(bundlePrefix + "DECEMBER", origMonths[Calendar.DECEMBER]);
-    
-    if (months.length > Calendar.UNDECIMBER)
-      months[Calendar.UNDECIMBER] = getResource(bundlePrefix + "UNDECIMBER", origMonths[Calendar.UNDECIMBER]);
-    
-    dfs.setMonths(months);
 
-    // set short months
-    String[] origShortMonths = dfs.getShortMonths();
-    String[] shortMonths = new String[origShortMonths.length];
-    
-    shortMonths[Calendar.JANUARY] = getResource(bundlePrefix + "JANUARY_SHORT", origShortMonths[Calendar.JANUARY]);
-    shortMonths[Calendar.FEBRUARY] = getResource(bundlePrefix + "FEBRUARY_SHORT", origShortMonths[Calendar.FEBRUARY]);
-    shortMonths[Calendar.MARCH] = getResource(bundlePrefix + "MARCH_SHORT", origShortMonths[Calendar.MARCH]);
-    shortMonths[Calendar.APRIL] = getResource(bundlePrefix + "APRIL_SHORT", origShortMonths[Calendar.APRIL]);
-    shortMonths[Calendar.MAY] = getResource(bundlePrefix + "MAY_SHORT", origShortMonths[Calendar.MAY]);
-    shortMonths[Calendar.JUNE] = getResource(bundlePrefix + "JUNE_SHORT", origShortMonths[Calendar.JUNE]);
-    shortMonths[Calendar.JULY] = getResource(bundlePrefix + "JULY_SHORT", origShortMonths[Calendar.JULY]);
-    shortMonths[Calendar.AUGUST] = getResource(bundlePrefix + "AUGUST_SHORT", origShortMonths[Calendar.AUGUST]);
-    shortMonths[Calendar.SEPTEMBER] = getResource(bundlePrefix + "SEPTEMBER_SHORT", origShortMonths[Calendar.SEPTEMBER]);
-    shortMonths[Calendar.OCTOBER] = getResource(bundlePrefix + "OCTOBER_SHORT", origShortMonths[Calendar.OCTOBER]);
-    shortMonths[Calendar.NOVEMBER] = getResource(bundlePrefix + "NOVEMBER_SHORT", origShortMonths[Calendar.NOVEMBER]);
-    shortMonths[Calendar.DECEMBER] = getResource(bundlePrefix + "DECEMBER_SHORT", origShortMonths[Calendar.DECEMBER]);
-    
-    if (shortMonths.length > Calendar.UNDECIMBER)
-      shortMonths[Calendar.UNDECIMBER] = getResource(bundlePrefix + "UNDECIMBER_SHORT", origShortMonths[Calendar.UNDECIMBER]);
-    
-    dfs.setShortMonths(shortMonths);
-    
-    // done
-    return dfs;
-  }
-  
-  private String getResource(String key, String defaultValue) {
-    if (resourceBundle == null) return defaultValue;
-    try {
-      return resourceBundle.getString(key);
-    } catch (MissingResourceException e) {
-      return defaultValue;
+    // capitalize months
+    if (capitalizeMonths) {
+      String[] months = dfs.getMonths();
+      for (int i = 0; i < months.length; i++) {
+        if (months[i].length() > 0) {
+          months[i] = months[i].substring(0,1).toUpperCase(locale) + months[i].substring(1);
+        }
+      }
+      dfs.setMonths(months);
+      
+      String[] shortMonths = dfs.getShortMonths();
+      for (int i = 0; i < shortMonths.length; i++) {
+        if (shortMonths[i].length() > 0) {
+          shortMonths[i] = shortMonths[i].substring(0,1).toUpperCase(locale) + shortMonths[i].substring(1);
+        }
+      }
+      dfs.setShortMonths(shortMonths);
     }
+    
+    // capitalize days
+    if (capitalizeDays) {
+      String[] weekdays = dfs.getWeekdays();
+      for (int i = 0; i < weekdays.length; i++) {
+        if (weekdays[i].length() > 0) {
+          weekdays[i] = weekdays[i].substring(0,1).toUpperCase(locale) + weekdays[i].substring(1);
+        }
+      }
+      dfs.setWeekdays(weekdays);
+      
+      String[] shortWeekdays = dfs.getShortWeekdays();
+      for (int i = 0; i < shortWeekdays.length; i++) {
+        if (shortWeekdays[i].length() > 0) {
+          shortWeekdays[i] = shortWeekdays[i].substring(0,1).toUpperCase(locale) + shortWeekdays[i].substring(1);
+        }
+      }
+      dfs.setShortWeekdays(shortWeekdays);      
+    }
+    
+    // shorten weekdays if needed
+    if (maxWeekdayLength != null && maxWeekdayLength > 0) {
+      String[] shortWeekdays = dfs.getShortWeekdays();
+      for (int i = 0; i < shortWeekdays.length; i++) {
+        if (shortWeekdays[i].length() > maxWeekdayLength) {
+          shortWeekdays[i] = shortWeekdays[i].substring(0, maxWeekdayLength);
+        }
+      }
+      dfs.setShortWeekdays(shortWeekdays);
+    }
+    
+    return dfs;
   }
   
   private void renderEmptyDay(JspWriter out, int dayOfWeek) throws IOException {    
@@ -713,9 +824,9 @@ public class CalendarTag extends BodyTagSupport {
     boolean showLink = true;
     boolean encodeLink = true;
     String link = null;
-    String monthParam = "month";
-    String dayParam = "day";
-    String yearParam = "year";
+    String mParam = "month";
+    String dParam = "day";
+    String yParam = "year";
     String title = null;
     String content = null;
     String dayClass = null;
@@ -732,13 +843,13 @@ public class CalendarTag extends BodyTagSupport {
       if (defLink != null) link = defLink;
       
       String defMonthParam = defSpec.getMonthParam();
-      if (defMonthParam != null) monthParam = defMonthParam;
+      if (defMonthParam != null) mParam = defMonthParam;
       
       String defDayParam = defSpec.getDayParam();
-      if (defDayParam != null) dayParam = defDayParam;
+      if (defDayParam != null) dParam = defDayParam;
       
       String defYearParam = defSpec.getYearParam();
-      if (defYearParam != null) yearParam = defYearParam;
+      if (defYearParam != null) yParam = defYearParam;
       
       String defTitle = defSpec.getTitle();
       if (defTitle != null) title = defTitle;
@@ -758,13 +869,13 @@ public class CalendarTag extends BodyTagSupport {
       if (dayLink != null) link = dayLink;
       
       String dayMonthParam = daySpec.getMonthParam();
-      if (dayMonthParam != null) monthParam = dayMonthParam;
+      if (dayMonthParam != null) mParam = dayMonthParam;
       
       String dayDayParam = daySpec.getDayParam();
-      if (dayDayParam != null) dayParam = dayDayParam;
+      if (dayDayParam != null) dParam = dayDayParam;
       
       String dayYearParam = daySpec.getYearParam();
-      if (dayYearParam != null) yearParam = dayYearParam;
+      if (dayYearParam != null) yParam = dayYearParam;
       
       String dayTitle = daySpec.getTitle();
       if (dayTitle != null) title = dayTitle;
@@ -839,7 +950,7 @@ public class CalendarTag extends BodyTagSupport {
           // no link specified, use current URL
           targetURL = currentPage;
           relative = true;
-        } else {
+        } else if (encodeLink) {
           // user link specified
           targetURL = new URL(currentPage, link);
           relative = isURLRelative(targetURL, currentPage);
@@ -849,9 +960,9 @@ public class CalendarTag extends BodyTagSupport {
           // add month-day-year
           DecimalFormat df = new DecimalFormat("####");        
           Map<String, String> params = new HashMap<String, String>();
-          params.put(monthParam, df.format(current.get(Calendar.MONTH) + 1));
-          params.put(dayParam, df.format(current.get(Calendar.DAY_OF_MONTH)));
-          params.put(yearParam, df.format(current.get(Calendar.YEAR)));
+          params.put(mParam, df.format(current.get(Calendar.MONTH) + 1));
+          params.put(dParam, df.format(current.get(Calendar.DAY_OF_MONTH)));
+          params.put(yParam, df.format(current.get(Calendar.YEAR)));
           URL generated = appendParameters(targetURL, params);
           
           if (relative) {
@@ -914,7 +1025,7 @@ public class CalendarTag extends BodyTagSupport {
    * @param pcData PCDATA value
    * @return encoded PCDATA value
    */
-  protected String encodePCData(String pcData) {
+  private String encodePCData(String pcData) {
     if (pcData == null) return "";
 
     StringBuilder buf = new StringBuilder();
@@ -936,7 +1047,7 @@ public class CalendarTag extends BodyTagSupport {
    * @param attributeValue value of attribute to encode
    * @return encoded value
    */
-  protected String encodeAttribute(String attributeValue) {
+  private String encodeAttribute(String attributeValue) {
     if (attributeValue == null) return "";
 
     StringBuilder buf = new StringBuilder();
