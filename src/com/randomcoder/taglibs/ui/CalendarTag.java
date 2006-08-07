@@ -424,7 +424,7 @@ public class CalendarTag extends BodyTagSupport {
    * After the body evaluation: do not reevaluate and continue with the page. By
    * default nothing is done with the bodyContent data (if any).
    * 
-   * @returns SKIP_BODY
+   * @return SKIP_BODY
    */
   @Override
   public int doAfterBody() throws JspException {
