@@ -136,13 +136,20 @@ public class OptionTag extends InputTagBase {
     throw new IllegalArgumentException("Attribute 'onselect' is not allowed");		
   }
 
+  /**
+   * Release state.
+   */
   @Override
   public void release() {
     super.release();
     label = null;
     text = null;
   }
-  
+    
+  /**
+   * Renders the option tag to the output.
+   * @return EVAL_PAGE
+   */
   @Override
   public int doEndTag() throws JspException {
     try {

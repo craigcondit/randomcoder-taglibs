@@ -66,6 +66,8 @@ public class CalendarTag extends BodyTagSupport {
   private String nextClass;
   private String prevLink;
   private String nextLink;
+  private String prevId;
+  private String nextId;
   private String prevTitle;
   private String nextTitle;
   private boolean encodePrevLink = true;
@@ -185,6 +187,15 @@ public class CalendarTag extends BodyTagSupport {
   }
 
   /**
+   * Sets the CSS id to apply to the generated next link.
+   * 
+   * @param nextId css id
+   */
+  public void setNextId(String nextId) {
+    this.nextId = nextId;
+  }
+  
+  /**
    * Sets the URL to use for the next link (defaults to the current page).
    * @param nextLink URL
    */
@@ -238,6 +249,15 @@ public class CalendarTag extends BodyTagSupport {
     this.prevContent = prevContent;
   }
 
+  /**
+   * Sets the CSS id to apply to the generated previous link.
+   * 
+   * @param prevId css id
+   */
+  public void setPrevId(String prevId) {
+    this.prevId = prevId;
+  }
+  
   /**
    * Sets the URL to use for the previous link (defaults to the current page).
    * @param prevLink URL
@@ -353,7 +373,7 @@ public class CalendarTag extends BodyTagSupport {
   }
   
   /**
-   * Cleans up any resources associated with this tag.
+   * Release state.
    */
   @Override  
   public void release() {
@@ -392,6 +412,8 @@ public class CalendarTag extends BodyTagSupport {
     capitalizeMonths = true;
     capitalizeDays = true;
     maxWeekdayLength = null;
+    prevId = null;
+    nextId = null;
     
     for (int i = 0; i < 31; i++) daySpecs[i] = null;
     
@@ -399,16 +421,19 @@ public class CalendarTag extends BodyTagSupport {
   }
 
   /**
-   * Called by the Servlet container after body processing.
+   * After the body evaluation: do not reevaluate and continue with the page. By
+   * default nothing is done with the bodyContent data (if any).
+   * 
+   * @returns SKIP_BODY
    */
   @Override
   public int doAfterBody() throws JspException {
-    // this evaluates the body, but doesn't write it out
     return SKIP_BODY;
   }
 
   /**
    * Renders the calendar to the current page context's JSPWriter.
+   * @return EVAL_PAGE
    */
   @Override
   public int doEndTag() throws JspException {
@@ -562,16 +587,16 @@ public class CalendarTag extends BodyTagSupport {
   }
   
   private void renderPrevLink(JspWriter out, int year, int month) throws IOException {
-    renderNavLink(out, year, month, showPrevLink, encodePrevLink, prevLink, prevTitle, prevClass, prevContent);
+    renderNavLink(out, year, month, showPrevLink, encodePrevLink, prevLink, prevTitle, prevClass, prevId, prevContent);
     out.print(" ");
   }
 
   private void renderNextLink(JspWriter out, int year, int month) throws IOException {
     out.print(" ");
-    renderNavLink(out, year, month, showNextLink, encodeNextLink, nextLink, nextTitle, nextClass, nextContent);
+    renderNavLink(out, year, month, showNextLink, encodeNextLink, nextLink, nextTitle, nextClass, nextId, nextContent);
   }
 
-  private void renderNavLink(JspWriter out, int year, int month, boolean showLink, boolean encodeLink, String link, String title, String navClass, String text) throws IOException {
+  private void renderNavLink(JspWriter out, int year, int month, boolean showLink, boolean encodeLink, String link, String title, String navClass, String navId, String text) throws IOException {
     
     if (showLink) {
       HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
@@ -614,6 +639,11 @@ public class CalendarTag extends BodyTagSupport {
       out.print("<a href=\"");
       out.print(encodeAttribute(output));
       out.print("\"");
+      if (navId != null) {
+        out.print(" id=\"");
+        out.print(encodeAttribute(navId));
+        out.print("\"");
+      }
       if (navClass != null) {
         out.print(" class=\"");
         out.print(encodeAttribute(navClass));
@@ -628,6 +658,11 @@ public class CalendarTag extends BodyTagSupport {
       
     } else {
       out.print("<span");
+      if (navId != null) {
+        out.print(" id=\"");
+        out.print(encodeAttribute(navId));
+        out.print("\"");
+      }
       if (navClass != null) {
         out.print(" class=\"");
         out.print(encodeAttribute(navClass));

@@ -144,6 +144,9 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
   public void setOnmouseover(String onmouseover) { params.put("onmouseover", onmouseover); }
   public void setOnmouseup(String onmouseup) { params.put("onmouseup", onmouseup); }
 	
+  /**
+   * Release state.
+   */
   @Override
   public void release() {
     params.clear();
@@ -152,6 +155,11 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
     styleId = null;
   }
 		
+  /**
+   * Renders this tag to the output.
+   * 
+   * @return EVAL_PAGE
+   */
   @Override
   public int doEndTag() throws JspException {
     try {

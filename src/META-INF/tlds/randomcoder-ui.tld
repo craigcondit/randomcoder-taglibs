@@ -36,7 +36,7 @@ POSSIBILITY OF SUCH DAMAGE.
 		JSP 2.0 implementation of common UI components.
 	</description>
 		
-	<tag>
+	<tag id='calendar-tag'>
 		<name>calendar</name>
 		<tag-class>com.randomcoder.taglibs.ui.CalendarTag</tag-class>
 		<body-content>JSP</body-content>
@@ -45,7 +45,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			Renders an XHTML Calendar control.
 		</description>
 		
-		<attribute>
+		<attribute id='calendar-capitalizeDays'>
 			<name>capitalizeDays</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -54,7 +54,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				If true, day captions will be capitalized.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-capitalizeMonths'>
 			<name>capitalizeMonths</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -63,7 +63,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				If true, month captions will be capitalized.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-captionFormat'>
 			<name>captionFormat</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -72,7 +72,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the DateFormat to show above the calendar.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-captionVisible'>
 			<name>captionVisible</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -81,7 +81,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Determines if the caption will be visible (defaults to true).
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-encodeNextLink'>
 			<name>encodeNextLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -90,7 +90,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets whether to encode month and year into next URL (defaults to true).
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-encodePrevLink'>
 			<name>encodePrevLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -99,7 +99,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets whether to encode month and year into previous URL (defaults to true).
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-maxWeekdayLength'>
 			<name>maxWeekdayLength</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -108,7 +108,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the maximum length of the weekday captions.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-monthParam'>
 			<name>monthParam</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -117,7 +117,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the name of the parameter to encode month into prev/next nav links.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-nextClass'>
 			<name>nextClass</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -126,7 +126,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the CSS class name to apply to the next month link.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-nextContent'>
 			<name>nextContent</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -135,7 +135,16 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the content to display for the next month link.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-nextId'>
+			<name>nextId</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS id to apply to the next month link.
+			</description>
+		</attribute> 	
+		<attribute id='calendar-nextLink'>
 			<name>nextLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -144,7 +153,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the URL to use for the next month link.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-nextTitle'>
 			<name>nextTitle</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -153,7 +162,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the title to add to the next month link.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-outerClass'>
 			<name>outerClass</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -162,7 +171,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the CSS class name to apply to the outermost container.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-outerId'>
 			<name>outerId</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -171,7 +180,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the CSS ID to apply to the outermost container.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-prevClass'>
 			<name>prevClass</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -180,7 +189,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the CSS class name to apply to the previous month link.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-prevContent'>
 			<name>prevContent</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -189,7 +198,16 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the content to display for the previous month link.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-prevId'>
+			<name>prevId</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS id to apply to the previous month link.
+			</description>
+		</attribute> 	
+		<attribute id='calendar-prevLink'>
 			<name>prevLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -198,7 +216,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the URL to use for the previous month link.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-prevTitle'>
 			<name>prevTitle</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -207,7 +225,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the title to add to the previous month link.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-selectedDate'>
 			<name>selectedDate</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -216,7 +234,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Date to display as selected.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-showDate'>
 			<name>showDate</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -225,7 +243,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Date to display calendar for (defaults to today).
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-showNextLink'>
 			<name>showNextLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -234,7 +252,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets whether to show next link (defaults to true).
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-showPrevLink'>
 			<name>showPrevLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -243,7 +261,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets whether to show previous link (defaults to true).
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-selectedClass'>
 			<name>selectedClass</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -252,7 +270,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the CSS class name to apply to the selected date's cell.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-todayClass'>
 			<name>todayClass</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -261,7 +279,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the CSS class name to apply to the today's date cell.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-weekendClass'>
 			<name>weekendClass</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -270,7 +288,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the CSS class name to apply to the weekend date cells.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-yearParam'>
 			<name>yearParam</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -282,7 +300,7 @@ POSSIBILITY OF SUCH DAMAGE.
 		
 	</tag>
 	
-	<tag>
+	<tag id='calendar-day-tag'>
 		<name>calendar-day</name>
 		<tag-class>com.randomcoder.taglibs.ui.CalendarDayTag</tag-class>
 		<body-content>JSP</body-content>
@@ -291,7 +309,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			Sets parameters for one or all calendar days.
 		</description>
 		
-		<attribute>
+		<attribute id='calendar-day-day'>
 			<name>day</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -300,7 +318,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Day of month (1-31), not specified means set defaults.
 			</description>
 		</attribute> 	
-		<attribute>
+		<attribute id='calendar-day-dayClass'>
 			<name>dayClass</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -309,7 +327,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the CSS class name to apply to this day cell.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-day-dayId'>
 			<name>dayId</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -318,7 +336,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the CSS id to apply to this day cell.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-day-dayParam'>
 			<name>dayParam</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -327,7 +345,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the name of the parameter to encode day into.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-day-encodeLink'>
 			<name>encodeLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -336,7 +354,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets whether to encode month, day, year into URL (defaults to true).
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-day-link'>
 			<name>link</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -345,7 +363,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the URL to display for this day.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-day-monthParam'>
 			<name>monthParam</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -354,7 +372,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the name of the parameter to encode month into.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-day-showLink'>
 			<name>showLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -363,7 +381,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets whether to show links or not (defaults to true).
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-day-title'>
 			<name>title</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
@@ -372,7 +390,7 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the title to add to this link.
 			</description>
 		</attribute>
-		<attribute>
+		<attribute id='calendar-day-yearParam'>
 			<name>yearParam</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>

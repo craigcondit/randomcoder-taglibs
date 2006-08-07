@@ -6,6 +6,12 @@ import javax.servlet.jsp.tagext.*;
 /**
  * Implementation of the calendar-day tag.
  * 
+ * <p>
+ * This class implements the <strong>calendar-day</strong> tag, which 
+ * supplies cutomized parameters on a per-day basis to the
+ * <strong>calendar</strong> tag.
+ * </p>
+ * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
  * 
@@ -45,52 +51,116 @@ public class CalendarDayTag extends BodyTagSupport {
   private String dayClass;
   private String dayId;
   
+  /**
+   * Sets the number of the day to apply parameters to. If not specified,
+   * parameters are applied to all days.
+   * 
+   * @param day 
+   */
   public void setDay(int day) {
     this.day = day;
   }
   
+  /**
+   * Sets the CSS class to apply to this day's table cell.
+   * 
+   * @param dayClass CSS class
+   */
+  public void setDayClass(String dayClass) {
+    this.dayClass = dayClass;    
+  }
+
+  /**
+   * Sets the CSS id to apply to this day's table cell.
+   * 
+   * @param dayId CSS id
+   */
+  public void setDayId(String dayId) {
+    this.dayId = dayId;
+  }
+
+  /**
+   * Sets the parameter name to encode day information into (defaults to 'day').
+   * 
+   * @param dayParam parameter name
+   */
+  public void setDayParam(String dayParam) {
+    this.dayParam = dayParam;
+  }
+
+  /**
+   * Determines if date information should be encoded into this day's link 
+   * (defaults to true).
+   * 
+   * @param encodeLink true to encode date, false otherwise
+   */
+  public void setEncodeLink(Boolean encodeLink) {
+    this.encodeLink = encodeLink;
+  }
+
+  /**
+   * Sets the URL to use for this day.
+   * 
+   * @param link URL
+   */
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  /**
+   * Sets the parameter name to encode month information into (defaults to
+   * 'month').
+   * 
+   * @param monthParam parameter name
+   */
+  public void setMonthParam(String monthParam) {
+    this.monthParam = monthParam;
+  }
+
+  /**
+   * Determines if a link should be rendered for this day (defaults to true).
+   * 
+   * @param showLink true if link should be rendered, false otherwise
+   */
   public void setShowLink(boolean showLink) {
     this.showLink = showLink;
   }
   
-  public void setLink(String link) {
-    this.link = link;
-  }
-  
-  public void setEncodeLink(Boolean encodeLink) {
-    this.encodeLink = encodeLink;
-  }
-  
-  public void setMonthParam(String monthParam) {
-    this.monthParam = monthParam;
-  }
-  
-  public void setDayParam(String dayParam) {
-    this.dayParam = dayParam;
-  }
-  
-  public void setYearParam(String yearParam) {
-    this.yearParam = yearParam;
-  }
-  
+  /**
+   * Sets the value of the title attribute to render for this day's link.
+   * 
+   * @param title title text
+   */
   public void setTitle(String title) {
     this.title = title;
   }
-  
-  public void setDayClass(String dayClass) {
-    this.dayClass = dayClass;    
+
+  /**
+   * Sets the parameter name to encode year information into (defaults to
+   * 'year').
+   * 
+   * @param yearParam parameter name
+   */
+  public void setYearParam(String yearParam) {
+    this.yearParam = yearParam;
   }
-  
-  public void setDayId(String dayId) {
-    this.dayId = dayId;
-  }
-  
+
+  /**
+   * After the body evaluation: do not reevaluate and continue with the page. By
+   * default nothing is done with the bodyContent data (if any).
+   * 
+   * @returns SKIP_BODY
+   */
   @Override
   public int doAfterBody() throws JspException {
-    // this evaluates the body, but doesn't write it out
     return SKIP_BODY;
   }
 
+  /**
+   * Sets the parameters of this day into the parent {@link CalendarTag}.
+   * 
+   * @return EVAL_PAGE
+   */
   @Override
   public int doEndTag() throws JspException {
     try {
@@ -116,6 +186,9 @@ public class CalendarDayTag extends BodyTagSupport {
     }
   }
 
+  /**
+   * Release state.
+   */
   @Override
   public void release() {
     super.release();

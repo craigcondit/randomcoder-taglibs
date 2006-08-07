@@ -43,6 +43,11 @@ public class InRoleTag extends BodyTagSupport {
    */
   public void setRole(String role) { this.role = role; }
 
+  /**
+   * Determines whether to process body content.
+   * 
+   * @return SKIP_BODY if user is not in role(s), EVAL_BODY_INCLUDE otherwise
+   */
   @Override
   public int doStartTag() throws JspException {
     HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();

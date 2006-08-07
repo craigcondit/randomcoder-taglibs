@@ -35,6 +35,11 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class LoggedInTag extends BodyTagSupport {
   private static final long serialVersionUID = 3339945981150007004L;
   
+  /**
+   * Determines whether to process body content.
+   * 
+   * @return EVAL_BODY_INCLUDE if user is logged in, SKIP_BODY otherwise
+   */
   @Override
   public int doStartTag() throws JspException {
     HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
