@@ -56,7 +56,57 @@ POSSIBILITY OF SUCH DAMAGE.
     	
     </target>
     	
-    <target name="dist" depends="compile,javadoc,tlddoc,jar" description="Build dist targets" />
+    <target name="dist" depends="compile,javadoc,tlddoc,srczip,srctar,docjar,tlddocjar,jar" description="Build dist targets" />
+	
+	<target name="srczip" description="Build src zip file">
+    	<mkdir dir="dist" />
+		<zip destfile="dist/${ant.project.name}-${taglibs.version}-src.zip" >
+			<zipfileset prefix="${ant.project.name}-${taglibs.version}-src" dir=".">
+				<exclude name="bin" />
+				<exclude name="bin/**/*" />
+				<exclude name="dist" />
+				<exclude name="dist/**/*" />
+				<exclude name="docs/apidocs" />
+				<exclude name="docs/apidocs/**/*" />
+				<exclude name="**/CVS" />
+				<exclude name="**/CVS/**/*" />
+				<exclude name="**/.svn" />
+				<exclude name="**/.svn/**/*" />
+				<exclude name=".classpath" />
+				<exclude name=".project" />
+			</zipfileset>			
+    	</zip>
+	</target>
+
+	<target name="srctar" description="Build src tar file file">
+    	<mkdir dir="dist" />
+		<tar compression="gzip" destfile="dist/${ant.project.name}-${taglibs.version}-src.tar.gz" >
+			<tarfileset prefix="${ant.project.name}-${taglibs.version}-src" dir=".">
+				<exclude name="bin" />
+				<exclude name="bin/**/*" />
+				<exclude name="dist" />
+				<exclude name="dist/**/*" />
+				<exclude name="docs/apidocs" />
+				<exclude name="docs/apidocs/**/*" />
+				<exclude name="**/CVS" />
+				<exclude name="**/CVS/**/*" />
+				<exclude name="**/.svn" />
+				<exclude name="**/.svn/**/*" />
+				<exclude name=".classpath" />
+				<exclude name=".project" />
+			</tarfileset>
+    	</tar>
+	</target>
+	
+	<target name="docjar" depends="javadoc" description="Build documentation jar file">
+    	<mkdir dir="dist" />
+    	<jar destfile="dist/${ant.project.name}-${taglibs.version}-doc.jar" basedir="docs/apidocs" />
+	</target>
+
+	<target name="tlddocjar" depends="tlddoc" description="Build TLD documentation jar file">
+    	<mkdir dir="dist" />
+    	<jar destfile="dist/${ant.project.name}-${taglibs.version}-tlddoc.jar" basedir="docs/tlddocs" />
+	</target>
 	
     <target name="jar" depends="compile" description="Build jar file">
     	<mkdir dir="dist" />
