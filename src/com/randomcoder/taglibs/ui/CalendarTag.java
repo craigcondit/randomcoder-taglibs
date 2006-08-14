@@ -41,11 +41,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * </pre> 
  */
 public class CalendarTag extends BodyTagSupport {
-  
-  private static final long serialVersionUID = 8927306238278116620L;
-  private static final String DEFAULT_CAPTION_FORMAT = "MMM yyyy";
-  private static final String DEFAULT_PREV_CONTENT = "&#171;";
-  private static final String DEFAULT_NEXT_CONTENT = "&#187;";
+  private static final long serialVersionUID = 6415946260066806405L;
   
   private static final String REQUEST_URI_ATTRIBUTE = "javax.servlet.forward.request_uri";
   private static final String QUERY_STRING_ATTRIBUTE = "javax.servlet.forward.query_string";
@@ -57,32 +53,13 @@ public class CalendarTag extends BodyTagSupport {
   private Date showDate;
   private Date selectedDate;
   
-  private String outerClass;
-  private String outerId;
+  private String tableClass;
+  private String tableId;
   private String todayClass;
   private String selectedClass;
   private String weekendClass;
-  private String prevClass;
-  private String nextClass;
-  private String prevLink;
-  private String nextLink;
-  private String prevId;
-  private String nextId;
-  private String prevTitle;
-  private String nextTitle;
-  private boolean encodePrevLink = true;
-  private boolean encodeNextLink = true;
-  private boolean capitalizeMonths = true;
   private boolean capitalizeDays = true;
   private Integer maxWeekdayLength;
-  private String yearParam = "year";
-  private String monthParam = "month";
-  private boolean showPrevLink = true;
-  private boolean showNextLink = true;
-  private String captionFormat = DEFAULT_CAPTION_FORMAT;
-  private boolean captionVisible = true;
-  private String prevContent = DEFAULT_PREV_CONTENT;
-  private String nextContent = DEFAULT_NEXT_CONTENT;
   private Locale locale;
   private ResourceBundle resourceBundle;
   private TimeZone timeZone;
@@ -100,55 +77,6 @@ public class CalendarTag extends BodyTagSupport {
   }
 
   /**
-   * Determins if month names should be capitalized (defaults to true).
-   * 
-   * @param capitalizeMonths true to capitalize, false otherwise
-   */
-  public void setCapitalizeMonths(boolean capitalizeMonths) {
-    this.capitalizeMonths = capitalizeMonths;
-  }
-
-  /**
-   * Sets the date format to use for table caption (defaults to 'MMM yyyy'). 
-   * 
-   * @param captionFormat date format to use
-   */
-  public void setCaptionFormat(String captionFormat) {
-    this.captionFormat = captionFormat;
-  }
-
-  /**
-   * Determines if table caption should be displayed (defaults to true).
-   * 
-   * @param captionVisible true to display caption, false otherwise
-   */
-  public void setCaptionVisible(boolean captionVisible) {
-    this.captionVisible = captionVisible;
-  }
-
-  /**
-   * Determines if year and month should be encoded into next link (defaults to
-   * true).
-   * 
-   * @param encodeNextLink
-   *          true if date should be encoded into next link, false otherwise
-   */
-  public void setEncodeNextLink(boolean encodeNextLink) {
-    this.encodeNextLink = encodeNextLink;
-  }
-
-  /**
-   * Determines if year and month should be encoded into previous link (defaults
-   * to true).
-   * 
-   * @param encodePrevLink
-   *          true if date should be encoded into previous link, false otherwise
-   */
-  public void setEncodePrevLink(boolean encodePrevLink) {
-    this.encodePrevLink = encodePrevLink;
-  }
-
-  /**
    * Sets the maximum length of the weekday header fields (default is no limit).
    * 
    * @param maxWeekdayLength number of characters
@@ -158,121 +86,21 @@ public class CalendarTag extends BodyTagSupport {
   }
 
   /**
-   * Sets the name of the parameter to encode month information into for
-   * navigational links (defaults to 'month').
+   * Sets the CSS class to apply to the calendar table.
    * 
-   * @param monthParam parameter name
+   * @param tableClass CSS class name
    */
-  public void setMonthParam(String monthParam) {
-    this.monthParam = monthParam;    
+  public void setTableClass(String tableClass) {
+    this.tableClass = tableClass;
   }
 
   /**
-   * Sets the CSS class to apply to the generated next link.
+   * Sets the CSS id to apply to the calendar table.
    * 
-   * @param nextClass css class
+   * @param tableId CSS id
    */
-  public void setNextClass(String nextClass) {
-    this.nextClass = nextClass;
-  }
-
-  /**
-   * Sets custom content to use for the next link (defaults to a right
-   * angle quote).
-   * 
-   * @param nextContent HTML content
-   */
-  public void setNextContent(String nextContent) {
-    this.nextContent = nextContent;
-  }
-
-  /**
-   * Sets the CSS id to apply to the generated next link.
-   * 
-   * @param nextId css id
-   */
-  public void setNextId(String nextId) {
-    this.nextId = nextId;
-  }
-  
-  /**
-   * Sets the URL to use for the next link (defaults to the current page).
-   * @param nextLink URL
-   */
-  public void setNextLink(String nextLink) {
-    this.nextLink = nextLink;
-  }
-
-  /**
-   * Sets the value of the title attribute to apply to the next link.
-   * 
-   * @param nextTitle title text
-   */
-  public void setNextTitle(String nextTitle) {
-    this.nextTitle = nextTitle;     
-  }
-
-  /**
-   * Sets the CSS class to apply to the outer table.
-   * 
-   * @param outerClass CSS class name
-   */
-  public void setOuterClass(String outerClass) {
-    this.outerClass = outerClass;
-  }
-
-  /**
-   * Sets the CSS id to apply to the outer table.
-   * 
-   * @param outerId CSS id
-   */
-  public void setOuterId(String outerId) {
-    this.outerId = outerId;
-  }
-
-  /**
-   * Sets the CSS class to apply to the generated previous link.
-   * 
-   * @param prevClass css class
-   */
-  public void setPrevClass(String prevClass) {
-    this.prevClass = prevClass;
-  }
-
-  /**
-   * Sets custom content to use for the previous link (defaults to a left
-   * angle quote).
-   * 
-   * @param prevContent HTML content
-   */
-  public void setPrevContent(String prevContent) {
-    this.prevContent = prevContent;
-  }
-
-  /**
-   * Sets the CSS id to apply to the generated previous link.
-   * 
-   * @param prevId css id
-   */
-  public void setPrevId(String prevId) {
-    this.prevId = prevId;
-  }
-  
-  /**
-   * Sets the URL to use for the previous link (defaults to the current page).
-   * @param prevLink URL
-   */
-  public void setPrevLink(String prevLink) {
-    this.prevLink = prevLink;
-  }
-
-  /**
-   * Sets the value of the title attribute to apply to the previous link.
-   * 
-   * @param prevTitle title text
-   */
-  public void setPrevTitle(String prevTitle) {
-    this.prevTitle = prevTitle;
+  public void setTableId(String tableId) {
+    this.tableId = tableId;
   }
 
   /**
@@ -303,26 +131,6 @@ public class CalendarTag extends BodyTagSupport {
   }
 
   /**
-   * Determines if next navigational link should be displayed (defaults to 
-   * true).
-   * 
-   * @param showNextLink true to show next link, false otherwise
-   */
-  public void setShowNextLink(boolean showNextLink) {
-    this.showNextLink = showNextLink;
-  }
-
-  /**
-   * Determines if previous navigational link should be displayed (defaults to 
-   * true).
-   * 
-   * @param showPrevLink true to show previous link, false otherwise
-   */
-  public void setShowPrevLink(boolean showPrevLink) {
-    this.showPrevLink = showPrevLink;
-  }
-
-  /**
    * Sets the CSS class to apply to the cell containing today's date.
    * 
    * @param todayClass CSS class
@@ -340,16 +148,6 @@ public class CalendarTag extends BodyTagSupport {
     this.weekendClass = weekendClass;
   }
 
-  /**
-   * Sets the name of the parameter to encode year information into for
-   * navigational links (defaults to 'year').
-   * 
-   * @param yearParam parameter name
-   */
-  public void setYearParam(String yearParam) {
-    this.yearParam = yearParam;
-  }
-  
   /**
    * Sets the JSP PageContext variable.
    */
@@ -384,36 +182,17 @@ public class CalendarTag extends BodyTagSupport {
   private void cleanup() {
     showDate = null;    
     selectedDate = null;
-    outerId = null;
-    outerClass = null;
+    tableId = null;
+    tableClass = null;
     todayClass = null;
     selectedClass = null;
     weekendClass = null;
-    prevClass = null;
-    nextClass = null;
     locale = null;
     resourceBundle = null;
     timeZone = null;
-    captionFormat = DEFAULT_CAPTION_FORMAT;
-    captionVisible = true;
     dateFormatSymbols = null;
-    prevContent = DEFAULT_PREV_CONTENT;
-    nextContent = DEFAULT_NEXT_CONTENT;    
-    prevLink = null;
-    nextLink = null;
-    showPrevLink = true;
-    showNextLink = true;
-    monthParam = "month";
-    yearParam = "year";
-    prevTitle = null;
-    nextTitle = null;
-    encodePrevLink = true;
-    encodeNextLink = true;
-    capitalizeMonths = true;
     capitalizeDays = true;
     maxWeekdayLength = null;
-    prevId = null;
-    nextId = null;
     
     for (int i = 0; i < 31; i++) daySpecs[i] = null;
     
@@ -461,35 +240,19 @@ public class CalendarTag extends BodyTagSupport {
             
       Calendar current = Calendar.getInstance(timeZone, locale);
       current.setTime(showDate);
+      
       out.print("<table");
-      if (outerId != null) {
+      if (tableId != null) {
         out.print(" id=\"");
-        out.print(encodeAttribute(outerId));
+        out.print(encodeAttribute(tableId));
         out.print("\"");
       }
-      if (outerClass != null) {
+      if (tableClass != null) {
         out.print(" class=\"");
-        out.print(encodeAttribute(outerClass));
+        out.print(encodeAttribute(tableClass));
         out.print("\"");
       }
       out.print(">");
-
-      if (captionVisible) {
-        out.print("<caption>");
-        
-        Calendar prevCal = Calendar.getInstance(timeZone, locale);
-        prevCal.setTime(current.getTime());
-        prevCal.add(Calendar.MONTH, -1);    
-        
-        Calendar nextCal = Calendar.getInstance(timeZone, locale);
-        nextCal.setTime(current.getTime());
-        nextCal.add(Calendar.MONTH, 1);    
-        
-        renderPrevLink(out, prevCal.get(Calendar.MONTH) + 1, prevCal.get(Calendar.YEAR));
-        renderCaption(out, current);
-        renderNextLink(out, nextCal.get(Calendar.MONTH) + 1, nextCal.get(Calendar.YEAR));
-        out.print("</caption>");
-      }
       out.print("<thead>");
       renderHead(out);
       out.print("</thead>");
@@ -584,101 +347,7 @@ public class CalendarTag extends BodyTagSupport {
     TimeZone result = (TimeZone) Config.find(pageContext, Config.FMT_TIME_ZONE);
     if (result == null) result = TimeZone.getDefault();
     return result;
-  }
-  
-  private void renderPrevLink(JspWriter out, int year, int month) throws IOException {
-    renderNavLink(out, year, month, showPrevLink, encodePrevLink, prevLink, prevTitle, prevClass, prevId, prevContent);
-    out.print(" ");
-  }
-
-  private void renderNextLink(JspWriter out, int year, int month) throws IOException {
-    out.print(" ");
-    renderNavLink(out, year, month, showNextLink, encodeNextLink, nextLink, nextTitle, nextClass, nextId, nextContent);
-  }
-
-  private void renderNavLink(JspWriter out, int year, int month, boolean showLink, boolean encodeLink, String link, String title, String navClass, String navId, String text) throws IOException {
-    
-    if (showLink) {
-      HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-      HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
-
-      URL targetURL = null;
-      String output = null;
-      boolean relative = false;
-      
-      URL currentPage = getCurrentUrl(request);
-      
-      if (link == null) {
-        // no link specified, use current URL
-        targetURL = currentPage;
-        relative = true;
-      } else if (encodeLink) {
-        targetURL = new URL(currentPage, link);
-        relative = isURLRelative(targetURL, currentPage);
-      }
-      
-      if (encodeLink) {
-        // add month-day-year
-        DecimalFormat df = new DecimalFormat("####");        
-        Map<String, String> params = new HashMap<String, String>();
-        params.put(monthParam, df.format(month));
-        params.put(yearParam, df.format(year));
-        URL generated = appendParameters(targetURL, params);
-        
-        if (relative) {
-          output = response.encodeURL(generated.getFile());
-        } else {
-          output = response.encodeURL(generated.toExternalForm());
-        }
-      } else {
-        // using URL as-is (maybe javascript, etc.)
-        output = link;
-      }
-      
-      // write it out
-      out.print("<a href=\"");
-      out.print(encodeAttribute(output));
-      out.print("\"");
-      if (navId != null) {
-        out.print(" id=\"");
-        out.print(encodeAttribute(navId));
-        out.print("\"");
-      }
-      if (navClass != null) {
-        out.print(" class=\"");
-        out.print(encodeAttribute(navClass));
-        out.print("\"");
-      }
-      if (title != null) {
-        out.print(" title=\"");
-        out.print(encodeAttribute(title));
-        out.print("\"");
-      }
-      out.print(">");
-      
-    } else {
-      out.print("<span");
-      if (navId != null) {
-        out.print(" id=\"");
-        out.print(encodeAttribute(navId));
-        out.print("\"");
-      }
-      if (navClass != null) {
-        out.print(" class=\"");
-        out.print(encodeAttribute(navClass));
-        out.print("\"");
-      }      
-      out.print(">");
-    }
-    
-    out.print(text);
-    
-    if (showLink) {
-      out.print("</a>");
-    } else {
-      out.print("</span>");
-    }
-  }
+  }  
   
   private Map<String, List<String>> parseParameters(String query)
   throws UnsupportedEncodingException {
@@ -724,12 +393,6 @@ public class CalendarTag extends BodyTagSupport {
        }
     }
     return data;
-  }
-  
-  private void renderCaption(JspWriter out, Calendar cal) throws IOException {
-    SimpleDateFormat sdfTitle = new SimpleDateFormat(captionFormat, locale);
-    sdfTitle.setDateFormatSymbols(dateFormatSymbols);
-    out.print(encodePCData(sdfTitle.format(cal.getTime())));
   }
   
   private void renderHead(JspWriter out) throws IOException {
@@ -865,25 +528,6 @@ public class CalendarTag extends BodyTagSupport {
   private DateFormatSymbols getDateFormatSymbols() {
     DateFormatSymbols dfs = new DateFormatSymbols(locale);
 
-    // capitalize months
-    if (capitalizeMonths) {
-      String[] months = dfs.getMonths();
-      for (int i = 0; i < months.length; i++) {
-        if (months[i].length() > 0) {
-          months[i] = months[i].substring(0,1).toUpperCase(locale) + months[i].substring(1);
-        }
-      }
-      dfs.setMonths(months);
-      
-      String[] shortMonths = dfs.getShortMonths();
-      for (int i = 0; i < shortMonths.length; i++) {
-        if (shortMonths[i].length() > 0) {
-          shortMonths[i] = shortMonths[i].substring(0,1).toUpperCase(locale) + shortMonths[i].substring(1);
-        }
-      }
-      dfs.setShortMonths(shortMonths);
-    }
-    
     // capitalize days
     if (capitalizeDays) {
       String[] weekdays = dfs.getWeekdays();
