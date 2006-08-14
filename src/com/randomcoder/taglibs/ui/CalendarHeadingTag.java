@@ -349,9 +349,9 @@ public class CalendarHeadingTag extends TagSupport {
       nextCal.setTime(current.getTime());
       nextCal.add(Calendar.MONTH, 1);    
       
-      renderPrevLink(out, prevCal.get(Calendar.MONTH) + 1, prevCal.get(Calendar.YEAR));
+      renderPrevLink(out, prevCal.get(Calendar.YEAR), prevCal.get(Calendar.MONTH) + 1);
       renderCaption(out, current);
-      renderNextLink(out, nextCal.get(Calendar.MONTH) + 1, nextCal.get(Calendar.YEAR));
+      renderNextLink(out, nextCal.get(Calendar.YEAR), nextCal.get(Calendar.MONTH) + 1);
       
       return EVAL_PAGE;
       
