@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib
+	version="2.0"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd"> 
+<!-- 
+Copyright (c) 2006, Craig Condit. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+  * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+  * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+-->
+	<tlib-version>1.0</tlib-version>
+	<short-name>url</short-name>
+	<uri>http://randomcoder.com/tags-url</uri>
+	<display-name>URL</display-name>
+	<description>
+		URL-manipulation tag library.
+	</description>		
+
+	<tag id="addParam-tag">
+		<name>addParam</name>
+		<tag-class>com.randomcoder.taglibs.url.AddParamTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>modify</display-name>
+		<description>
+			Cooperates with url:modify to add a parameter.
+		</description>
+		
+		<attribute id="addParam-name">
+			<name>name</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>true</required>
+			<type>java.lang.String</type>
+			<description>
+				Name of the parameter to add.
+			</description>
+		</attribute> 	
+		
+		<attribute id="addParam-value">
+			<name>value</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Value of the parameter to add.
+			</description>
+		</attribute>		
+	</tag>
+	
+	<tag id="clearParams-tag">
+		<name>clearParams</name>
+		<tag-class>com.randomcoder.taglibs.url.ClearParamsTag</tag-class>
+		<body-content>EMPTY</body-content>
+		<display-name>clearParams</display-name>
+		<description>
+			Cooperates with url:modify to remove all parameters.
+		</description>
+	</tag>
+	
+	<tag id='current-tag'>
+		<name>current</name>
+		<tag-class>com.randomcoder.taglibs.url.CurrentTag</tag-class>
+		<body-content>EMPTY</body-content>
+		<display-name>current</display-name>
+		<description>
+			Renders the current page's URL, optionally to a variable.
+		</description>
+		
+		<attribute id='current-var'>
+			<name>var</name>
+			<rtexprvalue>false</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Name of the exported scoped variable for the processed url. The type of the scoped variable is String.
+			</description>
+		</attribute> 	
+		
+		<attribute id='current-scope'>
+			<name>scope</name>
+			<rtexprvalue>false</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Scope for var.
+			</description>
+		</attribute>		
+	</tag>
+
+	<tag id='modify-tag'>
+		<name>modify</name>
+		<tag-class>com.randomcoder.taglibs.url.ModifyTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>modify</display-name>
+		<description>
+			Modifies a passed-in URL, optionally adding / removing parameters.
+		</description>
+		
+		<attribute id='modify-var'>
+			<name>var</name>
+			<rtexprvalue>false</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Name of the exported scoped variable for the processed url. The type of the scoped variable is String.
+			</description>
+		</attribute> 	
+		
+		<attribute id='modify-scope'>
+			<name>scope</name>
+			<rtexprvalue>false</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Scope for var.
+			</description>
+		</attribute>		
+		
+		<attribute id='modify-value'>
+			<name>value</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				URL to modify (defaults to current page).
+			</description>
+		</attribute>		
+	</tag>
+	
+	<tag id="removeParam-tag">
+		<name>removeParam</name>
+		<tag-class>com.randomcoder.taglibs.url.RemoveParamTag</tag-class>
+		<body-content>EMPTY</body-content>
+		<display-name>removeParam</display-name>
+		<description>
+			Cooperates with url:modify to remove a parameter.
+		</description>
+		
+		<attribute id="removeParam-name">
+			<name>name</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>true</required>
+			<type>java.lang.String</type>
+			<description>
+				Name of the parameter to remove.
+			</description>
+		</attribute> 	
+	</tag>
+
+	<tag id='setParam-tag'>
+		<name>setParam</name>
+		<tag-class>com.randomcoder.taglibs.url.SetParamTag</tag-class>
+		<body-content>JSP</body-content>
+		<display-name>setParam</display-name>
+		<description>
+			Cooperates with url:modify to set a parameter (equivalent to removing,
+			then adding).
+		</description>
+		
+		<attribute id='setParam-name'>
+			<name>name</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>true</required>
+			<type>java.lang.String</type>
+			<description>
+				Name of the parameter to set.
+			</description>
+		</attribute> 	
+		
+		<attribute id='addParam-value'>
+			<name>value</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Value of the parameter to set.
+			</description>
+		</attribute>		
+	</tag>
+	
+</taglib>

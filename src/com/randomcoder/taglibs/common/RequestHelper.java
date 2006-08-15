@@ -151,6 +151,50 @@ public class RequestHelper {
   }
   
   /**
+   * Generates a {@code URL} by appending parameters onto a base {@code URL}.
+   *  
+   * @param request HTTP request
+   * @param url base url
+   * @param params parameters to set
+   * @return URL with merged parameters
+   * @throws UnsupportedEncodingException if request encoding is unknown
+   * @throws MalformedURLException if base url is not valid
+   */
+  public static URL setParameters(HttpServletRequest request, URL url, Map<String, List<String>> params)
+  throws UnsupportedEncodingException, MalformedURLException {
+    
+    // get the request encoding
+    String encoding = request.getCharacterEncoding();
+    
+    // not found, fallback to UTF-8
+    if (encoding == null) encoding = "UTF-8";
+    
+    String path = url.getPath();
+
+    // convert to query string
+    StringBuilder queryBuf = new StringBuilder();
+    for (Entry<String, List<String>> entry : params.entrySet()) {
+      String key = entry.getKey();
+      for (String value : entry.getValue()) {
+        if (queryBuf.length() > 0) {
+          queryBuf.append("&");
+        }
+        queryBuf.append(URLEncoder.encode(key, encoding));
+        queryBuf.append("=");
+        queryBuf.append(URLEncoder.encode(value, encoding));
+      }
+    }
+    
+    String queryString = queryBuf.toString();
+    
+    if (queryString.length() > 0) path += "?" + queryString;
+    
+    URL result = new URL(url.getProtocol(), url.getHost(), url.getPort(), path);
+    
+    return result;
+  }
+  
+  /**
    * Gets the URL representing the current request.
    * @param request HTTP request
    * @return URL representing the current page

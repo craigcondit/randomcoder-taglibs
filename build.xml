@@ -145,6 +145,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<arg value="src/META-INF/tlds/randomcoder-input.tld" />
 			<arg value="src/META-INF/tlds/randomcoder-security.tld" />
 			<arg value="src/META-INF/tlds/randomcoder-ui.tld" />
+			<arg value="src/META-INF/tlds/randomcoder-url.tld" />
 		</java>
 	</target>
 	
