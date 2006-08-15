@@ -100,8 +100,6 @@ public class ModifyTag extends TagSupport {
       
       URL currentPage = RequestHelper.getCurrentUrl(request);
       
-      System.out.println("Current page: " + currentPage);
-      
       if (value == null) {
         // no link specified, use current URL
         targetURL = currentPage;
