@@ -1,16 +1,17 @@
 package com.randomcoder.taglibs.ui;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.*;
 import java.text.*;
 import java.util.*;
-import java.util.Map.Entry;
 
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.jstl.core.Config;
 import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.servlet.jsp.tagext.TagSupport;
+
+import com.randomcoder.taglibs.common.*;
 
 /**
  * Tag class which implements a calendar heading.
@@ -46,9 +47,6 @@ public class CalendarHeadingTag extends TagSupport {
   private static final String DEFAULT_CAPTION_FORMAT = "MMM yyyy";
   private static final String DEFAULT_PREV_CONTENT = "&#171;";
   private static final String DEFAULT_NEXT_CONTENT = "&#187;";
-  
-  private static final String REQUEST_URI_ATTRIBUTE = "javax.servlet.forward.request_uri";
-  private static final String QUERY_STRING_ATTRIBUTE = "javax.servlet.forward.query_string";
   
   private PageContext pageContext;
   
@@ -400,7 +398,7 @@ public class CalendarHeadingTag extends TagSupport {
       String output = null;
       boolean relative = false;
       
-      URL currentPage = getCurrentUrl(request);
+      URL currentPage = RequestHelper.getCurrentUrl(request);
       
       if (link == null) {
         // no link specified, use current URL
@@ -408,7 +406,7 @@ public class CalendarHeadingTag extends TagSupport {
         relative = true;
       } else if (encodeLink) {
         targetURL = new URL(currentPage, link);
-        relative = isURLRelative(targetURL, currentPage);
+        relative = UrlHelper.isUrlRelative(targetURL, currentPage);
       }
       
       if (encodeLink) {
@@ -417,7 +415,7 @@ public class CalendarHeadingTag extends TagSupport {
         Map<String, String> params = new HashMap<String, String>();
         params.put(monthParam, df.format(month));
         params.put(yearParam, df.format(year));
-        URL generated = appendParameters(targetURL, params);
+        URL generated = RequestHelper.appendParameters(request, targetURL, params);
         
         if (relative) {
           output = response.encodeURL(generated.getFile());
@@ -431,21 +429,21 @@ public class CalendarHeadingTag extends TagSupport {
       
       // write it out
       out.print("<a href=\"");
-      out.print(encodeAttribute(output));
+      out.print(HtmlHelper.encodeAttribute(output));
       out.print("\"");
       if (navId != null) {
         out.print(" id=\"");
-        out.print(encodeAttribute(navId));
+        out.print(HtmlHelper.encodeAttribute(navId));
         out.print("\"");
       }
       if (navClass != null) {
         out.print(" class=\"");
-        out.print(encodeAttribute(navClass));
+        out.print(HtmlHelper.encodeAttribute(navClass));
         out.print("\"");
       }
       if (title != null) {
         out.print(" title=\"");
-        out.print(encodeAttribute(title));
+        out.print(HtmlHelper.encodeAttribute(title));
         out.print("\"");
       }
       out.print(">");
@@ -454,12 +452,12 @@ public class CalendarHeadingTag extends TagSupport {
       out.print("<span");
       if (navId != null) {
         out.print(" id=\"");
-        out.print(encodeAttribute(navId));
+        out.print(HtmlHelper.encodeAttribute(navId));
         out.print("\"");
       }
       if (navClass != null) {
         out.print(" class=\"");
-        out.print(encodeAttribute(navClass));
+        out.print(HtmlHelper.encodeAttribute(navClass));
         out.print("\"");
       }      
       out.print(">");
@@ -474,159 +472,10 @@ public class CalendarHeadingTag extends TagSupport {
     }
   }
   
-  private Map<String, List<String>> parseParameters(String query)
-  throws UnsupportedEncodingException {
-    
-    // get the request encoding
-    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-    String encoding = request.getCharacterEncoding();
-    
-    // not found, fallback to UTF-8
-    if (encoding == null) encoding = "UTF-8";
-    
-    Map<String, List<String>> data = new HashMap<String, List<String>>();
-    
-    // query not specified
-    if (query == null) return data;
-    
-    StringTokenizer st = new StringTokenizer(query, "?&=", true);
-    
-    String prev = null;
-    while (st.hasMoreTokens())
-    {
-       String tk = st.nextToken();
-       if ("?".equals(tk)) continue;
-       if ("&".equals(tk)) continue;
-       if ("=".equals(tk)) {
-         if (prev == null) continue; // no previous entry...
-         if (!st.hasMoreTokens()) continue; // no more data
-         
-         String key = URLDecoder.decode(prev, encoding);
-         String value = URLDecoder.decode(st.nextToken(), encoding);
-         
-         List<String> params = data.get(key);
-         if (params == null) {
-           params = new ArrayList<String>();
-           data.put(key, params);
-         }
-         params.add(value);
-         
-         prev = null;
-       } else {
-         // this is a key
-         prev = tk;
-       }
-    }
-    return data;
-  }
-  
   private void renderCaption(JspWriter out, Calendar cal) throws IOException {
     SimpleDateFormat sdfTitle = new SimpleDateFormat(captionFormat, locale);
     sdfTitle.setDateFormatSymbols(dateFormatSymbols);
-    out.print(encodePCData(sdfTitle.format(cal.getTime())));
-  }
-  
-  private URL appendParameters(URL url, Map<String, String> additionalParams)
-  throws UnsupportedEncodingException, MalformedURLException {
-    
-    // get the request encoding
-    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-    String encoding = request.getCharacterEncoding();
-    
-    // not found, fallback to UTF-8
-    if (encoding == null) encoding = "UTF-8";
-    
-    String queryString = url.getQuery();
-    String path = url.getPath();
-
-    Map<String, List<String>> params = parseParameters(queryString);
-
-    // merge new parameters 
-    for (Entry<String, String> entry : additionalParams.entrySet()) {
-      List<String> values = new ArrayList<String>(1);
-      values.add(entry.getValue());
-      params.put(entry.getKey(), values);
-    }
-      
-    // convert to query string
-    StringBuilder queryBuf = new StringBuilder();
-    for (Entry<String, List<String>> entry : params.entrySet()) {
-      String key = entry.getKey();
-      for (String value : entry.getValue()) {
-        if (queryBuf.length() > 0) {
-          queryBuf.append("&");
-        }
-        queryBuf.append(URLEncoder.encode(key, encoding));
-        queryBuf.append("=");
-        queryBuf.append(URLEncoder.encode(value, encoding));
-      }
-    }
-    
-    queryString = queryBuf.toString();
-    
-    if (queryString.length() > 0) path += "?" + queryString;
-    
-    URL result = new URL(url.getProtocol(), url.getHost(), url.getPort(), path);
-    
-    return result;
-  }
-  
-  private URL getCurrentUrl(HttpServletRequest request)
-  throws MalformedURLException {
-    StringBuilder buf = new StringBuilder();
-    
-    String scheme = request.getScheme();
-    int port = request.getServerPort();
-    
-    buf.append(scheme);
-    buf.append("://");
-    buf.append(request.getServerName());
-    
-    if ("http".equals(scheme) && port == 80) {
-      // do nothing
-    } else if ("https".equals(scheme) && port == 443) {
-      // do nothing
-    } else if (port < 0) {
-      // do nothing
-    } else {
-      buf.append(":");
-      DecimalFormat dfPort = new DecimalFormat("#####");
-      buf.append(dfPort.format(port));
-    }
-    
-    String forwardUri = (String) request.getAttribute(REQUEST_URI_ATTRIBUTE);
-    if (forwardUri == null) {
-      // use old style method
-      String contextPath = request.getContextPath();
-      if (contextPath != null)
-        buf.append(contextPath);
-      
-      String servletPath = request.getServletPath();
-      if (servletPath != null)
-        buf.append(servletPath);
-      
-      String pathInfo = request.getPathInfo();
-      if (pathInfo != null)
-        buf.append(pathInfo);
-      
-      String queryString = request.getQueryString();
-      if (queryString != null && queryString.length() > 0) {
-        if (!('?' == queryString.charAt(0))) buf.append("?");
-        buf.append(queryString);
-      }      
-    } else {
-      // use forwarded attributes
-      buf.append(forwardUri);
-      
-      String queryString = (String) request.getAttribute(QUERY_STRING_ATTRIBUTE);
-      if (queryString != null && queryString.length() > 0) {
-        if (!('?' == queryString.charAt(0))) buf.append("?");
-        buf.append(queryString);
-      }      
-    }
-    
-    String name = buf.toString();
-    return new URL(name);
+    out.print(HtmlHelper.encodePCData(sdfTitle.format(cal.getTime())));
   }
   
   private DateFormatSymbols getDateFormatSymbols() {
@@ -652,79 +501,5 @@ public class CalendarHeadingTag extends TagSupport {
     }
     
     return dfs;
-  }
-  
-  private boolean isURLRelative(URL url1, URL url2) {
-    if (url1 == null || url2 == null) return false;
-        
-    String protocol1 = url1.getProtocol();
-    String protocol2 = url2.getProtocol();
-    if (!protocol1.equals(protocol2)) return false;
-    
-    int port1 = url1.getPort();
-    int port2 = url2.getPort();
-    
-    if ("http".equals(protocol1)) {
-      if (port1 < 0) port1 = 80;
-      if (port2 < 0) port2 = 80;
-    }
-
-    if ("https".equals(protocol1)) {
-      if (port1 < 0) port1 = 443;
-      if (port2 < 0) port2 = 443;
-    }
-    
-    if (port1 != port2) return false;
-    
-    String host1 = url1.getHost();
-    String host2 = url2.getHost();
-    if (!host1.equals(host2)) return false;
-    
-    return true;
-  }
-  
-  /**
-   * Encodes PCDATA attributes.
-   * @param pcData PCDATA value
-   * @return encoded PCDATA value
-   */
-  private String encodePCData(String pcData) {
-    if (pcData == null) return "";
-
-    StringBuilder buf = new StringBuilder();
-
-    for (int i = 0; i < pcData.length(); i++) {
-      char c = pcData.charAt(i);
-      switch (c) {
-      case '>': buf.append("&gt;"); break;
-      case '<': buf.append("&lt;"); break;
-      case '&': buf.append("&amp;"); break;
-      default: buf.append(c);
-      }
-    }       
-    return buf.toString();
-  }
-  
-  /**
-   * Encodes attribute values.
-   * @param attributeValue value of attribute to encode
-   * @return encoded value
-   */
-  private String encodeAttribute(String attributeValue) {
-    if (attributeValue == null) return "";
-
-    StringBuilder buf = new StringBuilder();
-
-    for (int i = 0; i < attributeValue.length(); i++) {
-      char c = attributeValue.charAt(i);
-      switch (c) {
-      case '"': buf.append("&quot;"); break;
-      case '>': buf.append("&gt;"); break;
-      case '<': buf.append("&lt;"); break;
-      case '&': buf.append("&amp;"); break;
-      default: buf.append(c);
-      }
-    }     
-    return buf.toString();
   }
 }

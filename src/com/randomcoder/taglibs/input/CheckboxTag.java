@@ -8,6 +8,8 @@ import java.util.Locale;
 
 import javax.servlet.jsp.*;
 
+import com.randomcoder.taglibs.common.HtmlHelper;
+
 /**
  * Tag class which produces &lt;input type="checkbox"&gt;.
  * 
@@ -87,9 +89,9 @@ public class CheckboxTag extends InputTagBase {
       boolean isChecked = isChecked();
 
       out.write("<input type=\"" + getType() + "\"");
-      out.write(" name=\"" + encodeAttribute(getName()) + "\"");
-      if (getStyleId() != null) out.write(" id=\"" + encodeAttribute(getStyleId()) + "\"");
-      if (getValue() != null) out.write(" value=\"" + encodeAttribute(getValue()) + "\"");
+      out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
+      if (getStyleId() != null) out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
+      if (getValue() != null) out.write(" value=\"" + HtmlHelper.encodeAttribute(getValue()) + "\"");
       if (isChecked) out.write(" checked=\"checked\"");
       out.write(buildOptions());
       out.write(" />");

@@ -35,186 +35,6 @@ POSSIBILITY OF SUCH DAMAGE.
 	<description>
 		JSP 2.0 implementation of common UI components.
 	</description>		
-	<tag id='calendar-heading-tag'>
-		<name>calendar-heading</name>
-		<tag-class>com.randomcoder.taglibs.ui.CalendarHeadingTag</tag-class>
-		<body-content>EMPTY</body-content>
-		<display-name>calendar-heading</display-name>
-		<description>
-			Renders an XHTML Calendar heading.
-		</description>		
-		<attribute id='calendar-heading-capitalizeMonths'>
-			<name>capitalizeMonths</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.Boolean</type>
-			<description>
-				If true, month captions will be capitalized.
-			</description>
-		</attribute>
-		<attribute id='calendar-heading-captionFormat'>
-			<name>captionFormat</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the DateFormat to show above the calendar.
-			</description>
-		</attribute> 	
-		<attribute id='calendar-heading-encodeNextLink'>
-			<name>encodeNextLink</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.Boolean</type>
-			<description>
-				Sets whether to encode month and year into next URL (defaults to true).
-			</description>
-		</attribute>
-		<attribute id='calendar-heading-encodePrevLink'>
-			<name>encodePrevLink</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.Boolean</type>
-			<description>
-				Sets whether to encode month and year into previous URL (defaults to true).
-			</description>
-		</attribute>
-		<attribute id='calendar-heading-monthParam'>
-			<name>monthParam</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the name of the parameter to encode month into prev/next nav links.
-			</description>
-		</attribute>
-		<attribute id='calendar-heading-nextClass'>
-			<name>nextClass</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS class name to apply to the next month link.
-			</description>
-		</attribute> 	
-		<attribute id='calendar-heading-nextContent'>
-			<name>nextContent</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the content to display for the next month link.
-			</description>
-		</attribute> 	
-		<attribute id='calendar-heading-nextId'>
-			<name>nextId</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS id to apply to the next month link.
-			</description>
-		</attribute> 	
-		<attribute id='calendar-heading-nextLink'>
-			<name>nextLink</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the URL to use for the next month link.
-			</description>
-		</attribute>
-		<attribute id='calendar-heading-nextTitle'>
-			<name>nextTitle</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the title to add to the next month link.
-			</description>
-		</attribute>
-		<attribute id='calendar-heading-prevClass'>
-			<name>prevClass</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS class name to apply to the previous month link.
-			</description>
-		</attribute> 	
-		<attribute id='calendar-heading-prevContent'>
-			<name>prevContent</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the content to display for the previous month link.
-			</description>
-		</attribute> 	
-		<attribute id='calendar-heading-prevId'>
-			<name>prevId</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the CSS id to apply to the previous month link.
-			</description>
-		</attribute> 	
-		<attribute id='calendar-heading-prevLink'>
-			<name>prevLink</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the URL to use for the previous month link.
-			</description>
-		</attribute>
-		<attribute id='calendar-heading-prevTitle'>
-			<name>prevTitle</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the title to add to the previous month link.
-			</description>
-		</attribute>
-		<attribute id='calendar-heading-showDate'>
-			<name>showDate</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.util.Date</type>
-			<description>
-				Date to display calendar for (defaults to today).
-			</description>
-		</attribute> 	
-		<attribute id='calendar-heading-showNextLink'>
-			<name>showNextLink</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.Boolean</type>
-			<description>
-				Sets whether to show next link (defaults to true).
-			</description>
-		</attribute>
-		<attribute id='calendar-heading-showPrevLink'>
-			<name>showPrevLink</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.Boolean</type>
-			<description>
-				Sets whether to show previous link (defaults to true).
-			</description>
-		</attribute>
-		<attribute id='calendar-heading-yearParam'>
-			<name>yearParam</name>
-			<rtexprvalue>true</rtexprvalue>
-			<required>false</required>
-			<type>java.lang.String</type>
-			<description>
-				Sets the name of the parameter to encode year into prev/next nav links.
-			</description>
-		</attribute>		
-	</tag>
 
 	<tag id='calendar-tag'>
 		<name>calendar</name>
@@ -306,7 +126,8 @@ POSSIBILITY OF SUCH DAMAGE.
 				Sets the CSS class name to apply to the weekend date cells.
 			</description>
 		</attribute> 	
-	</tag>	
+	</tag>
+	
 	<tag id='calendar-day-tag'>
 		<name>calendar-day</name>
 		<tag-class>com.randomcoder.taglibs.ui.CalendarDayTag</tag-class>
@@ -403,6 +224,278 @@ POSSIBILITY OF SUCH DAMAGE.
 			<type>java.lang.String</type>
 			<description>
 				Sets the name of the parameter to encode year into.
+			</description>
+		</attribute>
+	</tag>
+	
+	<tag id="calendar-heading-tag">
+		<name>calendar-heading</name>
+		<tag-class>com.randomcoder.taglibs.ui.CalendarHeadingTag</tag-class>
+		<body-content>EMPTY</body-content>
+		<display-name>calendar-heading</display-name>
+		<description>
+			Renders an XHTML Calendar heading.
+		</description>		
+		<attribute id="calendar-heading-capitalizeMonths">
+			<name>capitalizeMonths</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				If true, month captions will be capitalized.
+			</description>
+		</attribute>
+		<attribute id="calendar-heading-captionFormat">
+			<name>captionFormat</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the DateFormat to show above the calendar.
+			</description>
+		</attribute> 	
+		<attribute id="calendar-heading-encodeNextLink">
+			<name>encodeNextLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to encode month and year into next URL (defaults to true).
+			</description>
+		</attribute>
+		<attribute id="calendar-heading-encodePrevLink">
+			<name>encodePrevLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to encode month and year into previous URL (defaults to true).
+			</description>
+		</attribute>
+		<attribute id="calendar-heading-monthParam">
+			<name>monthParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the name of the parameter to encode month into prev/next nav links.
+			</description>
+		</attribute>
+		<attribute id="calendar-heading-nextClass">
+			<name>nextClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to the next month link.
+			</description>
+		</attribute> 	
+		<attribute id="calendar-heading-nextContent">
+			<name>nextContent</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the content to display for the next month link.
+			</description>
+		</attribute> 	
+		<attribute id="calendar-heading-nextId">
+			<name>nextId</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS id to apply to the next month link.
+			</description>
+		</attribute> 	
+		<attribute id="calendar-heading-nextLink">
+			<name>nextLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the URL to use for the next month link.
+			</description>
+		</attribute>
+		<attribute id="calendar-heading-nextTitle">
+			<name>nextTitle</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the title to add to the next month link.
+			</description>
+		</attribute>
+		<attribute id="calendar-heading-prevClass">
+			<name>prevClass</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS class name to apply to the previous month link.
+			</description>
+		</attribute> 	
+		<attribute id="calendar-heading-prevContent">
+			<name>prevContent</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the content to display for the previous month link.
+			</description>
+		</attribute> 	
+		<attribute id="calendar-heading-prevId">
+			<name>prevId</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the CSS id to apply to the previous month link.
+			</description>
+		</attribute> 	
+		<attribute id="calendar-heading-prevLink">
+			<name>prevLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the URL to use for the previous month link.
+			</description>
+		</attribute>
+		<attribute id="calendar-heading-prevTitle">
+			<name>prevTitle</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the title to add to the previous month link.
+			</description>
+		</attribute>
+		<attribute id="calendar-heading-showDate">
+			<name>showDate</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.util.Date</type>
+			<description>
+				Date to display calendar for (defaults to today).
+			</description>
+		</attribute> 	
+		<attribute id="calendar-heading-showNextLink">
+			<name>showNextLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to show next link (defaults to true).
+			</description>
+		</attribute>
+		<attribute id="calendar-heading-showPrevLink">
+			<name>showPrevLink</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+			<description>
+				Sets whether to show previous link (defaults to true).
+			</description>
+		</attribute>
+		<attribute id="calendar-heading-yearParam">
+			<name>yearParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Sets the name of the parameter to encode year into prev/next nav links.
+			</description>
+		</attribute>		
+	</tag>
+	
+	<tag id="pager-tag">
+		<name>pager</name>
+		<tag-class>com.randomcoder.taglibs.ui.PagerTag</tag-class>
+		<body-content>EMPTY</body-content>
+		<display-name>pager</display-name>
+		<description>
+			Renders an XHTML Pager control.
+		</description>		
+		<attribute id="pager-count">
+			<name>count</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>true</required>
+			<type>java.lang.Integer</type>
+			<description>
+				Total number of items.
+			</description>
+		</attribute>
+		<attribute id="pager-limit">
+			<name>limit</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>true</required>
+			<type>java.lang.Integer</type>
+			<description>
+				Number of items per page.
+			</description>
+		</attribute>
+		<attribute id="pager-limitParam">
+			<name>limitParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Parameter name to use for limit (defaults to 'limit').
+			</description>
+		</attribute>
+		<attribute id="pager-link">
+			<name>link</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				URL to use when generating pager links (defaults to current page).
+			</description>
+		</attribute>
+		<attribute id="pager-maxLinks">
+			<name>maxLinks</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.Integer</type>
+			<description>
+				Number of links (in either direction) to display. Defaults to 10.
+			</description>
+		</attribute>
+		<attribute id="pager-nextContent">
+			<name>nextContent</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				HTML content to use for the next link (defaults to a right angle quote).
+			</description>
+		</attribute>
+		<attribute id="pager-prevContent">
+			<name>prevContent</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				HTML content to use for the previous link (defaults to a left angle quote).
+			</description>
+		</attribute>
+		<attribute id="pager-start">
+			<name>start</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>true</required>
+			<type>java.lang.Integer</type>
+			<description>
+				Starting element number
+			</description>
+		</attribute>
+		<attribute id="pager-startParam">
+			<name>startParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Parameter name to use for start (defaults to 'start').
 			</description>
 		</attribute>
 	</tag>	

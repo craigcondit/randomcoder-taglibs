@@ -9,6 +9,8 @@ import java.util.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import com.randomcoder.taglibs.common.HtmlHelper;
+
 /**
  * Base class of all tags which produce &lt;input&gt; tags.
  * 
@@ -166,9 +168,9 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
       JspWriter out = pageContext.getOut();
 
       out.write("<input type=\"" + getType() + "\"");
-      if (name != null) out.write(" name=\"" + encodeAttribute(name) + "\"");
-      if (styleId != null) out.write(" id=\"" + encodeAttribute(styleId) + "\"");
-      if (value != null) out.write(" value=\"" + encodeAttribute(value) + "\"");
+      if (name != null) out.write(" name=\"" + HtmlHelper.encodeAttribute(name) + "\"");
+      if (styleId != null) out.write(" id=\"" + HtmlHelper.encodeAttribute(styleId) + "\"");
+      if (value != null) out.write(" value=\"" + HtmlHelper.encodeAttribute(value) + "\"");
       out.write(buildOptions());
       out.write(" />");
     } catch (IOException ioe) { throw new JspException(ioe); }
@@ -189,7 +191,7 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
         buf.append(" ");
         buf.append(key);
         buf.append("=\"");
-        buf.append(encodeAttribute(val));
+        buf.append(HtmlHelper.encodeAttribute(val));
         buf.append("\"");
       }
     }
@@ -197,51 +199,6 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
     return buf.toString();
   }
 	
-  /**
-   * Encodes PCDATA attributes.
-   * @param pcData PCDATA value
-   * @return encoded PCDATA value
-   */
-  protected String encodePCData(String pcData) {
-    if (pcData == null) return "";
-
-    StringBuilder buf = new StringBuilder();
-
-    for (int i = 0; i < pcData.length(); i++) {
-      char c = pcData.charAt(i);
-      switch (c) {
-      case '>': buf.append("&gt;"); break;
-      case '<': buf.append("&lt;"); break;
-      case '&': buf.append("&amp;"); break;
-      default: buf.append(c);
-      }
-    }		
-    return buf.toString();
-  }
-
-  /**
-   * Encodes attribute values.
-   * @param attributeValue value of attribute to encode
-   * @return encoded value
-   */
-  protected String encodeAttribute(String attributeValue) {
-    if (attributeValue == null) return "";
-
-    StringBuilder buf = new StringBuilder();
-
-    for (int i = 0; i < attributeValue.length(); i++) {
-      char c = attributeValue.charAt(i);
-      switch (c) {
-      case '"': buf.append("&quot;"); break;
-      case '>': buf.append("&gt;"); break;
-      case '<': buf.append("&lt;"); break;
-      case '&': buf.append("&amp;"); break;
-      default: buf.append(c);
-      }
-    }		
-    return buf.toString();
-  }
-
   /**
    * Gets the value of the 'type' attribute used in final tag.
    * @return type attribute value

@@ -5,7 +5,10 @@ package com.randomcoder.taglibs.input;
 
 import java.io.IOException;
 import java.util.Collection;
+
 import javax.servlet.jsp.*;
+
+import com.randomcoder.taglibs.common.HtmlHelper;
 
 /**
  * Tag class which produces &lt;option&gt;.
@@ -165,13 +168,13 @@ public class OptionTag extends InputTagBase {
       boolean selected = values.contains(testValue);
 
       out.write("<option");
-      if (getStyleId() != null) out.write(" id=\"" + encodeAttribute(getStyleId()) + "\"");
-      if (getValue() != null) out.write(" value=\"" + encodeAttribute(getValue()) + "\"");
-      if (label != null) out.write(" label=\"" + encodeAttribute(label) + "\"");
+      if (getStyleId() != null) out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
+      if (getValue() != null) out.write(" value=\"" + HtmlHelper.encodeAttribute(getValue()) + "\"");
+      if (label != null) out.write(" label=\"" + HtmlHelper.encodeAttribute(label) + "\"");
       if (selected) out.write(" selected=\"selected\"");			
       out.write(buildOptions());
       out.write(">");
-      out.write(encodePCData(text));
+      out.write(HtmlHelper.encodePCData(text));
       out.write("</option>");
     } catch (IOException ioe) { throw new JspException(ioe); }
 

@@ -5,11 +5,11 @@ package com.randomcoder.taglibs.input;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.*;
+
+import com.randomcoder.taglibs.common.HtmlHelper;
 
 /**
  * Tag class which produces &lt;input type="select"&gt;.
@@ -111,8 +111,8 @@ public class SelectTag extends InputTagBase {
       JspWriter out = pageContext.getOut();
 
       out.write("<select");
-      out.write(" name=\"" + encodeAttribute(getName()) + "\"");
-      if (getStyleId() != null) out.write(" id=\"" + encodeAttribute(getStyleId()) + "\"");
+      out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
+      if (getStyleId() != null) out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
       out.write(buildOptions());
       out.write(">");
     } catch (IOException ioe) { throw new JspException(ioe); }

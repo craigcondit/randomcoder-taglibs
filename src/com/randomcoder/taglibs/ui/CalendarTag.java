@@ -1,16 +1,17 @@
 package com.randomcoder.taglibs.ui;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.*;
 import java.text.*;
 import java.util.*;
-import java.util.Map.Entry;
 
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.jstl.core.Config;
 import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
+import com.randomcoder.taglibs.common.*;
 
 /**
  * Tag class which implements a calendar control.
@@ -42,9 +43,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class CalendarTag extends BodyTagSupport {
   private static final long serialVersionUID = 6415946260066806405L;
-  
-  private static final String REQUEST_URI_ATTRIBUTE = "javax.servlet.forward.request_uri";
-  private static final String QUERY_STRING_ATTRIBUTE = "javax.servlet.forward.query_string";
   
   private final DecimalFormat dfDay = new DecimalFormat("##");
   
@@ -244,12 +242,12 @@ public class CalendarTag extends BodyTagSupport {
       out.print("<table");
       if (tableId != null) {
         out.print(" id=\"");
-        out.print(encodeAttribute(tableId));
+        out.print(HtmlHelper.encodeAttribute(tableId));
         out.print("\"");
       }
       if (tableClass != null) {
         out.print(" class=\"");
-        out.print(encodeAttribute(tableClass));
+        out.print(HtmlHelper.encodeAttribute(tableClass));
         out.print("\"");
       }
       out.print(">");
@@ -347,187 +345,11 @@ public class CalendarTag extends BodyTagSupport {
     TimeZone result = (TimeZone) Config.find(pageContext, Config.FMT_TIME_ZONE);
     if (result == null) result = TimeZone.getDefault();
     return result;
-  }  
-  
-  private Map<String, List<String>> parseParameters(String query)
-  throws UnsupportedEncodingException {
-    
-    // get the request encoding
-    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-    String encoding = request.getCharacterEncoding();
-    
-    // not found, fallback to UTF-8
-    if (encoding == null) encoding = "UTF-8";
-    
-    Map<String, List<String>> data = new HashMap<String, List<String>>();
-    
-    // query not specified
-    if (query == null) return data;
-    
-    StringTokenizer st = new StringTokenizer(query, "?&=", true);
-    
-    String prev = null;
-    while (st.hasMoreTokens())
-    {
-       String tk = st.nextToken();
-       if ("?".equals(tk)) continue;
-       if ("&".equals(tk)) continue;
-       if ("=".equals(tk)) {
-         if (prev == null) continue; // no previous entry...
-         if (!st.hasMoreTokens()) continue; // no more data
-         
-         String key = URLDecoder.decode(prev, encoding);
-         String value = URLDecoder.decode(st.nextToken(), encoding);
-         
-         List<String> params = data.get(key);
-         if (params == null) {
-           params = new ArrayList<String>();
-           data.put(key, params);
-         }
-         params.add(value);
-         
-         prev = null;
-       } else {
-         // this is a key
-         prev = tk;
-       }
-    }
-    return data;
   }
-  
-  private void renderHead(JspWriter out) throws IOException {
-    out.print("<tr>");
-    
-    Calendar cal = Calendar.getInstance(timeZone, locale);
-    cal.setTime(new Date());
-    while (cal.getFirstDayOfWeek() != cal.get(Calendar.DAY_OF_WEEK)) {
-      cal.add(Calendar.DAY_OF_MONTH, 1);
-    }
-          
-    String[] weekdays = dateFormatSymbols.getWeekdays();
-    String[] shortdays = dateFormatSymbols.getShortWeekdays();
-    
-    int[] indices = new int[7];
-    for (int i = 0; i < 7; i++) {
-      indices[i] = cal.get(Calendar.DAY_OF_WEEK);
-      cal.add(Calendar.DAY_OF_MONTH, 1);
-    }
-        
-    for (int j = 0; j < 7; j++) {
-      String heading = weekdays[indices[j]];
-      String shortHeading = shortdays[indices[j]];
-      renderDayHeading(out, shortHeading, heading, indices[j]);
-    }
-    
-    out.print("</tr>");
-  }
-  
-  private URL appendParameters(URL url, Map<String, String> additionalParams)
-  throws UnsupportedEncodingException, MalformedURLException {
-    
-    // get the request encoding
-    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-    String encoding = request.getCharacterEncoding();
-    
-    // not found, fallback to UTF-8
-    if (encoding == null) encoding = "UTF-8";
-    
-    String queryString = url.getQuery();
-    String path = url.getPath();
 
-    Map<String, List<String>> params = parseParameters(queryString);
-
-    // merge new parameters 
-    for (Entry<String, String> entry : additionalParams.entrySet()) {
-      List<String> values = new ArrayList<String>(1);
-      values.add(entry.getValue());
-      params.put(entry.getKey(), values);
-    }
-      
-    // convert to query string
-    StringBuilder queryBuf = new StringBuilder();
-    for (Entry<String, List<String>> entry : params.entrySet()) {
-      String key = entry.getKey();
-      for (String value : entry.getValue()) {
-        if (queryBuf.length() > 0) {
-          queryBuf.append("&");
-        }
-        queryBuf.append(URLEncoder.encode(key, encoding));
-        queryBuf.append("=");
-        queryBuf.append(URLEncoder.encode(value, encoding));
-      }
-    }
-    
-    queryString = queryBuf.toString();
-    
-    if (queryString.length() > 0) path += "?" + queryString;
-    
-    URL result = new URL(url.getProtocol(), url.getHost(), url.getPort(), path);
-    
-    return result;
-  }
-  
-  private URL getCurrentUrl(HttpServletRequest request)
-  throws MalformedURLException {
-    StringBuilder buf = new StringBuilder();
-    
-    String scheme = request.getScheme();
-    int port = request.getServerPort();
-    
-    buf.append(scheme);
-    buf.append("://");
-    buf.append(request.getServerName());
-    
-    if ("http".equals(scheme) && port == 80) {
-      // do nothing
-    } else if ("https".equals(scheme) && port == 443) {
-      // do nothing
-    } else if (port < 0) {
-      // do nothing
-    } else {
-      buf.append(":");
-      DecimalFormat dfPort = new DecimalFormat("#####");
-      buf.append(dfPort.format(port));
-    }
-    
-    String forwardUri = (String) request.getAttribute(REQUEST_URI_ATTRIBUTE);
-    if (forwardUri == null) {
-      // use old style method
-      String contextPath = request.getContextPath();
-      if (contextPath != null)
-        buf.append(contextPath);
-      
-      String servletPath = request.getServletPath();
-      if (servletPath != null)
-        buf.append(servletPath);
-      
-      String pathInfo = request.getPathInfo();
-      if (pathInfo != null)
-        buf.append(pathInfo);
-      
-      String queryString = request.getQueryString();
-      if (queryString != null && queryString.length() > 0) {
-        if (!('?' == queryString.charAt(0))) buf.append("?");
-        buf.append(queryString);
-      }      
-    } else {
-      // use forwarded attributes
-      buf.append(forwardUri);
-      
-      String queryString = (String) request.getAttribute(QUERY_STRING_ATTRIBUTE);
-      if (queryString != null && queryString.length() > 0) {
-        if (!('?' == queryString.charAt(0))) buf.append("?");
-        buf.append(queryString);
-      }      
-    }
-    
-    String name = buf.toString();
-    return new URL(name);
-  }
-  
   private DateFormatSymbols getDateFormatSymbols() {
     DateFormatSymbols dfs = new DateFormatSymbols(locale);
-
+  
     // capitalize days
     if (capitalizeDays) {
       String[] weekdays = dfs.getWeekdays();
@@ -560,46 +382,44 @@ public class CalendarTag extends BodyTagSupport {
     
     return dfs;
   }
+
+  private void renderHead(JspWriter out) throws IOException {
+    out.print("<tr>");
+    
+    Calendar cal = Calendar.getInstance(timeZone, locale);
+    cal.setTime(new Date());
+    while (cal.getFirstDayOfWeek() != cal.get(Calendar.DAY_OF_WEEK)) {
+      cal.add(Calendar.DAY_OF_MONTH, 1);
+    }
+          
+    String[] weekdays = dateFormatSymbols.getWeekdays();
+    String[] shortdays = dateFormatSymbols.getShortWeekdays();
+    
+    int[] indices = new int[7];
+    for (int i = 0; i < 7; i++) {
+      indices[i] = cal.get(Calendar.DAY_OF_WEEK);
+      cal.add(Calendar.DAY_OF_MONTH, 1);
+    }
+        
+    for (int j = 0; j < 7; j++) {
+      String heading = weekdays[indices[j]];
+      String shortHeading = shortdays[indices[j]];
+      renderDayHeading(out, shortHeading, heading, indices[j]);
+    }
+    
+    out.print("</tr>");
+  }
   
   private void renderEmptyDay(JspWriter out, int dayOfWeek) throws IOException {    
     out.print("<td");
     if ((dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) && weekendClass != null) {
       out.print(" class=\"");
-      out.print(encodeAttribute(weekendClass));
+      out.print(HtmlHelper.encodeAttribute(weekendClass));
       out.print("\"");
     }
     out.print(">");
     out.print("&#160;");
     out.print("</td>");
-  }
-  
-  private boolean isURLRelative(URL url1, URL url2) {
-    if (url1 == null || url2 == null) return false;
-        
-    String protocol1 = url1.getProtocol();
-    String protocol2 = url2.getProtocol();
-    if (!protocol1.equals(protocol2)) return false;
-    
-    int port1 = url1.getPort();
-    int port2 = url2.getPort();
-    
-    if ("http".equals(protocol1)) {
-      if (port1 < 0) port1 = 80;
-      if (port2 < 0) port2 = 80;
-    }
-
-    if ("https".equals(protocol1)) {
-      if (port1 < 0) port1 = 443;
-      if (port2 < 0) port2 = 443;
-    }
-    
-    if (port1 != port2) return false;
-    
-    String host1 = url1.getHost();
-    String host2 = url2.getHost();
-    if (!host1.equals(host2)) return false;
-    
-    return true;
   }
   
   private void renderDay(JspWriter out, Calendar current, int dayOfWeek, boolean isToday, boolean isSelected) throws IOException {
@@ -681,29 +501,29 @@ public class CalendarTag extends BodyTagSupport {
     
     if (dayId != null) {
       out.print(" id=\"");
-      out.print(encodeAttribute(dayId));
+      out.print(HtmlHelper.encodeAttribute(dayId));
       out.print("\"");
     }
     
     String classes = "";
     
     if (dayClass != null) {
-      classes += " " + encodeAttribute(dayClass.trim());
+      classes += " " + HtmlHelper.encodeAttribute(dayClass.trim());
     }
     
     // add weekend class
     if ((dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) && weekendClass != null) {
-      classes += " " + encodeAttribute(weekendClass.trim());
+      classes += " " + HtmlHelper.encodeAttribute(weekendClass.trim());
     }
     
     // add today class
     if (isToday && todayClass != null) {
-      classes += " " + encodeAttribute(todayClass.trim());
+      classes += " " + HtmlHelper.encodeAttribute(todayClass.trim());
     }
     
     // add selected class
     if (isSelected && selectedClass != null) {
-      classes += " " + encodeAttribute(selectedClass.trim());
+      classes += " " + HtmlHelper.encodeAttribute(selectedClass.trim());
     }
     
     classes = classes.trim();
@@ -731,7 +551,7 @@ public class CalendarTag extends BodyTagSupport {
         String output = null;
         boolean relative = false;
         
-        URL currentPage = getCurrentUrl(request);
+        URL currentPage = RequestHelper.getCurrentUrl(request);
         
         if (link == null) {
           // no link specified, use current URL
@@ -740,7 +560,7 @@ public class CalendarTag extends BodyTagSupport {
         } else if (encodeLink) {
           // user link specified
           targetURL = new URL(currentPage, link);
-          relative = isURLRelative(targetURL, currentPage);
+          relative = UrlHelper.isUrlRelative(targetURL, currentPage);
         }
         
         if (encodeLink) {
@@ -750,7 +570,7 @@ public class CalendarTag extends BodyTagSupport {
           params.put(mParam, df.format(current.get(Calendar.MONTH) + 1));
           params.put(dParam, df.format(current.get(Calendar.DAY_OF_MONTH)));
           params.put(yParam, df.format(current.get(Calendar.YEAR)));
-          URL generated = appendParameters(targetURL, params);
+          URL generated = RequestHelper.appendParameters(request, targetURL, params);
           
           if (relative) {
             output = response.encodeURL(generated.getFile());
@@ -764,11 +584,11 @@ public class CalendarTag extends BodyTagSupport {
         
         // write it out
         out.print("<a href=\"");
-        out.print(encodeAttribute(output));
+        out.print(HtmlHelper.encodeAttribute(output));
         out.print("\"");
         if (title != null) {
           out.print(" title=\"");
-          out.print(encodeAttribute(title));
+          out.print(HtmlHelper.encodeAttribute(title));
           out.print("\"");
         }
         out.print(">");
@@ -788,8 +608,8 @@ public class CalendarTag extends BodyTagSupport {
   }
   
   private void renderDayHeading(JspWriter out, String shortHeading, String longHeading, int dayOfWeek) throws IOException {
-    String escLong = encodeAttribute(longHeading);
-    String escShort = encodePCData(shortHeading);
+    String escLong = HtmlHelper.encodeAttribute(longHeading);
+    String escShort = HtmlHelper.encodePCData(shortHeading);
   
     out.print("<th abbr=\"");
     out.print(escLong);
@@ -798,57 +618,11 @@ public class CalendarTag extends BodyTagSupport {
     out.print("\" scope=\"col\"");
     if ((dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) && weekendClass != null) {
       out.print(" class=\"");
-      out.print(encodeAttribute(weekendClass));
+      out.print(HtmlHelper.encodeAttribute(weekendClass));
       out.print("\"");
     }
     out.print(">");
     out.print(escShort);
     out.print("</th>");
-  }
-  
-  
-  /**
-   * Encodes PCDATA attributes.
-   * @param pcData PCDATA value
-   * @return encoded PCDATA value
-   */
-  private String encodePCData(String pcData) {
-    if (pcData == null) return "";
-
-    StringBuilder buf = new StringBuilder();
-
-    for (int i = 0; i < pcData.length(); i++) {
-      char c = pcData.charAt(i);
-      switch (c) {
-      case '>': buf.append("&gt;"); break;
-      case '<': buf.append("&lt;"); break;
-      case '&': buf.append("&amp;"); break;
-      default: buf.append(c);
-      }
-    }       
-    return buf.toString();
-  }
-  
-  /**
-   * Encodes attribute values.
-   * @param attributeValue value of attribute to encode
-   * @return encoded value
-   */
-  private String encodeAttribute(String attributeValue) {
-    if (attributeValue == null) return "";
-
-    StringBuilder buf = new StringBuilder();
-
-    for (int i = 0; i < attributeValue.length(); i++) {
-      char c = attributeValue.charAt(i);
-      switch (c) {
-      case '"': buf.append("&quot;"); break;
-      case '>': buf.append("&gt;"); break;
-      case '<': buf.append("&lt;"); break;
-      case '&': buf.append("&amp;"); break;
-      default: buf.append(c);
-      }
-    }     
-    return buf.toString();
   }
 }

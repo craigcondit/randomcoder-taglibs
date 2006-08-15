@@ -1,16 +1,9 @@
-/*
- * $Id: TextareaTag.java 20 2005-02-09 20:13:51Z ccondit $
- */
-package com.randomcoder.taglibs.input;
+package com.randomcoder.taglibs.common;
 
-import java.io.IOException;
-
-import javax.servlet.jsp.*;
-
-import com.randomcoder.taglibs.common.HtmlHelper;
+import java.net.URL;
 
 /**
- * Tag class which produces &lt;textarea&gt;.
+ * Helper class containing URL-specific code.
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -37,40 +30,43 @@ import com.randomcoder.taglibs.common.HtmlHelper;
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre> 
  */
-public class TextareaTag extends InputTagBase {
-
-  private static final long serialVersionUID = -905446055685214582L;
-
-  @Override
-  protected String getType() { return "textarea"; }
-
-  /**
-   * Sets the rows HTML attribute.
-   * @param rows value of rows attribute
-   */
-  public void setRows(String rows) { getParams().put("rows", rows); }
+public class UrlHelper {
+  
+  private UrlHelper() {}
   
   /**
-   * Sets the cols HTML attribute.
-   * @param cols value of cols attribute
+   * Determines if two {@code URL} objects have the same host and protocol.
+   *  
+   * @param url1 first url
+   * @param url2 second url
+   * @return true if urls share same host and protocol, false otherwise
    */
-  public void setCols(String cols) { getParams().put("cols", cols); }
+  public static boolean isUrlRelative(URL url1, URL url2) {
+    if (url1 == null || url2 == null) return false;
+        
+    String protocol1 = url1.getProtocol();
+    String protocol2 = url2.getProtocol();
+    if (!protocol1.equals(protocol2)) return false;
+    
+    int port1 = url1.getPort();
+    int port2 = url2.getPort();
+    
+    if ("http".equals(protocol1)) {
+      if (port1 < 0) port1 = 80;
+      if (port2 < 0) port2 = 80;
+    }
 
-  @Override
-  public int doEndTag() throws JspException {
-    try {
-      JspWriter out = pageContext.getOut();
-
-      out.write("<textarea");
-      out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
-      if (getStyleId() != null)
-        out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
-      out.write(buildOptions());
-      out.write(">");
-      out.write(HtmlHelper.encodePCData(getValue()));
-      out.write("</textarea>");
-    } catch (IOException ioe) { throw new JspException(ioe); }
-
-    return EVAL_PAGE;		
+    if ("https".equals(protocol1)) {
+      if (port1 < 0) port1 = 443;
+      if (port2 < 0) port2 = 443;
+    }
+    
+    if (port1 != port2) return false;
+    
+    String host1 = url1.getHost();
+    String host2 = url2.getHost();
+    if (!host1.equals(host2)) return false;
+    
+    return true;
   }
 }

@@ -1,16 +1,5 @@
-/*
- * $Id: TextareaTag.java 20 2005-02-09 20:13:51Z ccondit $
- */
-package com.randomcoder.taglibs.input;
-
-import java.io.IOException;
-
-import javax.servlet.jsp.*;
-
-import com.randomcoder.taglibs.common.HtmlHelper;
-
 /**
- * Tag class which produces &lt;textarea&gt;.
+ * Shared code for tag libraries.
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -37,40 +26,4 @@ import com.randomcoder.taglibs.common.HtmlHelper;
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre> 
  */
-public class TextareaTag extends InputTagBase {
-
-  private static final long serialVersionUID = -905446055685214582L;
-
-  @Override
-  protected String getType() { return "textarea"; }
-
-  /**
-   * Sets the rows HTML attribute.
-   * @param rows value of rows attribute
-   */
-  public void setRows(String rows) { getParams().put("rows", rows); }
-  
-  /**
-   * Sets the cols HTML attribute.
-   * @param cols value of cols attribute
-   */
-  public void setCols(String cols) { getParams().put("cols", cols); }
-
-  @Override
-  public int doEndTag() throws JspException {
-    try {
-      JspWriter out = pageContext.getOut();
-
-      out.write("<textarea");
-      out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
-      if (getStyleId() != null)
-        out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
-      out.write(buildOptions());
-      out.write(">");
-      out.write(HtmlHelper.encodePCData(getValue()));
-      out.write("</textarea>");
-    } catch (IOException ioe) { throw new JspException(ioe); }
-
-    return EVAL_PAGE;		
-  }
-}
+package com.randomcoder.taglibs.common;
