@@ -57,7 +57,7 @@ public class NotInRoleTag extends BodyTagSupport {
 
     String[] roles = role.split(",");
     for (int i = 0; i < roles.length; i++) {
-      if (request.isUserInRole(roles[i]))
+      if (request.isUserInRole(roles[i].trim()))
         return SKIP_BODY;
     }
 
