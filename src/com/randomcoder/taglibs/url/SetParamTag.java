@@ -29,65 +29,74 @@ import javax.servlet.jsp.tagext.TagSupport;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class SetParamTag extends TagSupport {
-  private static final long serialVersionUID = -1726710757304026189L;
-  
-  private String name;
-  private String value;
-  
-  /**
-   * Sets the parameter name.
-   * 
-   * @param name parameter name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-  
-  /**
-   * Sets the parameter value.
-   * 
-   * @param value parameter value
-   */
-  public void setValue(String value) {
-    this.value = value;
-  }
+public class SetParamTag extends TagSupport
+{
+	private static final long serialVersionUID = -1726710757304026189L;
 
-  /**
-   * Release state.
-   */
-  @Override  
-  public void release() {
-    super.release();
-    cleanup();
-  }
-  
-  /**
-   * Sets the given parameter in the URL.
-   * 
-   * @return EVAL_PAGE
-   */
-  @Override
-  public int doEndTag() throws JspException {
-    try {      
-      ModifyTag mtag = (ModifyTag) findAncestorWithClass(this, ModifyTag.class);
-      if (mtag == null)
-        throw new JspException("No modify tag parent found");
-      
-      mtag.setParameter(name, value);
-      
-      return EVAL_PAGE;
-      
-    } finally {
-      cleanup();
-    }
-  }
-  
-  private void cleanup() {
-    name = null;
-    value = null;
-  }
-  
+	private String name;
+	private String value;
+
+	/**
+	 * Sets the parameter name.
+	 * 
+	 * @param name parameter name
+	 */
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	/**
+	 * Sets the parameter value.
+	 * 
+	 * @param value parameter value
+	 */
+	public void setValue(String value)
+	{
+		this.value = value;
+	}
+
+	/**
+	 * Release state.
+	 */
+	@Override
+	public void release()
+	{
+		super.release();
+		cleanup();
+	}
+
+	/**
+	 * Sets the given parameter in the URL.
+	 * 
+	 * @return EVAL_PAGE
+	 */
+	@Override
+	public int doEndTag() throws JspException
+	{
+		try
+		{
+			ModifyTag mtag = (ModifyTag) findAncestorWithClass(this, ModifyTag.class);
+			if (mtag == null)
+				throw new JspException("No modify tag parent found");
+
+			mtag.setParameter(name, value);
+
+			return EVAL_PAGE;
+
+		}
+		finally
+		{
+			cleanup();
+		}
+	}
+
+	private void cleanup()
+	{
+		name = null;
+		value = null;
+	}
+
 }

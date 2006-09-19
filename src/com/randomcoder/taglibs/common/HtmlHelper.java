@@ -26,54 +26,80 @@ package com.randomcoder.taglibs.common;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class HtmlHelper {
-  
-  private HtmlHelper() {}
-  
-  /**
-   * Encodes PCDATA attributes.
-   * @param pcData PCDATA value
-   * @return encoded PCDATA value
-   */
-  public static String encodePCData(String pcData) {
-    if (pcData == null) return "";
+public class HtmlHelper
+{
 
-    StringBuilder buf = new StringBuilder();
+	private HtmlHelper()
+	{}
 
-    for (int i = 0; i < pcData.length(); i++) {
-      char c = pcData.charAt(i);
-      switch (c) {
-      case '>': buf.append("&gt;"); break;
-      case '<': buf.append("&lt;"); break;
-      case '&': buf.append("&amp;"); break;
-      default: buf.append(c);
-      }
-    }       
-    return buf.toString();
-  }
-  
-  /**
-   * Encodes attribute values.
-   * @param attributeValue value of attribute to encode
-   * @return encoded value
-   */
-  public static String encodeAttribute(String attributeValue) {
-    if (attributeValue == null) return "";
+	/**
+	 * Encodes PCDATA attributes.
+	 * @param pcData PCDATA value
+	 * @return encoded PCDATA value
+	 */
+	public static String encodePCData(String pcData)
+	{
+		if (pcData == null)
+			return "";
 
-    StringBuilder buf = new StringBuilder();
+		StringBuilder buf = new StringBuilder();
 
-    for (int i = 0; i < attributeValue.length(); i++) {
-      char c = attributeValue.charAt(i);
-      switch (c) {
-      case '"': buf.append("&quot;"); break;
-      case '>': buf.append("&gt;"); break;
-      case '<': buf.append("&lt;"); break;
-      case '&': buf.append("&amp;"); break;
-      default: buf.append(c);
-      }
-    }     
-    return buf.toString();
-  }
+		for (int i = 0; i < pcData.length(); i++)
+		{
+			char c = pcData.charAt(i);
+			switch (c)
+			{
+			case '>':
+				buf.append("&gt;");
+				break;
+			case '<':
+				buf.append("&lt;");
+				break;
+			case '&':
+				buf.append("&amp;");
+				break;
+			default:
+				buf.append(c);
+			}
+		}
+		return buf.toString();
+	}
+
+	/**
+	 * Encodes attribute values.
+	 * @param attributeValue value of attribute to encode
+	 * @return encoded value
+	 */
+	public static String encodeAttribute(String attributeValue)
+	{
+		if (attributeValue == null)
+			return "";
+
+		StringBuilder buf = new StringBuilder();
+
+		for (int i = 0; i < attributeValue.length(); i++)
+		{
+			char c = attributeValue.charAt(i);
+			switch (c)
+			{
+			case '"':
+				buf.append("&quot;");
+				break;
+			case '>':
+				buf.append("&gt;");
+				break;
+			case '<':
+				buf.append("&lt;");
+				break;
+			case '&':
+				buf.append("&amp;");
+				break;
+			default:
+				buf.append(c);
+			}
+		}
+		return buf.toString();
+	}
 }

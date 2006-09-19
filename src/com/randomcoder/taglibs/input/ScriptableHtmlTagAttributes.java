@@ -26,67 +26,68 @@ package com.randomcoder.taglibs.input;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public interface ScriptableHtmlTagAttributes extends HtmlTagAttributes {
-  /**
-   * Sets the onclick HTML attribute.
-   * @param onclick value of onclick attribute
-   */
-  public void setOnclick(String onclick);
-  
-  /**
-   * Sets the ondblclick HTML attribute.
-   * @param ondblclick value of ondblclick attribute
-   */
-  public void setOndblclick(String ondblclick);
-  
-  /**
-   * Sets the onkeydown HTML attribute.
-   * @param onkeydown value of onkeydown attribute
-   */
-  public void setOnkeydown(String onkeydown);
-  
-  /**
-   * Sets the onkeypress HTML attribute.
-   * @param onkeypress value of onkeypress attribute
-   */  
-  public void setOnkeypress(String onkeypress);
-  
-  /**
-   * Sets the onkeyup HTML attribute.
-   * @param onkeyup value of onkeyup attribute
-   */  
-  public void setOnkeyup(String onkeyup);  
-  
-  /**
-   * Sets the onmousedown HTML attribute.
-   * @param onmousedown value of onmousedown attribute
-   */  
-  public void setOnmousedown(String onmousedown);
-  
-  /**
-   * Sets the onmousemove HTML attribute.
-   * @param onmousemove value of onmousemove attribute
-   */  
-  public void setOnmousemove(String onmousemove);
-  
-  /**
-   * Sets the onmouseout HTML attribute.
-   * @param onmouseout value of onmouseout attribute
-   */  
-  public void setOnmouseout(String onmouseout);
-  
-  /**
-   * Sets the onmouseover HTML attribute.
-   * @param onmouseover value of onmouseover attribute
-   */  
-  public void setOnmouseover(String onmouseover);
-  
-  /**
-   * Sets the onmouseup HTML attribute.
-   * @param onmouseup value of onmouseup attribute
-   */  
-  public void setOnmouseup(String onmouseup);
+public interface ScriptableHtmlTagAttributes extends HtmlTagAttributes
+{
+	/**
+	 * Sets the onclick HTML attribute.
+	 * @param onclick value of onclick attribute
+	 */
+	public void setOnclick(String onclick);
+
+	/**
+	 * Sets the ondblclick HTML attribute.
+	 * @param ondblclick value of ondblclick attribute
+	 */
+	public void setOndblclick(String ondblclick);
+
+	/**
+	 * Sets the onkeydown HTML attribute.
+	 * @param onkeydown value of onkeydown attribute
+	 */
+	public void setOnkeydown(String onkeydown);
+
+	/**
+	 * Sets the onkeypress HTML attribute.
+	 * @param onkeypress value of onkeypress attribute
+	 */
+	public void setOnkeypress(String onkeypress);
+
+	/**
+	 * Sets the onkeyup HTML attribute.
+	 * @param onkeyup value of onkeyup attribute
+	 */
+	public void setOnkeyup(String onkeyup);
+
+	/**
+	 * Sets the onmousedown HTML attribute.
+	 * @param onmousedown value of onmousedown attribute
+	 */
+	public void setOnmousedown(String onmousedown);
+
+	/**
+	 * Sets the onmousemove HTML attribute.
+	 * @param onmousemove value of onmousemove attribute
+	 */
+	public void setOnmousemove(String onmousemove);
+
+	/**
+	 * Sets the onmouseout HTML attribute.
+	 * @param onmouseout value of onmouseout attribute
+	 */
+	public void setOnmouseout(String onmouseout);
+
+	/**
+	 * Sets the onmouseover HTML attribute.
+	 * @param onmouseover value of onmouseover attribute
+	 */
+	public void setOnmouseover(String onmouseover);
+
+	/**
+	 * Sets the onmouseup HTML attribute.
+	 * @param onmouseup value of onmouseup attribute
+	 */
+	public void setOnmouseup(String onmouseup);
 
 }

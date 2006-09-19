@@ -29,24 +29,26 @@ import javax.servlet.jsp.tagext.TagSupport;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class ClearParamsTag extends TagSupport {
-  private static final long serialVersionUID = -1726710757304026189L;
-  
-  /**
-   * Removes the given parameter from the URL.
-   * 
-   * @return EVAL_PAGE
-   */
-  @Override
-  public int doEndTag() throws JspException {
-    ModifyTag mtag = (ModifyTag) findAncestorWithClass(this, ModifyTag.class);
-    if (mtag == null)
-      throw new JspException("No modify tag parent found");
-    
-    mtag.clearParameters();
-    
-    return EVAL_PAGE;
-  }
+public class ClearParamsTag extends TagSupport
+{
+	private static final long serialVersionUID = -1726710757304026189L;
+
+	/**
+	 * Removes the given parameter from the URL.
+	 * 
+	 * @return EVAL_PAGE
+	 */
+	@Override
+	public int doEndTag() throws JspException
+	{
+		ModifyTag mtag = (ModifyTag) findAncestorWithClass(this, ModifyTag.class);
+		if (mtag == null)
+			throw new JspException("No modify tag parent found");
+
+		mtag.clearParameters();
+
+		return EVAL_PAGE;
+	}
 }

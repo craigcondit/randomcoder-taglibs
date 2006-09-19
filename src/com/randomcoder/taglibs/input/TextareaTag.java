@@ -1,6 +1,3 @@
-/*
- * $Id: TextareaTag.java 20 2005-02-09 20:13:51Z ccondit $
- */
 package com.randomcoder.taglibs.input;
 
 import java.io.IOException;
@@ -35,42 +32,58 @@ import com.randomcoder.taglibs.common.HtmlHelper;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class TextareaTag extends InputTagBase {
+public class TextareaTag extends InputTagBase
+{
 
-  private static final long serialVersionUID = -905446055685214582L;
+	private static final long serialVersionUID = -905446055685214582L;
 
-  @Override
-  protected String getType() { return "textarea"; }
+	@Override
+	protected String getType()
+	{
+		return "textarea";
+	}
 
-  /**
-   * Sets the rows HTML attribute.
-   * @param rows value of rows attribute
-   */
-  public void setRows(String rows) { getParams().put("rows", rows); }
-  
-  /**
-   * Sets the cols HTML attribute.
-   * @param cols value of cols attribute
-   */
-  public void setCols(String cols) { getParams().put("cols", cols); }
+	/**
+	 * Sets the rows HTML attribute.
+	 * @param rows value of rows attribute
+	 */
+	public void setRows(String rows)
+	{
+		getParams().put("rows", rows);
+	}
 
-  @Override
-  public int doEndTag() throws JspException {
-    try {
-      JspWriter out = pageContext.getOut();
+	/**
+	 * Sets the cols HTML attribute.
+	 * @param cols value of cols attribute
+	 */
+	public void setCols(String cols)
+	{
+		getParams().put("cols", cols);
+	}
 
-      out.write("<textarea");
-      out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
-      if (getStyleId() != null)
-        out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
-      out.write(buildOptions());
-      out.write(">");
-      out.write(HtmlHelper.encodePCData(getValue()));
-      out.write("</textarea>");
-    } catch (IOException ioe) { throw new JspException(ioe); }
+	@Override
+	public int doEndTag() throws JspException
+	{
+		try
+		{
+			JspWriter out = pageContext.getOut();
 
-    return EVAL_PAGE;		
-  }
+			out.write("<textarea");
+			out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
+			if (getStyleId() != null)
+				out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
+			out.write(buildOptions());
+			out.write(">");
+			out.write(HtmlHelper.encodePCData(getValue()));
+			out.write("</textarea>");
+		}
+		catch (IOException ioe)
+		{
+			throw new JspException(ioe);
+		}
+
+		return EVAL_PAGE;
+	}
 }

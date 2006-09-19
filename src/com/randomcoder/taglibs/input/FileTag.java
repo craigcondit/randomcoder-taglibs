@@ -1,6 +1,3 @@
-/*
- * $Id: FileTag.java 20 2005-02-09 20:13:51Z ccondit $
- */
 package com.randomcoder.taglibs.input;
 
 /**
@@ -29,27 +26,35 @@ package com.randomcoder.taglibs.input;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class FileTag extends InputTagBase {
-  private static final long serialVersionUID = 6874900131033263220L;
+public class FileTag extends InputTagBase
+{
+	private static final long serialVersionUID = 6874900131033263220L;
 
-  /**
-   * Not used.
-   * 
-   * @throws IllegalArgumentException always
-   */
-  @Override
-  public void setValue(String value) {
-    throw new IllegalArgumentException("Attribute 'value' is not allowed");		
-  }
+	/**
+	 * Not used.
+	 * 
+	 * @throws IllegalArgumentException always
+	 */
+	@Override
+	public void setValue(String value)
+	{
+		throw new IllegalArgumentException("Attribute 'value' is not allowed");
+	}
 
-  /**
-   * Sets the accept HTML attribute.
-   * @param accept value of accept attribute
-   */
-  public void setAccept(String accept) { getParams().put("accept", accept); }
+	/**
+	 * Sets the accept HTML attribute.
+	 * @param accept value of accept attribute
+	 */
+	public void setAccept(String accept)
+	{
+		getParams().put("accept", accept);
+	}
 
-  @Override
-  protected String getType() { return "file"; }
+	@Override
+	protected String getType()
+	{
+		return "file";
+	}
 }

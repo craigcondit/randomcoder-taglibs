@@ -1,6 +1,3 @@
-/*
- * $Id: OptionTag.java 20 2005-02-09 20:13:51Z ccondit $
- */
 package com.randomcoder.taglibs.input;
 
 import java.io.IOException;
@@ -36,148 +33,179 @@ import com.randomcoder.taglibs.common.HtmlHelper;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class OptionTag extends InputTagBase {
-  private static final long serialVersionUID = 6545257704852434656L;
-  
-  private String text;
-  private String label;
-	
-  @Override
-  protected String getType() { return "option"; }
+public class OptionTag extends InputTagBase
+{
+	private static final long serialVersionUID = 6545257704852434656L;
 
-  /**
-   * Sets the label HTML attribute.
-   * @param label value of label attribute
-   */
-  public void setLabel(String label) { this.label = label; }
-  
-  /**
-   * Sets the textual content of the &lt;option&gt; tag.
-   * @param text value of body content
-   */
-  public void setText(String text) { this.text = text; }
-	
-  /**
-   * Not used.
-   * 
-   * @throws IllegalArgumentException always
-   */
-  @Override
-  public void setName(String name) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Attribute 'name' is not allowed");		
-  }
-  
-  /**
-   * Not used.
-   * 
-   * @throws IllegalArgumentException always
-   */
-  @Override
-  public void setReadonly(String readonly) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Attribute 'readonly' is not allowed");		
-  }
-  
-  /**
-   * Not used.
-   * 
-   * @throws IllegalArgumentException always
-   */
-  @Override
-  public void setTabindex(String tabindex) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Attribute 'tabindex' is not allowed");		
-  }
-  
-  /**
-   * Not used.
-   * 
-   * @throws IllegalArgumentException always
-   */
-  @Override
-  public void setAccesskey(String accesskey) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Attribute 'accesskey' is not allowed");		
-  }
-  
-  /**
-   * Not used.
-   * 
-   * @throws IllegalArgumentException always
-   */
-  @Override
-  public void setOnblur(String onblur) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Attribute 'onblur' is not allowed");		
-  }
-  
-  /**
-   * Not used.
-   * 
-   * @throws IllegalArgumentException always
-   */
-  @Override
-  public void setOnchange(String onchange) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Attribute 'onchange' is not allowed");		
-  }
-  
-  /**
-   * Not used.
-   * 
-   * @throws IllegalArgumentException always
-   */
-  @Override
-  public void setOnfocus(String onfocus) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Attribute 'onfocus' is not allowed");		
-  }
-  
-  /**
-   * Not used.
-   * 
-   * @throws IllegalArgumentException always
-   */
-  @Override
-  public void setOnselect(String onselect) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Attribute 'onselect' is not allowed");		
-  }
+	private String text;
+	private String label;
 
-  /**
-   * Release state.
-   */
-  @Override
-  public void release() {
-    super.release();
-    label = null;
-    text = null;
-  }
-    
-  /**
-   * Renders the option tag to the output.
-   * @return EVAL_PAGE
-   */
-  @Override
-  public int doEndTag() throws JspException {
-    try {
-      JspWriter out = pageContext.getOut();
+	@Override
+	protected String getType()
+	{
+		return "option";
+	}
 
-      SelectTag select = (SelectTag) findAncestorWithClass(this, SelectTag.class);
-      if (select == null) throw new JspException("option tag must be nested inside a select tag");
+	/**
+	 * Sets the label HTML attribute.
+	 * @param label value of label attribute
+	 */
+	public void setLabel(String label)
+	{
+		this.label = label;
+	}
 
-      Collection<String> values = select.getCurrentValues();
+	/**
+	 * Sets the textual content of the &lt;option&gt; tag.
+	 * @param text value of body content
+	 */
+	public void setText(String text)
+	{
+		this.text = text;
+	}
 
-      String testValue = getValue();
-      if (testValue == null) testValue = text;			
-      boolean selected = values.contains(testValue);
+	/**
+	 * Not used.
+	 * 
+	 * @throws IllegalArgumentException always
+	 */
+	@Override
+	public void setName(String name) throws IllegalArgumentException
+	{
+		throw new IllegalArgumentException("Attribute 'name' is not allowed");
+	}
 
-      out.write("<option");
-      if (getStyleId() != null) out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
-      if (getValue() != null) out.write(" value=\"" + HtmlHelper.encodeAttribute(getValue()) + "\"");
-      if (label != null) out.write(" label=\"" + HtmlHelper.encodeAttribute(label) + "\"");
-      if (selected) out.write(" selected=\"selected\"");			
-      out.write(buildOptions());
-      out.write(">");
-      out.write(HtmlHelper.encodePCData(text));
-      out.write("</option>");
-    } catch (IOException ioe) { throw new JspException(ioe); }
+	/**
+	 * Not used.
+	 * 
+	 * @throws IllegalArgumentException always
+	 */
+	@Override
+	public void setReadonly(String readonly) throws IllegalArgumentException
+	{
+		throw new IllegalArgumentException("Attribute 'readonly' is not allowed");
+	}
 
-    return EVAL_PAGE;
-  }
+	/**
+	 * Not used.
+	 * 
+	 * @throws IllegalArgumentException always
+	 */
+	@Override
+	public void setTabindex(String tabindex) throws IllegalArgumentException
+	{
+		throw new IllegalArgumentException("Attribute 'tabindex' is not allowed");
+	}
+
+	/**
+	 * Not used.
+	 * 
+	 * @throws IllegalArgumentException always
+	 */
+	@Override
+	public void setAccesskey(String accesskey) throws IllegalArgumentException
+	{
+		throw new IllegalArgumentException("Attribute 'accesskey' is not allowed");
+	}
+
+	/**
+	 * Not used.
+	 * 
+	 * @throws IllegalArgumentException always
+	 */
+	@Override
+	public void setOnblur(String onblur) throws IllegalArgumentException
+	{
+		throw new IllegalArgumentException("Attribute 'onblur' is not allowed");
+	}
+
+	/**
+	 * Not used.
+	 * 
+	 * @throws IllegalArgumentException always
+	 */
+	@Override
+	public void setOnchange(String onchange) throws IllegalArgumentException
+	{
+		throw new IllegalArgumentException("Attribute 'onchange' is not allowed");
+	}
+
+	/**
+	 * Not used.
+	 * 
+	 * @throws IllegalArgumentException always
+	 */
+	@Override
+	public void setOnfocus(String onfocus) throws IllegalArgumentException
+	{
+		throw new IllegalArgumentException("Attribute 'onfocus' is not allowed");
+	}
+
+	/**
+	 * Not used.
+	 * 
+	 * @throws IllegalArgumentException always
+	 */
+	@Override
+	public void setOnselect(String onselect) throws IllegalArgumentException
+	{
+		throw new IllegalArgumentException("Attribute 'onselect' is not allowed");
+	}
+
+	/**
+	 * Release state.
+	 */
+	@Override
+	public void release()
+	{
+		super.release();
+		label = null;
+		text = null;
+	}
+
+	/**
+	 * Renders the option tag to the output.
+	 * @return EVAL_PAGE
+	 */
+	@Override
+	public int doEndTag() throws JspException
+	{
+		try
+		{
+			JspWriter out = pageContext.getOut();
+
+			SelectTag select = (SelectTag) findAncestorWithClass(this, SelectTag.class);
+			if (select == null)
+				throw new JspException("option tag must be nested inside a select tag");
+
+			Collection<String> values = select.getCurrentValues();
+
+			String testValue = getValue();
+			if (testValue == null)
+				testValue = text;
+			boolean selected = values.contains(testValue);
+
+			out.write("<option");
+			if (getStyleId() != null)
+				out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
+			if (getValue() != null)
+				out.write(" value=\"" + HtmlHelper.encodeAttribute(getValue()) + "\"");
+			if (label != null)
+				out.write(" label=\"" + HtmlHelper.encodeAttribute(label) + "\"");
+			if (selected)
+				out.write(" selected=\"selected\"");
+			out.write(buildOptions());
+			out.write(">");
+			out.write(HtmlHelper.encodePCData(text));
+			out.write("</option>");
+		}
+		catch (IOException ioe)
+		{
+			throw new JspException(ioe);
+		}
+
+		return EVAL_PAGE;
+	}
 }

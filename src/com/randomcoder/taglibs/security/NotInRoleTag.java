@@ -1,6 +1,3 @@
-/*
- * $Id: NotInRoleTag.java 6 2005-10-15 18:08:53Z ccondit $
- */
 package com.randomcoder.taglibs.security;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,34 +30,40 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class NotInRoleTag extends BodyTagSupport {
-  private static final long serialVersionUID = 1471749627660813962L;
+public class NotInRoleTag extends BodyTagSupport
+{
+	private static final long serialVersionUID = 1471749627660813962L;
 
-  private String role;
+	private String role;
 
-  /**
-   * Sets the role to test
-   * @param role role name
-   */
-  public void setRole(String role) { this.role = role; }
+	/**
+	 * Sets the role to test
+	 * @param role role name
+	 */
+	public void setRole(String role)
+	{
+		this.role = role;
+	}
 
-  /**
-   * Determines whether to process body content.
-   * 
-   * @return SKIP_BODY if user is in role(s), EVAL_BODY_INCLUDE otherwise
-   */
-  @Override
-  public int doStartTag() throws JspException {
-    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+	/**
+	 * Determines whether to process body content.
+	 * 
+	 * @return SKIP_BODY if user is in role(s), EVAL_BODY_INCLUDE otherwise
+	 */
+	@Override
+	public int doStartTag() throws JspException
+	{
+		HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 
-    String[] roles = role.split(",");
-    for (int i = 0; i < roles.length; i++) {
-      if (request.isUserInRole(roles[i].trim()))
-        return SKIP_BODY;
-    }
+		String[] roles = role.split(",");
+		for (int i = 0; i < roles.length; i++)
+		{
+			if (request.isUserInRole(roles[i].trim()))
+				return SKIP_BODY;
+		}
 
-    return EVAL_BODY_INCLUDE;
-  }
+		return EVAL_BODY_INCLUDE;
+	}
 }

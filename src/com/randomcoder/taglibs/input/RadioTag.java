@@ -1,6 +1,3 @@
-/*
- * $Id: RadioTag.java 20 2005-02-09 20:13:51Z ccondit $
- */
 package com.randomcoder.taglibs.input;
 
 /**
@@ -29,11 +26,15 @@ package com.randomcoder.taglibs.input;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class RadioTag extends CheckboxTag {
-  private static final long serialVersionUID = -1997866321950086673L;
+public class RadioTag extends CheckboxTag
+{
+	private static final long serialVersionUID = -1997866321950086673L;
 
-  @Override
-  protected String getType() { return "radio"; }
+	@Override
+	protected String getType()
+	{
+		return "radio";
+	}
 }

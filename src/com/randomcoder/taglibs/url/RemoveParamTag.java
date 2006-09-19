@@ -29,54 +29,62 @@ import javax.servlet.jsp.tagext.TagSupport;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class RemoveParamTag extends TagSupport {
-  private static final long serialVersionUID = -1726710757304026189L;
-  
-  private String name;
-  
-  /**
-   * Sets the parameter to remove.
-   * 
-   * @param name parameter name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
+public class RemoveParamTag extends TagSupport
+{
+	private static final long serialVersionUID = -1726710757304026189L;
 
-  /**
-   * Release state.
-   */
-  @Override  
-  public void release() {
-    super.release();
-    cleanup();
-  }
-  
-  /**
-   * Removes the given parameter from the URL.
-   * 
-   * @return EVAL_PAGE
-   */
-  @Override
-  public int doEndTag() throws JspException {
-    try {      
-      ModifyTag mtag = (ModifyTag) findAncestorWithClass(this, ModifyTag.class);
-      if (mtag == null)
-        throw new JspException("No modify tag parent found");
-      
-      mtag.removeParameter(name);
-      
-      return EVAL_PAGE;
-      
-    } finally {
-      cleanup();
-    }
-  }
-  
-  private void cleanup() {
-    name = null;
-  }
-  
+	private String name;
+
+	/**
+	 * Sets the parameter to remove.
+	 * 
+	 * @param name parameter name
+	 */
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	/**
+	 * Release state.
+	 */
+	@Override
+	public void release()
+	{
+		super.release();
+		cleanup();
+	}
+
+	/**
+	 * Removes the given parameter from the URL.
+	 * 
+	 * @return EVAL_PAGE
+	 */
+	@Override
+	public int doEndTag() throws JspException
+	{
+		try
+		{
+			ModifyTag mtag = (ModifyTag) findAncestorWithClass(this, ModifyTag.class);
+			if (mtag == null)
+				throw new JspException("No modify tag parent found");
+
+			mtag.removeParameter(name);
+
+			return EVAL_PAGE;
+
+		}
+		finally
+		{
+			cleanup();
+		}
+	}
+
+	private void cleanup()
+	{
+		name = null;
+	}
+
 }

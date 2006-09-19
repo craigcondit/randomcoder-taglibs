@@ -6,11 +6,9 @@ import javax.servlet.jsp.tagext.*;
 /**
  * Implementation of the calendar-day tag.
  * 
- * <p>
- * This class implements the <strong>calendar-day</strong> tag, which 
- * supplies cutomized parameters on a per-day basis to the
- * <strong>calendar</strong> tag.
- * </p>
+ * <p> This class implements the <strong>calendar-day</strong> tag, which
+ * supplies cutomized parameters on a per-day basis to the <strong>calendar</strong>
+ * tag. </p>
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -35,175 +33,194 @@ import javax.servlet.jsp.tagext.*;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class CalendarDayTag extends BodyTagSupport {    
-  private static final long serialVersionUID = 2379893374923533986L;
-  
-  private Integer day;
-  private Boolean showLink;
-  private String link;
-  private Boolean encodeLink;
-  private String monthParam;
-  private String dayParam;
-  private String yearParam;
-  private String title;
-  private String dayClass;
-  private String dayId;
-  
-  /**
-   * Sets the number of the day to apply parameters to. If not specified,
-   * parameters are applied to all days.
-   * 
-   * @param day 
-   */
-  public void setDay(int day) {
-    this.day = day;
-  }
-  
-  /**
-   * Sets the CSS class to apply to this day's table cell.
-   * 
-   * @param dayClass CSS class
-   */
-  public void setDayClass(String dayClass) {
-    this.dayClass = dayClass;    
-  }
+public class CalendarDayTag extends BodyTagSupport
+{
+	private static final long serialVersionUID = 2379893374923533986L;
 
-  /**
-   * Sets the CSS id to apply to this day's table cell.
-   * 
-   * @param dayId CSS id
-   */
-  public void setDayId(String dayId) {
-    this.dayId = dayId;
-  }
+	private Integer day;
+	private Boolean showLink;
+	private String link;
+	private Boolean encodeLink;
+	private String monthParam;
+	private String dayParam;
+	private String yearParam;
+	private String title;
+	private String dayClass;
+	private String dayId;
 
-  /**
-   * Sets the parameter name to encode day information into (defaults to 'day').
-   * 
-   * @param dayParam parameter name
-   */
-  public void setDayParam(String dayParam) {
-    this.dayParam = dayParam;
-  }
+	/**
+	 * Sets the number of the day to apply parameters to. If not specified,
+	 * parameters are applied to all days.
+	 * 
+	 * @param day
+	 */
+	public void setDay(int day)
+	{
+		this.day = day;
+	}
 
-  /**
-   * Determines if date information should be encoded into this day's link 
-   * (defaults to true).
-   * 
-   * @param encodeLink true to encode date, false otherwise
-   */
-  public void setEncodeLink(Boolean encodeLink) {
-    this.encodeLink = encodeLink;
-  }
+	/**
+	 * Sets the CSS class to apply to this day's table cell.
+	 * 
+	 * @param dayClass CSS class
+	 */
+	public void setDayClass(String dayClass)
+	{
+		this.dayClass = dayClass;
+	}
 
-  /**
-   * Sets the URL to use for this day.
-   * 
-   * @param link URL
-   */
-  public void setLink(String link) {
-    this.link = link;
-  }
+	/**
+	 * Sets the CSS id to apply to this day's table cell.
+	 * 
+	 * @param dayId CSS id
+	 */
+	public void setDayId(String dayId)
+	{
+		this.dayId = dayId;
+	}
 
-  /**
-   * Sets the parameter name to encode month information into (defaults to
-   * 'month').
-   * 
-   * @param monthParam parameter name
-   */
-  public void setMonthParam(String monthParam) {
-    this.monthParam = monthParam;
-  }
+	/**
+	 * Sets the parameter name to encode day information into (defaults to 'day').
+	 * 
+	 * @param dayParam parameter name
+	 */
+	public void setDayParam(String dayParam)
+	{
+		this.dayParam = dayParam;
+	}
 
-  /**
-   * Determines if a link should be rendered for this day (defaults to true).
-   * 
-   * @param showLink true if link should be rendered, false otherwise
-   */
-  public void setShowLink(boolean showLink) {
-    this.showLink = showLink;
-  }
-  
-  /**
-   * Sets the value of the title attribute to render for this day's link.
-   * 
-   * @param title title text
-   */
-  public void setTitle(String title) {
-    this.title = title;
-  }
+	/**
+	 * Determines if date information should be encoded into this day's link
+	 * (defaults to true).
+	 * 
+	 * @param encodeLink true to encode date, false otherwise
+	 */
+	public void setEncodeLink(Boolean encodeLink)
+	{
+		this.encodeLink = encodeLink;
+	}
 
-  /**
-   * Sets the parameter name to encode year information into (defaults to
-   * 'year').
-   * 
-   * @param yearParam parameter name
-   */
-  public void setYearParam(String yearParam) {
-    this.yearParam = yearParam;
-  }
+	/**
+	 * Sets the URL to use for this day.
+	 * 
+	 * @param link URL
+	 */
+	public void setLink(String link)
+	{
+		this.link = link;
+	}
 
-  /**
-   * After the body evaluation: do not reevaluate and continue with the page. By
-   * default nothing is done with the bodyContent data (if any).
-   * 
-   * @return SKIP_BODY
-   */
-  @Override
-  public int doAfterBody() throws JspException {
-    return SKIP_BODY;
-  }
+	/**
+	 * Sets the parameter name to encode month information into (defaults to
+	 * 'month').
+	 * 
+	 * @param monthParam parameter name
+	 */
+	public void setMonthParam(String monthParam)
+	{
+		this.monthParam = monthParam;
+	}
 
-  /**
-   * Sets the parameters of this day into the parent {@link CalendarTag}.
-   * 
-   * @return EVAL_PAGE
-   */
-  @Override
-  public int doEndTag() throws JspException {
-    try {
-      CalendarTag cal = (CalendarTag) findAncestorWithClass(this, CalendarTag.class);
-      if (cal == null) return Tag.EVAL_PAGE; // can't use this
-      
-      String content = null;
-      if (day != null && day >= 1 && day <= 31) {
-        BodyContent body = getBodyContent();
-        if (body != null) content = body.getString();
-        if (content == null || content.trim().length() == 0)
-          content = null;
-      }
-      
-      CalendarDaySpec spec = new CalendarDaySpec(
-        showLink, link, encodeLink, monthParam, dayParam, yearParam, title, dayClass, dayId, content
-      );
-      cal.setDaySpec(day, spec);
-      
-      return Tag.EVAL_PAGE;
-    } finally {
-      cleanup();
-    }
-  }
+	/**
+	 * Determines if a link should be rendered for this day (defaults to true).
+	 * 
+	 * @param showLink true if link should be rendered, false otherwise
+	 */
+	public void setShowLink(boolean showLink)
+	{
+		this.showLink = showLink;
+	}
 
-  /**
-   * Release state.
-   */
-  @Override
-  public void release() {
-    super.release();
-    cleanup();
-  }
-  
-  private void cleanup() {
-    day = null;
-    showLink = null;
-    link = null;
-    encodeLink = null;
-    monthParam = null;
-    dayParam = null;
-    yearParam = null;
-    dayClass = null;
-    dayId = null;
-  }
+	/**
+	 * Sets the value of the title attribute to render for this day's link.
+	 * 
+	 * @param title title text
+	 */
+	public void setTitle(String title)
+	{
+		this.title = title;
+	}
+
+	/**
+	 * Sets the parameter name to encode year information into (defaults to
+	 * 'year').
+	 * 
+	 * @param yearParam parameter name
+	 */
+	public void setYearParam(String yearParam)
+	{
+		this.yearParam = yearParam;
+	}
+
+	/**
+	 * After the body evaluation: do not reevaluate and continue with the page. By
+	 * default nothing is done with the bodyContent data (if any).
+	 * 
+	 * @return SKIP_BODY
+	 */
+	@Override
+	public int doAfterBody() throws JspException
+	{
+		return SKIP_BODY;
+	}
+
+	/**
+	 * Sets the parameters of this day into the parent {@link CalendarTag}.
+	 * 
+	 * @return EVAL_PAGE
+	 */
+	@Override
+	public int doEndTag() throws JspException
+	{
+		try
+		{
+			CalendarTag cal = (CalendarTag) findAncestorWithClass(this, CalendarTag.class);
+			if (cal == null)
+				return Tag.EVAL_PAGE; // can't use this
+
+			String content = null;
+			if (day != null && day >= 1 && day <= 31)
+			{
+				BodyContent body = getBodyContent();
+				if (body != null)
+					content = body.getString();
+				if (content == null || content.trim().length() == 0)
+					content = null;
+			}
+
+			CalendarDaySpec spec = new CalendarDaySpec(showLink, link, encodeLink, monthParam, dayParam, yearParam, title, dayClass, dayId, content);
+			cal.setDaySpec(day, spec);
+
+			return Tag.EVAL_PAGE;
+		}
+		finally
+		{
+			cleanup();
+		}
+	}
+
+	/**
+	 * Release state.
+	 */
+	@Override
+	public void release()
+	{
+		super.release();
+		cleanup();
+	}
+
+	private void cleanup()
+	{
+		day = null;
+		showLink = null;
+		link = null;
+		encodeLink = null;
+		monthParam = null;
+		dayParam = null;
+		yearParam = null;
+		dayClass = null;
+		dayId = null;
+	}
 }

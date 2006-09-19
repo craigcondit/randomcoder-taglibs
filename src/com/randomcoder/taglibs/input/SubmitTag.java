@@ -1,6 +1,3 @@
-/*
- * $Id: SubmitTag.java 20 2005-02-09 20:13:51Z ccondit $
- */
 package com.randomcoder.taglibs.input;
 
 /**
@@ -29,11 +26,15 @@ package com.randomcoder.taglibs.input;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class SubmitTag extends ButtonTag {  
-  private static final long serialVersionUID = -2445045495417710732L;
+public class SubmitTag extends ButtonTag
+{
+	private static final long serialVersionUID = -2445045495417710732L;
 
-  @Override
-  protected String getType() { return "submit"; }
+	@Override
+	protected String getType()
+	{
+		return "submit";
+	}
 }

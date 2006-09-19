@@ -28,45 +28,58 @@ import java.net.URL;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class UrlHelper {
-  
-  private UrlHelper() {}
-  
-  /**
-   * Determines if two {@code URL} objects have the same host and protocol.
-   *  
-   * @param url1 first url
-   * @param url2 second url
-   * @return true if urls share same host and protocol, false otherwise
-   */
-  public static boolean isUrlRelative(URL url1, URL url2) {
-    if (url1 == null || url2 == null) return false;
-        
-    String protocol1 = url1.getProtocol();
-    String protocol2 = url2.getProtocol();
-    if (!protocol1.equals(protocol2)) return false;
-    
-    int port1 = url1.getPort();
-    int port2 = url2.getPort();
-    
-    if ("http".equals(protocol1)) {
-      if (port1 < 0) port1 = 80;
-      if (port2 < 0) port2 = 80;
-    }
+public class UrlHelper
+{
 
-    if ("https".equals(protocol1)) {
-      if (port1 < 0) port1 = 443;
-      if (port2 < 0) port2 = 443;
-    }
-    
-    if (port1 != port2) return false;
-    
-    String host1 = url1.getHost();
-    String host2 = url2.getHost();
-    if (!host1.equals(host2)) return false;
-    
-    return true;
-  }
+	private UrlHelper()
+	{}
+
+	/**
+	 * Determines if two {@code URL} objects have the same host and protocol.
+	 * 
+	 * @param url1 first url
+	 * @param url2 second url
+	 * @return true if urls share same host and protocol, false otherwise
+	 */
+	public static boolean isUrlRelative(URL url1, URL url2)
+	{
+		if (url1 == null || url2 == null)
+			return false;
+
+		String protocol1 = url1.getProtocol();
+		String protocol2 = url2.getProtocol();
+		if (!protocol1.equals(protocol2))
+			return false;
+
+		int port1 = url1.getPort();
+		int port2 = url2.getPort();
+
+		if ("http".equals(protocol1))
+		{
+			if (port1 < 0)
+				port1 = 80;
+			if (port2 < 0)
+				port2 = 80;
+		}
+
+		if ("https".equals(protocol1))
+		{
+			if (port1 < 0)
+				port1 = 443;
+			if (port2 < 0)
+				port2 = 443;
+		}
+
+		if (port1 != port2)
+			return false;
+
+		String host1 = url1.getHost();
+		String host2 = url2.getHost();
+		if (!host1.equals(host2))
+			return false;
+
+		return true;
+	}
 }

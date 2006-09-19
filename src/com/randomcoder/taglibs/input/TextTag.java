@@ -1,6 +1,3 @@
-/*
- * $Id: TextTag.java 20 2005-02-09 20:13:51Z ccondit $
- */
 package com.randomcoder.taglibs.input;
 
 /**
@@ -29,23 +26,33 @@ package com.randomcoder.taglibs.input;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class TextTag extends InputTagBase {
-  private static final long serialVersionUID = -4855912498504089890L;
+public class TextTag extends InputTagBase
+{
+	private static final long serialVersionUID = -4855912498504089890L;
 
-  /**
-   * Sets the size HTML attribute.
-   * @param size value of size attribute
-   */
-  public void setSize(String size) { getParams().put("size", size); }
-    
-  /**
-   * Sets the maxlength HTML attribute.
-   * @param maxlength value of maxlength attribute
-   */
-  public void setMaxlength(String maxlength) { getParams().put("maxlength", maxlength); }
+	/**
+	 * Sets the size HTML attribute.
+	 * @param size value of size attribute
+	 */
+	public void setSize(String size)
+	{
+		getParams().put("size", size);
+	}
 
-  @Override
-  protected String getType() { return "text"; }
+	/**
+	 * Sets the maxlength HTML attribute.
+	 * @param maxlength value of maxlength attribute
+	 */
+	public void setMaxlength(String maxlength)
+	{
+		getParams().put("maxlength", maxlength);
+	}
+
+	@Override
+	protected String getType()
+	{
+		return "text";
+	}
 }

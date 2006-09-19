@@ -26,31 +26,32 @@ package com.randomcoder.taglibs.input;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public interface InputTagAttributes extends HtmlTagAttributes {
-  /**
-   * Sets the disabled HTML attribute.
-   * @param disabled value of disabled attribute
-   */
-  public void setDisabled(String disabled);
-  
-  /**
-   * Sets the readonly HTML attribute.
-   * @param readonly value of readonly attribute
-   */
-  public void setReadonly(String readonly);
+public interface InputTagAttributes extends HtmlTagAttributes
+{
+	/**
+	 * Sets the disabled HTML attribute.
+	 * @param disabled value of disabled attribute
+	 */
+	public void setDisabled(String disabled);
 
-  /**
-   * Sets the tabindex HTML attribute.
-   * @param tabindex value of tabindex attribute
-   */
-  public void setTabindex(String tabindex);
-  
-  /**
-   * Sets the accesskey HTML attribute.
-   * @param accesskey value of accesskey attribute
-   */
-  public void setAccesskey(String accesskey);
-  
+	/**
+	 * Sets the readonly HTML attribute.
+	 * @param readonly value of readonly attribute
+	 */
+	public void setReadonly(String readonly);
+
+	/**
+	 * Sets the tabindex HTML attribute.
+	 * @param tabindex value of tabindex attribute
+	 */
+	public void setTabindex(String tabindex);
+
+	/**
+	 * Sets the accesskey HTML attribute.
+	 * @param accesskey value of accesskey attribute
+	 */
+	public void setAccesskey(String accesskey);
+
 }

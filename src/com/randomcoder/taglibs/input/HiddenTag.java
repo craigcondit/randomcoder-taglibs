@@ -1,6 +1,3 @@
-/*
- * $Id: HiddenTag.java 20 2005-02-09 20:13:51Z ccondit $
- */
 package com.randomcoder.taglibs.input;
 
 /**
@@ -29,11 +26,15 @@ package com.randomcoder.taglibs.input;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class HiddenTag extends InputTagBase {  
-  private static final long serialVersionUID = -7231431633968037555L;
+public class HiddenTag extends InputTagBase
+{
+	private static final long serialVersionUID = -7231431633968037555L;
 
-  @Override
-  protected String getType() { return "hidden"; }
+	@Override
+	protected String getType()
+	{
+		return "hidden";
+	}
 }

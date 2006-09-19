@@ -26,36 +26,37 @@ package com.randomcoder.taglibs.input;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public interface HtmlTagAttributes {
-  /**
-   * Sets the styleClass (HTML class) attribute.
-   * @param styleClass value of styleClass attribute
-   */
-  public void setStyleClass(String styleClass);
-  
-  /**
-   * Sets the dir HTML attribute.
-   * @param dir value of dir attribute
-   */
-  public void setDir(String dir);
-  
-  /**
-   * Sets the lang HTML attribute.
-   * @param lang value of lang attribute
-   */
-  public void setLang(String lang);
-  
-  /**
-   * Sets the style HTML attribute.
-   * @param style value of lang attribute
-   */
-  public void setStyle(String style);
-  
-  /**
-   * Sets the title HTML attribute.
-   * @param title value of title attribute
-   */
-  public void setTitle(String title);
+public interface HtmlTagAttributes
+{
+	/**
+	 * Sets the styleClass (HTML class) attribute.
+	 * @param styleClass value of styleClass attribute
+	 */
+	public void setStyleClass(String styleClass);
+
+	/**
+	 * Sets the dir HTML attribute.
+	 * @param dir value of dir attribute
+	 */
+	public void setDir(String dir);
+
+	/**
+	 * Sets the lang HTML attribute.
+	 * @param lang value of lang attribute
+	 */
+	public void setLang(String lang);
+
+	/**
+	 * Sets the style HTML attribute.
+	 * @param style value of lang attribute
+	 */
+	public void setStyle(String style);
+
+	/**
+	 * Sets the title HTML attribute.
+	 * @param title value of title attribute
+	 */
+	public void setTitle(String title);
 }

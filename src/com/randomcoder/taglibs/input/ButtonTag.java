@@ -1,6 +1,3 @@
-/*
- * $Id: ButtonTag.java 20 2005-02-09 20:13:51Z ccondit $
- */
 package com.randomcoder.taglibs.input;
 
 /**
@@ -29,11 +26,15 @@ package com.randomcoder.taglibs.input;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class ButtonTag extends InputTagBase {
-  private static final long serialVersionUID = 5800589874656648910L;
+public class ButtonTag extends InputTagBase
+{
+	private static final long serialVersionUID = 5800589874656648910L;
 
-  @Override
-  protected String getType() { return "button"; }
+	@Override
+	protected String getType()
+	{
+		return "button";
+	}
 }

@@ -30,34 +30,40 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class InRoleTag extends BodyTagSupport {
-  private static final long serialVersionUID = 3339945981150007004L;
-  
-  private String role;
+public class InRoleTag extends BodyTagSupport
+{
+	private static final long serialVersionUID = 3339945981150007004L;
 
-  /**
-   * Sets the role to test
-   * @param role role name
-   */
-  public void setRole(String role) { this.role = role; }
+	private String role;
 
-  /**
-   * Determines whether to process body content.
-   * 
-   * @return SKIP_BODY if user is not in role(s), EVAL_BODY_INCLUDE otherwise
-   */
-  @Override
-  public int doStartTag() throws JspException {
-    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+	/**
+	 * Sets the role to test
+	 * @param role role name
+	 */
+	public void setRole(String role)
+	{
+		this.role = role;
+	}
 
-    String[] roles = role.split(",");
-    for (int i = 0; i < roles.length; i++) {
-      if (request.isUserInRole(roles[i].trim()))
-        return EVAL_BODY_INCLUDE;
-    }
+	/**
+	 * Determines whether to process body content.
+	 * 
+	 * @return SKIP_BODY if user is not in role(s), EVAL_BODY_INCLUDE otherwise
+	 */
+	@Override
+	public int doStartTag() throws JspException
+	{
+		HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 
-    return SKIP_BODY;
-  }
+		String[] roles = role.split(",");
+		for (int i = 0; i < roles.length; i++)
+		{
+			if (request.isUserInRole(roles[i].trim()))
+				return EVAL_BODY_INCLUDE;
+		}
+
+		return SKIP_BODY;
+	}
 }

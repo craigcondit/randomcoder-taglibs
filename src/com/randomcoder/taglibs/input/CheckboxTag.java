@@ -1,6 +1,3 @@
-/*
- * $Id: CheckboxTag.java 20 2005-02-09 20:13:51Z ccondit $
- */
 package com.randomcoder.taglibs.input;
 
 import java.io.IOException;
@@ -36,70 +33,94 @@ import com.randomcoder.taglibs.common.HtmlHelper;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class CheckboxTag extends InputTagBase {
-  private static final long serialVersionUID = -4288046933679612906L;
-  
-  private static final String ONE = "1".toUpperCase(Locale.US);
-  private static final String YES = "YES".toUpperCase(Locale.US);
-  private static final String TRUE = "TRUE".toUpperCase(Locale.US);
-  private static final String ON = "ON".toUpperCase(Locale.US);
-  private static final String CHECKED = "CHECKED".toUpperCase(Locale.US);
-  
-  /**
-   * Value of checked HTML attribute.
-   */
-  protected String checked;
+public class CheckboxTag extends InputTagBase
+{
+	private static final long serialVersionUID = -4288046933679612906L;
 
-  /**
-   * Sets the checked HTML attribute.
-   * @param checked value of checked attribute
-   */
-  public void setChecked(String checked) { this.checked = checked; }
-  
-  /**
-   * Determines if checkbox attribute is selected
-   * @return true if checkbox is checked, false otherwise
-   */
-  protected boolean isChecked() {
-    if (checked == null) return false;
-    String value = checked.toUpperCase(Locale.US);
-    
-    if (TRUE.equals(value)) return true;
-    if (ONE.equals(value)) return true;
-    if (CHECKED.equals(value)) return true;
-    if (ON.equals(value)) return true;
-    if (YES.equals(value)) return true;
+	private static final String ONE = "1".toUpperCase(Locale.US);
+	private static final String YES = "YES".toUpperCase(Locale.US);
+	private static final String TRUE = "TRUE".toUpperCase(Locale.US);
+	private static final String ON = "ON".toUpperCase(Locale.US);
+	private static final String CHECKED = "CHECKED".toUpperCase(Locale.US);
 
-    return false;
-  }
-	
-  @Override
-  public void release() {
-    super.release();
-    checked = null;
-  }
+	/**
+	 * Value of checked HTML attribute.
+	 */
+	protected String checked;
 
-  @Override
-  public int doEndTag() throws JspException {
-    try {
-      JspWriter out = pageContext.getOut();
+	/**
+	 * Sets the checked HTML attribute.
+	 * @param checked value of checked attribute
+	 */
+	public void setChecked(String checked)
+	{
+		this.checked = checked;
+	}
 
-      boolean isChecked = isChecked();
+	/**
+	 * Determines if checkbox attribute is selected
+	 * @return true if checkbox is checked, false otherwise
+	 */
+	protected boolean isChecked()
+	{
+		if (checked == null)
+			return false;
+		String value = checked.toUpperCase(Locale.US);
 
-      out.write("<input type=\"" + getType() + "\"");
-      out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
-      if (getStyleId() != null) out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
-      if (getValue() != null) out.write(" value=\"" + HtmlHelper.encodeAttribute(getValue()) + "\"");
-      if (isChecked) out.write(" checked=\"checked\"");
-      out.write(buildOptions());
-      out.write(" />");
-    } catch (IOException ioe) { throw new JspException(ioe); }
+		if (TRUE.equals(value))
+			return true;
+		if (ONE.equals(value))
+			return true;
+		if (CHECKED.equals(value))
+			return true;
+		if (ON.equals(value))
+			return true;
+		if (YES.equals(value))
+			return true;
 
-    return EVAL_PAGE;
-  }
+		return false;
+	}
 
-  @Override
-  protected String getType() { return "checkbox"; }
+	@Override
+	public void release()
+	{
+		super.release();
+		checked = null;
+	}
+
+	@Override
+	public int doEndTag() throws JspException
+	{
+		try
+		{
+			JspWriter out = pageContext.getOut();
+
+			boolean isChecked = isChecked();
+
+			out.write("<input type=\"" + getType() + "\"");
+			out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
+			if (getStyleId() != null)
+				out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
+			if (getValue() != null)
+				out.write(" value=\"" + HtmlHelper.encodeAttribute(getValue()) + "\"");
+			if (isChecked)
+				out.write(" checked=\"checked\"");
+			out.write(buildOptions());
+			out.write(" />");
+		}
+		catch (IOException ioe)
+		{
+			throw new JspException(ioe);
+		}
+
+		return EVAL_PAGE;
+	}
+
+	@Override
+	protected String getType()
+	{
+		return "checkbox";
+	}
 }

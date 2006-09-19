@@ -30,22 +30,25 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * </pre> 
+ * </pre>
  */
-public class LoggedInTag extends BodyTagSupport {
-  private static final long serialVersionUID = 3339945981150007004L;
-  
-  /**
-   * Determines whether to process body content.
-   * 
-   * @return EVAL_BODY_INCLUDE if user is logged in, SKIP_BODY otherwise
-   */
-  @Override
-  public int doStartTag() throws JspException {
-    HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+public class LoggedInTag extends BodyTagSupport
+{
+	private static final long serialVersionUID = 3339945981150007004L;
 
-    if (request.getUserPrincipal() != null) return EVAL_BODY_INCLUDE;
-    
-    return SKIP_BODY;
-  }
+	/**
+	 * Determines whether to process body content.
+	 * 
+	 * @return EVAL_BODY_INCLUDE if user is logged in, SKIP_BODY otherwise
+	 */
+	@Override
+	public int doStartTag() throws JspException
+	{
+		HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+
+		if (request.getUserPrincipal() != null)
+			return EVAL_BODY_INCLUDE;
+
+		return SKIP_BODY;
+	}
 }
