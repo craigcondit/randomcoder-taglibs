@@ -2306,6 +2306,26 @@ POSSIBILITY OF SUCH DAMAGE.
 		<example><![CDATA[<input:select name="select" id="select" value="${select}" />]]></example>
 	</tag>
 
+	<tag id="selected-value-tag">
+		<name>selected-value</name>
+		<tag-class>com.randomcoder.taglibs.input.SelectedValueTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>selected-value</display-name>
+		<description>
+			Alternative way to mark select tag's values.
+		</description>
+
+		<!-- required attributes -->
+		
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>Selected value.</description>
+		</attribute>
+	</tag>
+
 	<tag id="submit-tag">
 		<name>submit</name>
 		<tag-class>com.randomcoder.taglibs.input.SubmitTag</tag-class>

@@ -72,12 +72,11 @@ public class SelectTag extends InputTagBase
 	}
 
 	/**
-	 * Sets the value HTML attribute.
+	 * Adds a new value
 	 * @param value value of attribute 'value'
 	 */
-	public void setValue(Object value)
+	public void addValue(Object value)
 	{
-		values.clear();
 		if (value == null)
 			return;
 		if (value instanceof String)
@@ -120,6 +119,16 @@ public class SelectTag extends InputTagBase
 			// use default translation
 			values.add(value.toString());
 		}
+	}
+	
+	/**
+	 * Sets the value HTML attribute.
+	 * @param value value of attribute 'value'
+	 */
+	public void setValue(Object value)
+	{
+		values.clear();
+		addValue(value);
 	}
 
 	/**
