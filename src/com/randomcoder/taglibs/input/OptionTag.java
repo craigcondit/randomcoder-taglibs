@@ -205,6 +205,10 @@ public class OptionTag extends InputTagBase
 		{
 			throw new JspException(ioe);
 		}
+		finally
+		{
+			release();
+		}
 
 		return EVAL_PAGE;
 	}

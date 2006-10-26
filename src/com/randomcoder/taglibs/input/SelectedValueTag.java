@@ -64,12 +64,17 @@ public class SelectedValueTag extends TagSupport
 	@Override
 	public int doEndTag() throws JspException
 	{
-		SelectTag select = (SelectTag) findAncestorWithClass(this, SelectTag.class);
-		if (select == null)
-			throw new JspException("selected-value tag must be nested inside a select tag");
-		
-		select.addValue(value);
-		
-		return EVAL_PAGE;
+		try
+		{
+			SelectTag select = (SelectTag) findAncestorWithClass(this, SelectTag.class);
+			if (select == null)
+				throw new JspException("selected-value tag must be nested inside a select tag");
+			select.addValue(value);
+			return EVAL_PAGE;
+		}
+		finally
+		{
+			release();
+		}		
 	}
 }
