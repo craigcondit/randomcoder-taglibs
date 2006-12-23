@@ -11,18 +11,6 @@
   <version>1.5.2-SNAPSHOT</version>
   <inceptionYear>2006</inceptionYear>
   <url>http://randomcoder.com/projects/taglibs/</url>
-  <licenses>
-  	<license>
-  		<name>BSD style license</name>
-  		<url>LICENSE.txt</url>
-  		<distribution>repo</distribution>
-  	</license>
-  </licenses>
-  <scm>
-  	<connection>scm:svn:http://randomcoder.com/repos/public/taglibs/trunk</connection>
-  	<developerConnection>scm:svn:https://randomcoder.com/repos/public/taglibs/trunk</developerConnection>
-  	<url>http://randomcoder.com/repos/public/taglibs/trunk</url>
-  </scm>
   <description>
   	The randomcoder taglibs package contains various useful tag libraries
   	designed to be simple and easy to use.
@@ -43,6 +31,34 @@
   		<timezone>-7</timezone>
   	</developer>
   </developers>
+  <licenses>
+  	<license>
+  		<name>BSD style license</name>
+  		<url>LICENSE.txt</url>
+  		<distribution>repo</distribution>
+  	</license>
+  </licenses>
+  <scm>
+  	<connection>scm:svn:http://randomcoder.com/repos/public/taglibs/trunk</connection>
+  	<developerConnection>scm:svn:https://randomcoder.com/repos/public/taglibs/trunk</developerConnection>
+  	<url>http://randomcoder.com/repos/public/taglibs/trunk</url>
+  </scm>
+  <ciManagement>
+  	<system>continuum</system>
+  	<url>https://randomcoder.com/continuum/</url>
+  	<notifiers>
+  		<notifier>
+  			<type>mail</type>
+  			<sendOnError>true</sendOnError>
+  			<sendOnFailure>true</sendOnFailure>
+  			<sendOnSuccess>false</sendOnSuccess>
+  			<sendOnWarning>false</sendOnWarning>
+  			<configuration>
+  				<address>continuum@randomcoder.com</address>
+  			</configuration>
+  		</notifier>
+  	</notifiers>
+  </ciManagement>
   <build>
     <plugins>
       <plugin>
