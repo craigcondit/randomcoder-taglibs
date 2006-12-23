@@ -68,16 +68,16 @@
 		  	<repository>
 		  		<id>continuum-repository</id>
 		  		<name>Continuum Repository</name>
-		  		<url>file:///home/continuum/public_html/${project.name}/</url>
+		  		<url>file:///home/continuum/public_html/${project.artifactId}/</url>
 		  	</repository>
 		  	<site>
-		  		<url>file:///home/continuum/public_html/${project.name}/site</url>
+		  		<url>file:///home/continuum/public_html/${project.artifactId}/site</url>
 		  	</site>
   		</distributionManagement>
   		<properties>
   			<maven.site.deploy.live>true</maven.site.deploy.live>
   			<maven.site.deploy.method>fs</maven.site.deploy.method>
-  			<siteDirectory>/home/continuum/public_html/${project.name}/</siteDirectory>
+  			<siteDirectory>/home/continuum/public_html/${project.artifactId}/</siteDirectory>
   		</properties>
   	</profile>
   </profiles>
