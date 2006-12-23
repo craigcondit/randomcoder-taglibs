@@ -1,19 +1,17 @@
 package com.randomcoder.taglibs.common;
 
-import static org.junit.Assert.assertEquals;
+import static org.testng.Assert.assertEquals;
 
-import java.lang.reflect.Constructor;
-
-import org.junit.*;
+import org.testng.annotations.*;
 
 public class HtmlHelperTest
 {
 
-	@Before
+	@BeforeTest
 	public void setUp() throws Exception
 	{}
 
-	@After
+	@AfterTest
 	public void tearDown() throws Exception
 	{}
 

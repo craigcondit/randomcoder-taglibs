@@ -1,27 +1,29 @@
 package com.randomcoder.taglibs.common;
 
-import static org.junit.Assert.*;
+import static org.testng.Assert.*;
 
 import java.net.URL;
 import java.util.*;
 
-import org.junit.*;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.testng.annotations.*;
 
 public class RequestHelperTest
 {
 	MockHttpServletRequest request;
 
-	@Before
+	@BeforeTest
 	public void setUp() throws Exception
 	{
 		request = new MockHttpServletRequest();
 		
 	}
 
-	@After
+	@AfterTest
 	public void tearDown() throws Exception
-	{}
+	{
+		request = null;
+	}
 
 	@Test
 	public void testParseParameters() throws Exception

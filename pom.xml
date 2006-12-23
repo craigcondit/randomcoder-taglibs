@@ -82,6 +82,12 @@
   		</properties>
   	</profile>
   </profiles>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>tapestry.javaforge</id>
+			<url>http://howardlewisship.com/repository</url>
+		</pluginRepository>
+	</pluginRepositories>  
   <build>
     <plugins>
       <plugin>
@@ -123,8 +129,13 @@
   		</plugin>
   		<plugin>
   			<artifactId>maven-surefire-plugin</artifactId>
+  			<version>2.2</version>
   			<configuration>
   				<testFailureIgnore>true</testFailureIgnore>
+  				<!-- 
+  				<suiteXmlFiles>
+	  				<suiteXmlFile>testng.xml</suiteXmlFile>
+	  			</suiteXmlFiles> -->
   			</configuration>
   		</plugin>
     </plugins>
@@ -166,20 +177,21 @@
   				</reportSet>
   			</reportSets>
   		</plugin>
-  		<plugin>
+     <plugin>
   			<groupId>org.codehaus.mojo</groupId>
   			<artifactId>cobertura-maven-plugin</artifactId>
   			<version>2.0</version>
   		</plugin>
   	</plugins>
-  </reporting>
+  </reporting>  
   <dependencies>
-  	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>4.1</version>
-  		<scope>test</scope>
-  	</dependency>
+		<dependency>
+	    <groupId>org.testng</groupId>
+	    <artifactId>testng</artifactId>
+	    <version>5.1</version>
+	    <scope>test</scope>
+	    <classifier>jdk15</classifier>
+	  </dependency>  
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-core</artifactId>

@@ -55,7 +55,6 @@ public class RequestHelper
 	 */
 	public static Map<String, List<String>> parseParameters(HttpServletRequest request, String query) throws UnsupportedEncodingException
 	{
-
 		// get the request encoding
 		String encoding = request.getCharacterEncoding();
 
