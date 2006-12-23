@@ -77,6 +77,7 @@
   		<properties>
   			<maven.site.deploy.live>true</maven.site.deploy.live>
   			<maven.site.deploy.method>fs</maven.site.deploy.method>
+  			<maven.site.deploy.clean>true</maven.site.deploy.clean>
   			<siteDirectory>/home/continuum/public_html/${project.artifactId}/</siteDirectory>
   		</properties>
   	</profile>
