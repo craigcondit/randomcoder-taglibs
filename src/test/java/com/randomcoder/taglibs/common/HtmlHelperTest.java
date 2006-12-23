@@ -34,12 +34,4 @@ public class HtmlHelperTest
 		
 		assertEquals("", HtmlHelper.encodeAttribute(null));
 	}
-
-	@Test
-	public void testDefaultConstructor() throws Exception
-	{
-		Constructor con = HtmlHelper.class.getDeclaredConstructors()[0];
-		con.setAccessible(true);
-		con.newInstance();
-	}
 }
