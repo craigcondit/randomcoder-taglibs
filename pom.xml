@@ -115,6 +115,9 @@
   			<artifactId>maven-taglib-plugin</artifactId>
   		</plugin>
   		<plugin>
+  			<artifactId>maven-surefire-report-plugin</artifactId>
+  		</plugin>
+  		<plugin>
   			<artifactId>maven-project-info-reports-plugin</artifactId>
   			<reportSets>
   				<reportSet>
@@ -130,6 +133,11 @@
   					</reports>
   				</reportSet>
   			</reportSets>
+  		</plugin>
+  		<plugin>
+  			<groupId>org.codehaus.mojo</groupId>
+  			<artifactId>cobertura-maven-plugin</artifactId>
+  			<version>2.0</version>
   		</plugin>
   	</plugins>
   </reporting>
