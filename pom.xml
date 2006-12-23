@@ -59,6 +59,11 @@
   <profiles>
   	<profile>
   		<id>continuum</id>
+  		<activation>
+  			<property>
+  				<name>continuum</name>
+  			</property>
+  		</activation>
   		<distributionManagement>
 		  	<repository>
 		  		<id>continuum-repository</id>
@@ -66,6 +71,11 @@
 		  		<url>file:///home/continuum/public_html/${project.name}/</url>
 		  	</repository>
   		</distributionManagement>
+  		<properties>
+  			<maven.site.deploy.live>true</maven.site.deploy.live>
+  			<maven.site.deploy.method>fs</maven.site.deploy.method>
+  			<siteDirectory>/home/continuum/public_html/${project.name}/</siteDirectory>
+  		</properties>
   	</profile>
   </profiles>
   <build>
