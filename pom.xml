@@ -11,6 +11,18 @@
   <version>1.5.2-SNAPSHOT</version>
   <inceptionYear>2006</inceptionYear>
   <url>http://randomcoder.com/projects/taglibs/</url>
+  <licenses>
+  	<license>
+  		<name>BSD style license</name>
+  		<url>LICENSE.txt</url>
+  		<distribution>repo</distribution>
+  	</license>
+  </licenses>
+  <scm>
+  	<connection>scm:svn:http://randomcoder.com/repos/public/taglibs/trunk</connection>
+  	<developerConnection>scm:svn:https://randomcoder.com/repos/public/taglibs/trunk</developerConnection>
+  	<url>http://randomcoder.com/repos/public/taglibs/trunk</url>
+  </scm>
   <description>
   	The randomcoder taglibs package contains various useful tag libraries
   	designed to be simple and easy to use.
@@ -19,6 +31,18 @@
   	<name>Craig Condit</name>
   	<url>http://randomcoder.com/</url>
   </organization>
+  <developers>
+  	<developer>
+  		<id>ccondit</id>
+  		<name>Craig Condit</name>
+  		<email>ccondit@randomcoder.com</email>
+  		<roles>
+  			<role>architect</role>
+  			<role>developer</role>
+  		</roles>
+  		<timezone>-7</timezone>
+  	</developer>
+  </developers>
   <build>
     <plugins>
       <plugin>
@@ -76,6 +100,23 @@
   		<plugin>
   			<groupId>net.sourceforge.maven-taglib</groupId>
   			<artifactId>maven-taglib-plugin</artifactId>
+  		</plugin>
+  		<plugin>
+  			<artifactId>maven-project-info-reports-plugin</artifactId>
+  			<reportSets>
+  				<reportSet>
+  					<reports>
+  						<report>index</report>
+  						<report>cim</report>
+  						<report>dependencies</report>
+  						<report>issue-tracking</report>
+  						<report>license</report>
+  						<report>summary</report>
+  						<report>project-team</report>
+  						<report>scm</report>
+  					</reports>
+  				</reportSet>
+  			</reportSets>
   		</plugin>
   	</plugins>
   </reporting>
