@@ -36,7 +36,7 @@ public class HtmlHelperTest
 	}
 
 	@Test
-	public void coverDefaultConstructor() throws Exception
+	public void testDefaultConstructor() throws Exception
 	{
 		Constructor con = HtmlHelper.class.getDeclaredConstructors()[0];
 		con.setAccessible(true);
