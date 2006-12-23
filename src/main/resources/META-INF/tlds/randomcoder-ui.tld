@@ -49,7 +49,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>capitalizeDays</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.lang.Boolean</type>
+			<type>boolean</type>
 			<description>
 				If true, day captions will be capitalized.
 			</description>
@@ -58,7 +58,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>maxWeekdayLength</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.lang.Integer</type>
+			<type>int</type>
 			<description>
 				Sets the maximum length of the weekday captions.
 			</description>
