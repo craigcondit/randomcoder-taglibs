@@ -140,7 +140,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>day</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.lang.Integer</type>
+			<type>int</type>
 			<description>
 				Day of month (1-31), not specified means set defaults.
 			</description>
@@ -203,7 +203,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>showLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.lang.Boolean</type>
+			<type>boolean</type>
 			<description>
 				Sets whether to show links or not (defaults to true).
 			</description>
@@ -240,7 +240,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>capitalizeMonths</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.lang.Boolean</type>
+			<type>boolean</type>
 			<description>
 				If true, month captions will be capitalized.
 			</description>
@@ -258,7 +258,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>encodeNextLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.lang.Boolean</type>
+			<type>boolean</type>
 			<description>
 				Sets whether to encode month and year into next URL (defaults to true).
 			</description>
@@ -267,7 +267,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>encodePrevLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.lang.Boolean</type>
+			<type>boolean</type>
 			<description>
 				Sets whether to encode month and year into previous URL (defaults to true).
 			</description>
@@ -384,7 +384,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>showNextLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.lang.Boolean</type>
+			<type>boolean</type>
 			<description>
 				Sets whether to show next link (defaults to true).
 			</description>
@@ -393,7 +393,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>showPrevLink</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.lang.Boolean</type>
+			<type>boolean</type>
 			<description>
 				Sets whether to show previous link (defaults to true).
 			</description>
@@ -421,7 +421,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>count</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>true</required>
-			<type>java.lang.Integer</type>
+			<type>int</type>
 			<description>
 				Total number of items.
 			</description>
@@ -430,7 +430,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>limit</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>true</required>
-			<type>java.lang.Integer</type>
+			<type>int</type>
 			<description>
 				Number of items per page.
 			</description>
@@ -457,7 +457,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>maxLinks</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>false</required>
-			<type>java.lang.Integer</type>
+			<type>int</type>
 			<description>
 				Number of links (in either direction) to display. Defaults to 10.
 			</description>
@@ -484,7 +484,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>start</name>
 			<rtexprvalue>true</rtexprvalue>
 			<required>true</required>
-			<type>java.lang.Integer</type>
+			<type>int</type>
 			<description>
 				Starting element number
 			</description>
