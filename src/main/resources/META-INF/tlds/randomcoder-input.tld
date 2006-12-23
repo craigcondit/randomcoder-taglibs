@@ -253,7 +253,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
+			<type>java.lang.String</type>
 			<description>XHTML attribute</description>
 		</attribute>
 
@@ -486,7 +486,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
+			<type>java.lang.String</type>
 			<description>XHTML attribute</description>
 		</attribute>
 
@@ -934,7 +934,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
+			<type>java.lang.String</type>
 			<description>XHTML attribute</description>
 		</attribute>
 
@@ -1360,7 +1360,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
+			<type>java.lang.String</type>
 			<description>XHTML attribute</description>
 		</attribute>
 
@@ -1601,7 +1601,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
+			<type>java.lang.String</type>
 			<description>XHTML attribute</description>
 		</attribute>
 
@@ -1833,7 +1833,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
+			<type>java.lang.String</type>
 			<description>XHTML attribute</description>
 		</attribute>
 
@@ -2058,7 +2058,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
+			<type>java.lang.String</type>
 			<description>XHTML attribute</description>
 		</attribute>
 
@@ -2299,7 +2299,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
+			<type>java.lang.String</type>
 			<description>XHTML attribute</description>
 		</attribute>
 
@@ -2321,7 +2321,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.String</type>
+			<type>java.lang.Object</type>
 			<description>Selected value.</description>
 		</attribute>
 	</tag>
@@ -2543,7 +2543,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
+			<type>java.lang.String</type>
 			<description>XHTML attribute</description>
 		</attribute>
 
@@ -2784,7 +2784,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
+			<type>java.lang.String</type>
 			<description>XHTML attribute</description>
 		</attribute>
 
@@ -3025,7 +3025,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<name>value</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-			<type>java.lang.Object</type>
+			<type>java.lang.String</type>
 			<description>Field value of text area</description>
 		</attribute>
 		
