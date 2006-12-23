@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.randomcoder</groupId>
+  <artifactId>randomcoder-taglibs</artifactId>
+  <name>Randomcoder Taglibs</name>
+  <version>1.5.2-SNAPSHOT</version>
+  <organization>
+  	<name>Craig Condit</name>
+  	<url>http://randomcoder.com/</url>
+  </organization>
+  <description>
+  	The randomcoder taglibs package contains various useful tag libraries
+  	designed to be simple and easy to use.
+  </description>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <reporting>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-javadoc-plugin</artifactId>
+  			<configuration>
+  				<charset>UTF-8</charset>
+  				<docencoding>UTF-8</docencoding>
+  				<links>
+						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
+						<link>http://java.sun.com/j2ee/1.4/docs/api/</link>
+  				</links>
+  			</configuration>
+  		</plugin>
+  	</plugins>
+  </reporting>
+  <dependencies>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.1</version>
+  		<scope>test</scope>
+  	</dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.2</version>
+    </dependency>
+  </dependencies>
+</project>
