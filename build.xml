@@ -1,31 +1,7 @@
 <?xml version="1.0"?>
-<!-- 
-Copyright (c) 2006, Craig Condit. All rights reserved.
+<project name="randomcoder-taglibs" default="dist" basedir=".">
+	<description>Various tag libraries</description>
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-  * Redistributions of source code must retain the above copyright notice,
-    this list of conditions and the following disclaimer.
-  * Redistributions in binary form must reproduce the above copyright notice,
-    this list of conditions and the following disclaimer in the documentation
-    and/or other materials provided with the distribution.
-    
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
--->
-<project name="randomcoder-taglibs" default="dist" basedir=".">	
-    <description>Various tag libraries</description>
-	
 	<path id="classpath">
 		<fileset dir="lib">
 			<include name="**/*.jar" />
@@ -34,13 +10,15 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<property file="local.build.properties" />
 	<property file="build.properties" />
-	
-    <target name="compile" description="Generate java classes">
-        <mkdir dir="bin" />
-		<!-- Copy non-java elements from src to classes -->
-		<copy todir="bin" includeemptydirs="false">
-			<fileset dir="src">
-				<exclude name="**/*.java"/>
+
+	<target name="compile" description="Generate java classes">
+		<mkdir dir="target" />
+		<mkdir dir="target/classes" />
+
+		<!-- Copy resources -->
+		<copy todir="target/classes" includeemptydirs="false">
+			<fileset dir="src/main/resources">
+				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
 
@@ -48,46 +26,36 @@ POSSIBILITY OF SUCH DAMAGE.
 		<javac
 				deprecation="true"
 				classpathref="classpath"
-				srcdir="src"
-				destdir="bin"
+				srcdir="src/main/classes"
+				destdir="target/classes"
 				debug="true">
 			<compilerarg value="-Xlint:unchecked" />
 		</javac>
-    	
-    </target>
-    	
-    <target name="dist" depends="compile,javadoc,tlddoc,srczip,srctar,docjar,tlddocjar,jar" description="Build dist targets" />
-	
+
+	</target>
+
+	<target name="dist" depends="compile,javadoc,tlddoc,srczip,srctar,docjar,tlddocjar,jar" description="Build dist targets" />
+
 	<target name="srczip" description="Build src zip file">
-    	<mkdir dir="dist" />
+		<mkdir dir="dist" />
 		<zip destfile="dist/${ant.project.name}-${taglibs.version}-src.zip" >
 			<zipfileset prefix="${ant.project.name}-${taglibs.version}-src" dir=".">
-				<exclude name="bin" />
-				<exclude name="bin/**/*" />
-				<exclude name="dist" />
-				<exclude name="dist/**/*" />
-				<exclude name="docs/apidocs" />
-				<exclude name="docs/apidocs/**/*" />
-				<exclude name="**/CVS" />
-				<exclude name="**/CVS/**/*" />
+				<exclude name="target" />
+				<exclude name="target/**/*" />
 				<exclude name="**/.svn" />
 				<exclude name="**/.svn/**/*" />
 				<exclude name=".classpath" />
 				<exclude name=".project" />
-			</zipfileset>			
-    	</zip>
+			</zipfileset>
+		</zip>
 	</target>
 
 	<target name="srctar" description="Build src tar file file">
-    	<mkdir dir="dist" />
-		<tar compression="gzip" destfile="dist/${ant.project.name}-${taglibs.version}-src.tar.gz" >
+		<mkdir dir="target" />		
+		<tar compression="gzip" destfile="target/${ant.project.name}-${taglibs.version}-src.tar.gz" >
 			<tarfileset prefix="${ant.project.name}-${taglibs.version}-src" dir=".">
-				<exclude name="bin" />
-				<exclude name="bin/**/*" />
-				<exclude name="dist" />
-				<exclude name="dist/**/*" />
-				<exclude name="docs/apidocs" />
-				<exclude name="docs/apidocs/**/*" />
+				<exclude name="target" />
+				<exclude name="target/**/*" />
 				<exclude name="**/CVS" />
 				<exclude name="**/CVS/**/*" />
 				<exclude name="**/.svn" />
@@ -95,30 +63,30 @@ POSSIBILITY OF SUCH DAMAGE.
 				<exclude name=".classpath" />
 				<exclude name=".project" />
 			</tarfileset>
-    	</tar>
+		</tar>
 	</target>
-	
+
 	<target name="docjar" depends="javadoc" description="Build documentation jar file">
-    	<mkdir dir="dist" />
-    	<jar destfile="dist/${ant.project.name}-${taglibs.version}-doc.jar" basedir="docs/apidocs" />
+		<mkdir dir="target" />
+		<jar destfile="target/${ant.project.name}-${taglibs.version}-doc.jar" basedir="docs/apidocs" />
 	</target>
 
 	<target name="tlddocjar" depends="tlddoc" description="Build TLD documentation jar file">
-    	<mkdir dir="dist" />
-    	<jar destfile="dist/${ant.project.name}-${taglibs.version}-tlddoc.jar" basedir="docs/tlddocs" />
+		<mkdir dir="target" />
+		<jar destfile="target/${ant.project.name}-${taglibs.version}-tlddoc.jar" basedir="docs/tlddocs" />
 	</target>
-	
-    <target name="jar" depends="compile" description="Build jar file">
-    	<mkdir dir="dist" />
-    	<jar destfile="dist/${ant.project.name}-${taglibs.version}.jar" basedir="bin" />
+
+	<target name="jar" depends="compile" description="Build jar file">
+		<mkdir dir="target" />
+		<jar destfile="target/${ant.project.name}-${taglibs.version}.jar" basedir="bin" />
 	</target>
-	
+
 	<target name="javadoc" description="Build Java documentation">
-		<mkdir dir="docs" />
-		<mkdir dir="docs/apidocs" />
+		<mkdir dir="target" />
+		<mkdir dir="target/javadoc" />
 		<javadoc
 			classpathref="classpath"
-			destdir="docs/apidocs"
+			destdir="target/javadoc"
 			author="true"
 			charset="UTF-8"
 			docencoding="UTF-8"
@@ -132,12 +100,12 @@ POSSIBILITY OF SUCH DAMAGE.
 		</javadoc>
 	</target>
 
-	<target name="tlddoc" description="Build TLD documentation">		
-		<mkdir dir="docs" />
-		<mkdir dir="docs/tlddocs" />		
+	<target name="tlddoc" description="Build TLD documentation">
+		<mkdir dir="target" />
+		<mkdir dir="target/tlddoc" />
 		<java fork="true" jar="tools/tlddoc-1.3.jar" failonerror="true">
 			<arg value="-d" />
-			<arg value="docs/tlddocs" />
+			<arg value="target/tlddoc" />
 			<arg value="-windowtitle" />
 			<arg value="RandomCoder Taglibs" />
 			<arg value="-doctitle" />
@@ -150,7 +118,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<arg value="src/META-INF/tlds/randomcoder-escape.tld" />
 		</java>
 	</target>
-	
+
 	<target name="deploy-javadoc" depends="javadoc" description="Copies javadoc to destination folder">
 		<fail unless="javadoc.path" />
 		<mkdir dir="${javadoc.path}" />
@@ -160,12 +128,12 @@ POSSIBILITY OF SUCH DAMAGE.
 			</fileset>
 		</delete>
 		<copy todir="${javadoc.path}">
-			<fileset dir="docs/apidocs">
+			<fileset dir="target/javadoc">
 				<include name="**/*" />
 			</fileset>
 		</copy>
 	</target>
-	
+
 	<target name="deploy-tlddoc" depends="tlddoc" description="Copies tlddoc to destination folder">
 		<fail unless="tlddoc.path" />
 		<mkdir dir="${tlddoc.path}" />
@@ -175,17 +143,14 @@ POSSIBILITY OF SUCH DAMAGE.
 			</fileset>
 		</delete>
 		<copy todir="${tlddoc.path}">
-			<fileset dir="docs/tlddocs">
+			<fileset dir="target/tlddoc">
 				<include name="**/*" />
 			</fileset>
 		</copy>
 	</target>
-	
+
 	<target name="clean" description="Clean build targets">
-		<delete dir="dist" />
-		<delete dir="bin" />
-		<delete dir="docs/apidocs" />
-		<delete dir="docs/tlddocs" />
+		<delete dir="target" />
 	</target>
 
 </project>
