@@ -1,6 +1,8 @@
 package com.randomcoder.taglibs.common;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.lang.reflect.Constructor;
 
 import org.junit.*;
 
@@ -20,6 +22,8 @@ public class HtmlHelperTest
 	{
 		String result = HtmlHelper.encodePCData("This has embedded < & > characters");
 		assertEquals("This has embedded &lt; &amp; &gt; characters", result);
+		
+		assertEquals("", HtmlHelper.encodePCData(null));
 	}
 
 	@Test
@@ -27,6 +31,15 @@ public class HtmlHelperTest
 	{
 		String result = HtmlHelper.encodeAttribute("This has embedded \" < & > characters");
 		assertEquals("This has embedded &quot; &lt; &amp; &gt; characters", result);
+		
+		assertEquals("", HtmlHelper.encodeAttribute(null));
 	}
 
+	@Test
+	public void coverDefaultConstructor() throws Exception
+	{
+		Constructor con = HtmlHelper.class.getDeclaredConstructors()[0];
+		con.setAccessible(true);
+		con.newInstance();
+	}
 }
