@@ -56,6 +56,18 @@
   		</notifier>
   	</notifiers>
   </ciManagement>
+  <profiles>
+  	<profile>
+  		<id>continuum</id>
+  		<distributionManagement>
+		  	<repository>
+		  		<id>continuum-repository</id>
+		  		<name>Continuum Repository</name>
+		  		<url>file:///home/continuum/public_html/${project.name}/</url>
+		  	</repository>
+  		</distributionManagement>
+  	</profile>
+  </profiles>
   <build>
     <plugins>
       <plugin>
