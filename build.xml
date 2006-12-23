@@ -26,7 +26,7 @@
 		<javac
 				deprecation="true"
 				classpathref="classpath"
-				srcdir="src/main/classes"
+				srcdir="src/main/java"
 				destdir="target/classes"
 				debug="true">
 			<compilerarg value="-Xlint:unchecked" />
@@ -37,8 +37,8 @@
 	<target name="dist" depends="compile,javadoc,tlddoc,srczip,srctar,docjar,tlddocjar,jar" description="Build dist targets" />
 
 	<target name="srczip" description="Build src zip file">
-		<mkdir dir="dist" />
-		<zip destfile="dist/${ant.project.name}-${taglibs.version}-src.zip" >
+		<mkdir dir="target" />
+		<zip destfile="target/${ant.project.name}-${taglibs.version}-src.zip" >
 			<zipfileset prefix="${ant.project.name}-${taglibs.version}-src" dir=".">
 				<exclude name="target" />
 				<exclude name="target/**/*" />
@@ -68,17 +68,17 @@
 
 	<target name="docjar" depends="javadoc" description="Build documentation jar file">
 		<mkdir dir="target" />
-		<jar destfile="target/${ant.project.name}-${taglibs.version}-doc.jar" basedir="docs/apidocs" />
+		<jar destfile="target/${ant.project.name}-${taglibs.version}-doc.jar" basedir="target/javadoc" />
 	</target>
 
 	<target name="tlddocjar" depends="tlddoc" description="Build TLD documentation jar file">
 		<mkdir dir="target" />
-		<jar destfile="target/${ant.project.name}-${taglibs.version}-tlddoc.jar" basedir="docs/tlddocs" />
+		<jar destfile="target/${ant.project.name}-${taglibs.version}-tlddoc.jar" basedir="target/tlddoc" />
 	</target>
 
 	<target name="jar" depends="compile" description="Build jar file">
 		<mkdir dir="target" />
-		<jar destfile="target/${ant.project.name}-${taglibs.version}.jar" basedir="bin" />
+		<jar destfile="target/${ant.project.name}-${taglibs.version}.jar" basedir="target/classes" />
 	</target>
 
 	<target name="javadoc" description="Build Java documentation">
@@ -94,7 +94,7 @@
 			doctitle="RandomCoder Taglibs"
 			verbose="false"			
 			version="true">
-			<fileset dir="src" />
+			<fileset dir="src/main/java" />
 			<link href="http://java.sun.com/j2se/1.5.0/docs/api/" />
 			<link href="http://java.sun.com/j2ee/1.4/docs/api/" />
 		</javadoc>
@@ -110,12 +110,12 @@
 			<arg value="RandomCoder Taglibs" />
 			<arg value="-doctitle" />
 			<arg value="RandomCoder TagLibs" />
-			<arg value="src/META-INF/tlds/randomcoder-input.tld" />
-			<arg value="src/META-INF/tlds/randomcoder-security.tld" />
-			<arg value="src/META-INF/tlds/randomcoder-ui.tld" />
-			<arg value="src/META-INF/tlds/randomcoder-url.tld" />
-			<arg value="src/META-INF/tlds/randomcoder-format.tld" />
-			<arg value="src/META-INF/tlds/randomcoder-escape.tld" />
+			<arg value="src/main/resources/META-INF/tlds/randomcoder-input.tld" />
+			<arg value="src/main/resources/META-INF/tlds/randomcoder-security.tld" />
+			<arg value="src/main/resources/META-INF/tlds/randomcoder-ui.tld" />
+			<arg value="src/main/resources/META-INF/tlds/randomcoder-url.tld" />
+			<arg value="src/main/resources/META-INF/tlds/randomcoder-format.tld" />
+			<arg value="src/main/resources/META-INF/tlds/randomcoder-escape.tld" />
 		</java>
 	</target>
 
