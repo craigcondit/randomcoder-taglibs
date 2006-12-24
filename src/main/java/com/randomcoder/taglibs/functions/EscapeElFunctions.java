@@ -59,6 +59,9 @@ public final class EscapeElFunctions
 	 */
 	public static String attribute(String value)
 	{
+		if (value == null)
+			return null;
+		
 		StringBuilder builder = new StringBuilder();
 		for (char c : value.toCharArray())
 		{

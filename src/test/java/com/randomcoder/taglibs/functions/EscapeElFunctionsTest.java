@@ -19,14 +19,29 @@ public class EscapeElFunctionsTest extends TestCase
 		assertEquals("Testing &amp; &lt; &gt; &#34; &#39;", EscapeElFunctions.attribute("Testing & < > \" '"));
 	}
 
+	public void testAttributeNull()
+	{
+		assertNull(EscapeElFunctions.attribute(null));
+	}
+	
 	public void testJsDouble()
 	{
 		assertEquals("Testing \\\\ \\\"", EscapeElFunctions.jsDouble("Testing \\ \""));
 	}
 
+	public void testJsDoubleNull()
+	{
+		assertNull(EscapeElFunctions.jsDouble(null));
+	}
+	
 	public void testJsSingle()
 	{
 		assertEquals("Testing \\\\ \\'", EscapeElFunctions.jsSingle("Testing \\ '"));
 	}
 
+	public void testJsSingleNull()
+	{
+		assertNull(EscapeElFunctions.jsSingle(null));
+	}
+	
 }
