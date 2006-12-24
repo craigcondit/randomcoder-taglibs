@@ -82,11 +82,13 @@ public class RequestHelper
 			{
 				if (prev == null)
 					continue; // no previous entry...
-				if (!st.hasMoreTokens())
-					continue; // no more data
+				
+				String value = ""; // empty string instead of null
+				
+				if (st.hasMoreTokens())
+					value = URLDecoder.decode(st.nextToken(), encoding);
 
 				String key = URLDecoder.decode(prev, encoding);
-				String value = URLDecoder.decode(st.nextToken(), encoding);
 
 				List<String> params = data.get(key);
 				if (params == null)

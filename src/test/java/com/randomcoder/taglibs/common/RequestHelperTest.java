@@ -48,6 +48,22 @@ public class RequestHelperTest extends TestCase
 		assertEquals("test3again", param3.get(1));
 	}
 
+	public void testParseParametersMalformedQueryString() throws Exception
+	{
+		Map<String, List<String>> params;
+		
+		params = RequestHelper.parseParameters(request, "=value1");
+		assertNotNull(params);
+		assertEquals(0, params.keySet().size());
+
+		params = RequestHelper.parseParameters(request, "value1=");
+		assertNotNull(params);
+		assertEquals(1, params.keySet().size());
+		List<String> value1 = params.get("value1");
+		assertEquals(1, value1.size());
+		assertEquals("", value1.get(0));	
+	}
+	
 	public void testParseParametersNullQuery() throws Exception
 	{
 		Map<String, List<String>> params = RequestHelper.parseParameters(request, null);		
@@ -161,8 +177,8 @@ public class RequestHelperTest extends TestCase
 		request.setServerPort(80);
 		request.setContextPath("");
 		request.setServletPath("/index.jsp");
-		request.setQueryString("param1=test1");
 		
+		request.setQueryString("param1=test1");		
 		URL result = RequestHelper.getCurrentUrl(request);
 		String ext = result.toExternalForm();
 		assertEquals("http://www.example.com/index.jsp?param1=test1", ext);
