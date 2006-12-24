@@ -48,6 +48,13 @@ public class RequestHelperTest extends TestCase
 		assertEquals("test3again", param3.get(1));
 	}
 
+	public void testParseParametersNullQuery() throws Exception
+	{
+		Map<String, List<String>> params = RequestHelper.parseParameters(request, null);		
+		assertNotNull(params);
+		assertEquals(0, params.keySet().size());
+	}
+	
 	public void testAppendParameters() throws Exception
 	{
 		URL url = new URL("http://www.example.com/test?param1=test1&param2=test2");
@@ -100,11 +107,80 @@ public class RequestHelperTest extends TestCase
 		request.setServerPort(80);
 		request.setQueryString("?param1=test1&param2=test2");
 		request.setContextPath("/test");
+		request.setServletPath("/servlet");
+		request.setPathInfo("/index.jsp");
+		
+		URL result = RequestHelper.getCurrentUrl(request);
+		String ext = result.toExternalForm();
+		assertEquals("http://www.example.com/test/servlet/index.jsp?param1=test1&param2=test2", ext);
+	}
+
+	public void testGetCurrentUrlHttps() throws Exception
+	{
+		request.setScheme("https");
+		request.setServerName("www.example.com");
+		request.setServerPort(443);
+		request.setContextPath("");
 		request.setServletPath("/index.jsp");
 		
 		URL result = RequestHelper.getCurrentUrl(request);
 		String ext = result.toExternalForm();
-		assertEquals("http://www.example.com/test/index.jsp?param1=test1&param2=test2", ext);
+		assertEquals("https://www.example.com/index.jsp", ext);
 	}
 
+	public void testGetCurrentUrlRandomPort() throws Exception
+	{
+		request.setScheme("http");
+		request.setServerName("www.example.com");
+		request.setServerPort(8080);
+		request.setContextPath("");
+		request.setServletPath("/index.jsp");
+		
+		URL result = RequestHelper.getCurrentUrl(request);
+		String ext = result.toExternalForm();
+		assertEquals("http://www.example.com:8080/index.jsp", ext);
+	}
+
+	public void testGetCurrentUrlNegativePort() throws Exception
+	{
+		request.setScheme("http");
+		request.setServerName("www.example.com");
+		request.setServerPort(-1);
+		request.setContextPath("");
+		request.setServletPath("/index.jsp");
+		
+		URL result = RequestHelper.getCurrentUrl(request);
+		String ext = result.toExternalForm();
+		assertEquals("http://www.example.com/index.jsp", ext);
+	}
+
+	public void testGetCurrentUrlMalformedQueryString() throws Exception
+	{
+		request.setScheme("http");
+		request.setServerName("www.example.com");
+		request.setServerPort(80);
+		request.setContextPath("");
+		request.setServletPath("/index.jsp");
+		request.setQueryString("param1=test1");
+		
+		URL result = RequestHelper.getCurrentUrl(request);
+		String ext = result.toExternalForm();
+		assertEquals("http://www.example.com/index.jsp?param1=test1", ext);
+	}
+
+	public void testGetCurrentUrlForwardURI() throws Exception
+	{
+		request.setScheme("http");
+		request.setServerName("www.example.com");
+		request.setServerPort(80);
+		request.setContextPath("");
+		request.setServletPath("/index.jsp");
+		request.setAttribute("javax.servlet.forward.request_uri", "/original/index.jsp");
+		request.setAttribute("javax.servlet.forward.query_string", "?original1=test1");
+		
+		URL result = RequestHelper.getCurrentUrl(request);
+		String ext = result.toExternalForm();
+		assertEquals("http://www.example.com/original/index.jsp?original1=test1", ext);
+	}
+	
 }
