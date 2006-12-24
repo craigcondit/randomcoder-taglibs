@@ -1,21 +1,9 @@
 package com.randomcoder.taglibs.common;
 
-import static org.testng.Assert.assertEquals;
+import junit.framework.TestCase;
 
-import org.testng.annotations.*;
-
-public class HtmlHelperTest
+public class HtmlHelperTest extends TestCase
 {
-
-	@BeforeTest
-	public void setUp() throws Exception
-	{}
-
-	@AfterTest
-	public void tearDown() throws Exception
-	{}
-
-	@Test
 	public void testEncodePCData()
 	{
 		String result = HtmlHelper.encodePCData("This has embedded < & > characters");
@@ -24,7 +12,6 @@ public class HtmlHelperTest
 		assertEquals("", HtmlHelper.encodePCData(null));
 	}
 
-	@Test
 	public void testEncodeAttribute()
 	{
 		String result = HtmlHelper.encodeAttribute("This has embedded \" < & > characters");

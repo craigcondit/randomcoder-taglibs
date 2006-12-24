@@ -1,31 +1,29 @@
 package com.randomcoder.taglibs.common;
 
-import static org.testng.Assert.*;
-
 import java.net.URL;
 import java.util.*;
 
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.testng.annotations.*;
+import junit.framework.TestCase;
 
-public class RequestHelperTest
+import org.springframework.mock.web.MockHttpServletRequest;
+
+public class RequestHelperTest extends TestCase
 {
 	MockHttpServletRequest request;
 
-	@BeforeTest
+	@Override
 	public void setUp() throws Exception
 	{
 		request = new MockHttpServletRequest();
 		
 	}
 
-	@AfterTest
+	@Override
 	public void tearDown() throws Exception
 	{
 		request = null;
 	}
 
-	@Test
 	public void testParseParameters() throws Exception
 	{
 		String query = "?param1=test1&param2=test2&param3=test3&param3=test3again";
@@ -50,7 +48,6 @@ public class RequestHelperTest
 		assertEquals("test3again", param3.get(1));
 	}
 
-	@Test
 	public void testAppendParameters() throws Exception
 	{
 		URL url = new URL("http://www.example.com/test?param1=test1&param2=test2");
@@ -62,7 +59,6 @@ public class RequestHelperTest
 		assertTrue(ext.contains("param3=test3"));
 	}
 
-	@Test
 	public void testAppendParametersDuplicate() throws Exception
 	{
 		URL url = new URL("http://www.example.com/test?param1=test1&param2=test2orig");
@@ -75,7 +71,6 @@ public class RequestHelperTest
 		assertTrue(ext.contains("param2=test2updated"));
 	}
 	
-	@Test
 	public void testSetParameters() throws Exception
 	{
 		Map<String, List<String>> params = new HashMap<String, List<String>>();
@@ -98,7 +93,6 @@ public class RequestHelperTest
 		assertTrue(ext.contains("param3=new3"));
 	}
 
-	@Test
 	public void testGetCurrentUrl() throws Exception
 	{
 		request.setScheme("http");
