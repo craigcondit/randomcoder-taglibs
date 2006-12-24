@@ -45,6 +45,6 @@ public final class FormatElFunctions
 			return value;
 		if (maxLength <= 3)
 			return "...";
-		return value.substring(0, maxLength - 3) + "...";
+		return value.substring(0, maxLength - 2) + "...";
 	}
 }
