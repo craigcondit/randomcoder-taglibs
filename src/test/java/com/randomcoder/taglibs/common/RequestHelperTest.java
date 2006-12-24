@@ -181,6 +181,12 @@ public class RequestHelperTest extends TestCase
 		URL result = RequestHelper.getCurrentUrl(request);
 		String ext = result.toExternalForm();
 		assertEquals("http://www.example.com/original/index.jsp?original1=test1", ext);
+		
+		request.setAttribute("javax.servlet.forward.query_string", "original1=test1");
+
+		result = RequestHelper.getCurrentUrl(request);
+		ext = result.toExternalForm();
+		assertEquals("http://www.example.com/original/index.jsp?original1=test1", ext);		
 	}
 	
 }
