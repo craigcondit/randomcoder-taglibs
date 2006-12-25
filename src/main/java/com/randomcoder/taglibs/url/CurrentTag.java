@@ -2,13 +2,12 @@ package com.randomcoder.taglibs.url;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.randomcoder.taglibs.common.RequestHelper;
+import com.randomcoder.taglibs.common.*;
 
 /**
  * Tag class which retrieves the current page's URL.
@@ -123,7 +122,7 @@ public class CurrentTag extends TagSupport
 				}
 				else
 				{
-					pageContext.setAttribute(var, text, getScope(scope));
+					pageContext.setAttribute(var, text, TagHelper.getScope(scope));
 				}
 			}
 
@@ -139,23 +138,4 @@ public class CurrentTag extends TagSupport
 			cleanup();
 		}
 	}
-
-	private int getScope(String scopeName) throws JspException
-	{
-		if (scopeName == null)
-			throw new JspException("scope is null");
-
-		String test = scopeName.toUpperCase(Locale.US);
-
-		if ("PAGE".equals(test))
-			return PageContext.PAGE_SCOPE;
-		if ("REQUEST".equals(test))
-			return PageContext.REQUEST_SCOPE;
-		if ("SESSION".equals(test))
-			return PageContext.SESSION_SCOPE;
-		if ("APPLICATION".equals(test))
-			return PageContext.APPLICATION_SCOPE;
-		throw new JspException("Invalid scope: " + scopeName);
-	}
-
 }

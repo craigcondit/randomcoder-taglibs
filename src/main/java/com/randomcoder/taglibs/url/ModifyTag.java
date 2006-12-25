@@ -182,12 +182,10 @@ public class ModifyTag extends TagSupport
 				}
 				else
 				{
-					pageContext.setAttribute(var, output, getScope(scope));
+					pageContext.setAttribute(var, output, TagHelper.getScope(scope));
 				}
 			}
-
 			return EVAL_PAGE;
-
 		}
 		catch (IOException e)
 		{
@@ -262,23 +260,4 @@ public class ModifyTag extends TagSupport
 		params = null;
 		pageContext = null;
 	}
-
-	private int getScope(String scopeName) throws JspException
-	{
-		if (scopeName == null)
-			throw new JspException("scope is null");
-
-		String test = scopeName.toUpperCase(Locale.US);
-
-		if ("PAGE".equals(test))
-			return PageContext.PAGE_SCOPE;
-		if ("REQUEST".equals(test))
-			return PageContext.REQUEST_SCOPE;
-		if ("SESSION".equals(test))
-			return PageContext.SESSION_SCOPE;
-		if ("APPLICATION".equals(test))
-			return PageContext.APPLICATION_SCOPE;
-		throw new JspException("Invalid scope: " + scopeName);
-	}
-
 }

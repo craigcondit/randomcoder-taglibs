@@ -78,51 +78,11 @@ public class CurrentTagTest extends TestCase
 		assertEquals(EXPECTED_RESULT, context.getAttribute("test"));
 	}
 
-	public void testDoEndTagPageScope() throws Exception
+	public void testDoEndTagVarScope() throws Exception
 	{
 		tag.setVar("testPage");
 		tag.setScope("page");
 		tag.doEndTag();
 		assertEquals(EXPECTED_RESULT, context.getAttribute("testPage", PageContext.PAGE_SCOPE));
 	}
-
-	public void testDoEndTagApplicationScope() throws Exception
-	{
-		tag.setVar("testApp");
-		tag.setScope("application");
-		tag.doEndTag();
-		assertEquals(EXPECTED_RESULT, context.getAttribute("testApp", PageContext.APPLICATION_SCOPE));
-	}
-
-	public void testDoEndTagRequestScope() throws Exception
-	{
-		tag.setVar("testReq");
-		tag.setScope("request");
-		tag.doEndTag();
-		assertEquals(EXPECTED_RESULT, context.getAttribute("testReq", PageContext.REQUEST_SCOPE));
-	}
-
-	public void testDoEndTagSessionScope() throws Exception
-	{
-		tag.setVar("testSession");
-		tag.setScope("session");
-		tag.doEndTag();
-		assertEquals(EXPECTED_RESULT, context.getAttribute("testSession", PageContext.SESSION_SCOPE));
-	}
-
-	public void testDoEndTagInvalidScope() throws Exception
-	{
-		tag.setVar("testSession");
-		tag.setScope("invalid");
-		try
-		{
-			tag.doEndTag();
-			fail("Expected JspException");
-		}
-		catch (JspException e)
-		{
-			// pass
-		}
-	}
-
 }
