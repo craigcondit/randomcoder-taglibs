@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 
 import org.springframework.mock.web.*;
 
-import com.randomcoder.taglibs.test.mock.PrincipalMock;
+import com.randomcoder.taglibs.test.mock.jse.PrincipalMock;
 
 public class NotLoggedInTagTest extends TestCase
 {
