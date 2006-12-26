@@ -70,14 +70,17 @@ public class TextareaTag extends InputTagBase
 		{
 			JspWriter out = pageContext.getOut();
 
-			out.write("<textarea");
+			out.write("<");
+			out.write(getType());
 			out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
 			if (getStyleId() != null)
 				out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
 			out.write(buildOptions());
 			out.write(">");
 			out.write(HtmlHelper.encodePCData(getValue()));
-			out.write("</textarea>");
+			out.write("</");
+			out.write(getType());
+			out.write(">");
 		}
 		catch (IOException ioe)
 		{

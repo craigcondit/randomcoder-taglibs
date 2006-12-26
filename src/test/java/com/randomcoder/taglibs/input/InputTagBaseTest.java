@@ -1,36 +1,17 @@
 package com.randomcoder.taglibs.input;
 
-import java.io.StringWriter;
-
-import javax.servlet.jsp.JspWriter;
-
-import junit.framework.TestCase;
-
-import org.springframework.mock.web.*;
-
+import com.randomcoder.taglibs.test.base.InputTagTestCase;
 import com.randomcoder.taglibs.test.mock.input.InputTagBaseMock;
-import com.randomcoder.taglibs.test.mock.jee.JspWriterMock;
 
-public class InputTagBaseTest extends TestCase
+public class InputTagBaseTest extends InputTagTestCase
 {
 	InputTagBaseMock tag = null;
-	private MockPageContext context;
-	private MockHttpServletRequest request;
-	private StringWriter writer;
 	
 	@Override
 	protected void setUp() throws Exception
 	{
 		tag = new InputTagBaseMock();
-		writer = new StringWriter();
-		final JspWriterMock jspWriter = new JspWriterMock(writer);
-		request = new MockHttpServletRequest();		
-		context = new MockPageContext(new MockServletContext(), request) 
-		{
-			@Override
-			public JspWriter getOut() { return jspWriter; }
-		};
-		tag.setPageContext(context);
+		setUp(tag);
 	}
 
 	@Override
@@ -38,6 +19,7 @@ public class InputTagBaseTest extends TestCase
 	{
 		tag.release();
 		tag = null;
+		super.tearDown();
 	}
 
 	public void testName()
