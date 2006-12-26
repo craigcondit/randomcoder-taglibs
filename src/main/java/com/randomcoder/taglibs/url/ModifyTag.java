@@ -174,16 +174,13 @@ public class ModifyTag extends TagSupport
 				JspWriter out = pageContext.getOut();
 				out.write(output);
 			}
+			else if (scope == null)
+			{
+				pageContext.setAttribute(var, output);
+			}
 			else
 			{
-				if (scope == null)
-				{
-					pageContext.setAttribute(var, output);
-				}
-				else
-				{
-					pageContext.setAttribute(var, output, TagHelper.getScope(scope));
-				}
+				pageContext.setAttribute(var, output, TagHelper.getScope(scope));
 			}
 			return EVAL_PAGE;
 		}
