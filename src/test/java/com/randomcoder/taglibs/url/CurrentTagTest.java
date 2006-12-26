@@ -48,6 +48,7 @@ public class CurrentTagTest extends TestCase
 		request = null;
 		context = null;
 		writer.close();
+		writer = null;
 	}
 
 	public void testDoEndTagNullVar() throws Exception

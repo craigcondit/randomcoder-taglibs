@@ -50,6 +50,10 @@ public class SetParamTagTest extends TestCase
 		tag.release();
 		tag = null;
 		parent = null;
+		context = null;
+		request = null;
+		writer.close();
+		writer = null;
 	}
 
 	public void testDoEndTagNoParent() throws Exception

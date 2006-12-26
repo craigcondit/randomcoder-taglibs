@@ -47,6 +47,7 @@ public class ModifyTagTest extends TestCase
 		request = null;
 		context = null;
 		writer.close();
+		writer = null;
 	}
 
 	public void testScopeOnly() throws Exception
