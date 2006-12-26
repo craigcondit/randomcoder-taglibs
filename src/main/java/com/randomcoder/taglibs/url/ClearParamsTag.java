@@ -47,7 +47,7 @@ public class ClearParamsTag extends TagSupport
 		if (mtag == null)
 			throw new JspException("No modify tag parent found");
 
-		mtag.clearParameters();
+		mtag.getParams().clear();
 
 		return EVAL_PAGE;
 	}

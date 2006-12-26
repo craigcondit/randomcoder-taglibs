@@ -1,5 +1,7 @@
 package com.randomcoder.taglibs.url;
 
+import java.util.*;
+
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -81,11 +83,17 @@ public class AddParamTag extends TagSupport
 			ModifyTag mtag = (ModifyTag) findAncestorWithClass(this, ModifyTag.class);
 			if (mtag == null)
 				throw new JspException("No modify tag parent found");
-
-			mtag.addParameter(name, value);
+			
+			Map<String, List<String>> params = mtag.getParams();
+			List<String> values = params.get(name);
+			if (values == null)
+			{
+				values = new ArrayList<String>();
+				params.put(name, values);
+			}
+			values.add(value);
 
 			return EVAL_PAGE;
-
 		}
 		finally
 		{

@@ -1,5 +1,7 @@
 package com.randomcoder.taglibs.url;
 
+import java.util.*;
+
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -82,7 +84,15 @@ public class SetParamTag extends TagSupport
 			if (mtag == null)
 				throw new JspException("No modify tag parent found");
 
-			mtag.setParameter(name, value);
+			Map<String, List<String>> params = mtag.getParams();
+			List<String> values = params.get(name);
+			if (values == null)
+			{
+				values = new ArrayList<String>();
+				params.put(name, values);
+			}
+			values.clear();
+			values.add(value);
 
 			return EVAL_PAGE;
 

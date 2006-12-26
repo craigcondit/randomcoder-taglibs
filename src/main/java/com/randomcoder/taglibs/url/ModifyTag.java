@@ -198,56 +198,12 @@ public class ModifyTag extends TagSupport
 	}
 
 	/**
-	 * Removes parameter from the current URL.
-	 * 
-	 * @param paramName name of parameter to remove
+	 * Gets the parameter map for the current URL.
+	 * @return paramater map
 	 */
-	void removeParameter(String paramName)
-	{
-		params.remove(paramName);
-	}
-
-	/**
-	 * Adds a parameter to the current URL.
-	 * 
-	 * @param paramName parameter name
-	 * @param paramValue parameter value
-	 */
-	void addParameter(String paramName, String paramValue)
-	{
-		List<String> values = params.get(paramName);
-		if (values == null)
-		{
-			values = new ArrayList<String>();
-			params.put(paramName, values);
-		}
-		values.add(paramValue);
-	}
-
-	/**
-	 * Sets a parameter in the current URL.
-	 * 
-	 * @param paramName parameter name
-	 * @param paramValue parameter value
-	 */
-	void setParameter(String paramName, String paramValue)
-	{
-		List<String> values = params.get(paramName);
-		if (values == null)
-		{
-			values = new ArrayList<String>();
-			params.put(paramName, values);
-		}
-		values.clear();
-		values.add(paramValue);
-	}
-
-	/**
-	 * Clears all parameters in the current URL.
-	 */
-	void clearParameters()
-	{
-		params.clear();
+	Map<String, List<String>> getParams()
+	{		
+		return params;
 	}
 
 	private void cleanup()

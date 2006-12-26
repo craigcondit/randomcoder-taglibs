@@ -71,7 +71,7 @@ public class RemoveParamTag extends TagSupport
 			if (mtag == null)
 				throw new JspException("No modify tag parent found");
 
-			mtag.removeParameter(name);
+			mtag.getParams().remove(name);
 
 			return EVAL_PAGE;
 
