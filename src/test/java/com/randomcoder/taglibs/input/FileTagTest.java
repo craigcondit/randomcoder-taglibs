@@ -1,8 +1,8 @@
 package com.randomcoder.taglibs.input;
 
-import com.randomcoder.taglibs.test.base.InputTagTestCase;
+import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
-public class FileTagTest extends InputTagTestCase
+public class FileTagTest extends AbstractTagTestCase
 {
 	private FileTag tag;
 

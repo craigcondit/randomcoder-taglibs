@@ -2,9 +2,9 @@ package com.randomcoder.taglibs.input;
 
 import java.util.*;
 
-import com.randomcoder.taglibs.test.base.InputTagTestCase;
+import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
-public class SelectTagTest extends InputTagTestCase
+public class SelectTagTest extends AbstractTagTestCase
 {
 	private SelectTag tag;
 

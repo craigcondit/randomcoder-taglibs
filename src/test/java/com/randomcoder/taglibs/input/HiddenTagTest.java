@@ -1,8 +1,8 @@
 package com.randomcoder.taglibs.input;
 
-import com.randomcoder.taglibs.test.base.InputTagTestCase;
+import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
-public class HiddenTagTest extends InputTagTestCase
+public class HiddenTagTest extends AbstractTagTestCase
 {
 	private HiddenTag tag;
 

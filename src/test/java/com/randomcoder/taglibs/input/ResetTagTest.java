@@ -1,8 +1,8 @@
 package com.randomcoder.taglibs.input;
 
-import com.randomcoder.taglibs.test.base.InputTagTestCase;
+import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
-public class ResetTagTest extends InputTagTestCase
+public class ResetTagTest extends AbstractTagTestCase
 {
 	private ResetTag tag;
 

@@ -4,9 +4,9 @@ import java.util.Set;
 
 import javax.servlet.jsp.JspException;
 
-import com.randomcoder.taglibs.test.base.InputTagTestCase;
+import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
-public class SelectedValueTagTest extends InputTagTestCase
+public class SelectedValueTagTest extends AbstractTagTestCase
 {
 	private SelectedValueTag tag;
 	private SelectTag parent;

@@ -11,7 +11,7 @@ import org.springframework.mock.web.*;
 
 import com.randomcoder.taglibs.test.mock.jee.JspWriterMock;
 
-abstract public class InputTagTestCase extends TestCase
+abstract public class AbstractTagTestCase extends TestCase
 {
 	protected MockPageContext context;
 	protected MockHttpServletRequest request;

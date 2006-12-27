@@ -1,8 +1,8 @@
 package com.randomcoder.taglibs.input;
 
-import com.randomcoder.taglibs.test.base.InputTagTestCase;
+import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
-public class CheckboxTagTest extends InputTagTestCase
+public class CheckboxTagTest extends AbstractTagTestCase
 {
 	private CheckboxTag tag;
 

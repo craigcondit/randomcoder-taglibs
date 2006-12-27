@@ -1,8 +1,8 @@
 package com.randomcoder.taglibs.input;
 
-import com.randomcoder.taglibs.test.base.InputTagTestCase;
+import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
-public class TextareaTagTest extends InputTagTestCase
+public class TextareaTagTest extends AbstractTagTestCase
 {
 	private TextareaTag tag;
 
