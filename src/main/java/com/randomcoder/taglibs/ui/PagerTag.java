@@ -51,8 +51,6 @@ public class PagerTag extends TagSupport
 
 	private static final int DEFAULT_MAX_LINKS = 10;
 
-	private final DecimalFormat df = new DecimalFormat("####################");
-
 	private PageContext pageContext = null;
 
 	private String limitParam = DEFAULT_LIMIT_PARAM;
@@ -197,6 +195,8 @@ public class PagerTag extends TagSupport
 	{
 		try
 		{
+			DecimalFormat df = new DecimalFormat("####################");
+
 			JspWriter out = pageContext.getOut();
 
 			// make sure values are sane
@@ -266,6 +266,8 @@ public class PagerTag extends TagSupport
 		HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 		HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
 
+		DecimalFormat df = new DecimalFormat("####################");
+		
 		URL targetURL = null;
 		String output = null;
 		boolean relative = false;
