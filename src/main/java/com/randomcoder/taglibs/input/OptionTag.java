@@ -1,14 +1,14 @@
 package com.randomcoder.taglibs.input;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.util.Set;
 
 import javax.servlet.jsp.*;
 
 import com.randomcoder.taglibs.common.HtmlHelper;
 
 /**
- * Tag class which produces &lt;option&gt;.
+ * Tag class which produces &lt;option&gt; tags.
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -180,14 +180,15 @@ public class OptionTag extends InputTagBase
 			if (select == null)
 				throw new JspException("option tag must be nested inside a select tag");
 
-			Collection<String> values = select.getCurrentValues();
+			Set<String> values = select.getCurrentValues();
 
 			String testValue = getValue();
 			if (testValue == null)
 				testValue = text;
 			boolean selected = values.contains(testValue);
 
-			out.write("<option");
+			out.write("<");
+			out.write(getType());
 			if (getStyleId() != null)
 				out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
 			if (getValue() != null)
@@ -199,7 +200,9 @@ public class OptionTag extends InputTagBase
 			out.write(buildOptions());
 			out.write(">");
 			out.write(HtmlHelper.encodePCData(text));
-			out.write("</option>");
+			out.write("</");
+			out.write(getType());
+			out.write(">");
 		}
 		catch (IOException ioe)
 		{

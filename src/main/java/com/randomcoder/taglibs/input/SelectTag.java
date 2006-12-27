@@ -9,7 +9,7 @@ import javax.servlet.jsp.*;
 import com.randomcoder.taglibs.common.HtmlHelper;
 
 /**
- * Tag class which produces &lt;input type="select"&gt;.
+ * Tag class which produces &lt;select&gt; tags.
  * 
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
@@ -40,14 +40,7 @@ public class SelectTag extends InputTagBase
 {
 	private static final long serialVersionUID = -4575293374979723202L;
 
-	private static final DecimalFormat dfLong = new DecimalFormat("####################");
-	private static final DecimalFormat dfShort = new DecimalFormat("#####");
-	private static final DecimalFormat dfInt = new DecimalFormat("##########");
-
-	/**
-	 * List of options contained within this tag.
-	 */
-	protected final Collection<String> values = new ArrayList<String>();
+	private final Set<String> values = new HashSet<String>();
 
 	@Override
 	public void release()
@@ -77,8 +70,8 @@ public class SelectTag extends InputTagBase
 	 */
 	public void addValue(Object value)
 	{
-		if (value == null)
-			return;
+		if (value == null) return;
+		
 		if (value instanceof String)
 		{
 			values.add((String) value);
@@ -86,32 +79,21 @@ public class SelectTag extends InputTagBase
 		else if (value instanceof Collection)
 		{
 			Collection col = (Collection) value;
-			for (Object val : col)
-			{
-				if (val == null)
-					values.add(null);
-				else if (val instanceof String)
-				{
-					String s = (String) val;
-					values.add(s);
-				}
-				else
-				{
-					String s = val.toString();
-					values.add(s);
-				}
-			}
+			for (Object val : col) addValue(val);
 		}
 		else if (value instanceof Long)
 		{
+			DecimalFormat dfLong = new DecimalFormat("####################");
 			values.add(dfLong.format(((Long) value).longValue()));
 		}
 		else if (value instanceof Short)
 		{
+			DecimalFormat dfShort = new DecimalFormat("#####");
 			values.add(dfShort.format(((Short) value).shortValue()));
 		}
 		else if (value instanceof Integer)
 		{
+			DecimalFormat dfInt = new DecimalFormat("##########");			
 			values.add(dfInt.format(((Integer) value).intValue()));
 		}
 		else
@@ -121,11 +103,22 @@ public class SelectTag extends InputTagBase
 		}
 	}
 	
+	@Override
+	public void setValue(String value)
+	{
+		setValueObject(value);
+	}
+	
 	/**
 	 * Sets the value HTML attribute.
 	 * @param value value of attribute 'value'
 	 */
 	public void setValue(Object value)
+	{
+		setValueObject(value);
+	}
+	
+	private void setValueObject(Object value)
 	{
 		values.clear();
 		addValue(value);
@@ -137,7 +130,14 @@ public class SelectTag extends InputTagBase
 	 */
 	public void setMultiple(String multiple)
 	{
-		getParams().put("multiple", multiple);
+		if (multiple == null) multiple = "FALSE";
+		multiple = multiple.toUpperCase(Locale.US);
+		if ("TRUE".equals(multiple))
+			getParams().put("multiple", "multiple");
+		else if ("MULTIPLE".equals(multiple))
+			getParams().put("multiple", "multiple");
+		else
+			getParams().remove("multiple");
 	}
 
 	@Override
@@ -147,7 +147,8 @@ public class SelectTag extends InputTagBase
 		{
 			JspWriter out = pageContext.getOut();
 
-			out.write("<select");
+			out.write("<");
+			out.write(getType());
 			out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
 			if (getStyleId() != null)
 				out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
@@ -164,9 +165,9 @@ public class SelectTag extends InputTagBase
 
 	/**
 	 * Gets the current set of values in this tag.
-	 * @return collection of values
+	 * @return set of values
 	 */
-	public Collection<String> getCurrentValues()
+	public Set<String> getCurrentValues()
 	{
 		return values;
 	}
@@ -177,8 +178,7 @@ public class SelectTag extends InputTagBase
 	 */
 	public boolean isMultipleSelect()
 	{
-		String multiple = getParams().get("multiple");
-		return "TRUE".equalsIgnoreCase(multiple) || "MULTIPLE".equalsIgnoreCase(multiple);
+		return getParams().get("multiple") != null;
 	}
 
 	@Override
@@ -188,7 +188,9 @@ public class SelectTag extends InputTagBase
 		{
 			JspWriter out = pageContext.getOut();
 
-			out.write("</select>");
+			out.write("</");
+			out.write(getType());
+			out.write(">");
 		}
 		catch (IOException ioe)
 		{

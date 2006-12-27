@@ -17,7 +17,7 @@ abstract public class InputTagTestCase extends TestCase
 	protected MockHttpServletRequest request;
 	protected StringWriter writer;
 	
-	protected final void setUp(Tag tag)
+	protected final void setUp(Tag... tags)
 	{
 		writer = new StringWriter();
 		final JspWriterMock jspWriter = new JspWriterMock(writer);
@@ -27,7 +27,7 @@ abstract public class InputTagTestCase extends TestCase
 			@Override
 			public JspWriter getOut() { return jspWriter; }
 		};
-		tag.setPageContext(context);		
+		for (Tag tag : tags) tag.setPageContext(context);		
 	}
 	
 	@Override
