@@ -21,18 +21,6 @@ public class TextareaTagTest extends InputTagTestCase
 		super.tearDown();
 	}
 
-	public void testSetValue() throws Exception
-	{
-		try
-		{
-			tag.setValue("value");
-			fail("IllegalArgumentException expected");
-		}
-		catch (IllegalArgumentException e)
-		{
-			// pass
-		}
-	}
 	public void testDoEndTag() throws Exception
 	{
 		tag.setRows("10");
@@ -46,7 +34,7 @@ public class TextareaTagTest extends InputTagTestCase
 		assertTrue("bad name", result.contains(" name=\"name\""));
 		assertTrue("bad id", result.contains(" id=\"id\""));
 		assertTrue("bad rows", result.contains(" rows=\"10\""));
-		assertTrue("bad cols", result.contains(" cols=\"10\""));
+		assertTrue("bad cols", result.contains(" cols=\"80\""));
 		assertTrue("bad value", result.contains(">value<"));
 	}
 }
