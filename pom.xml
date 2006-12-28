@@ -52,13 +52,6 @@
   		</notifier>
   	</notifiers>
   </ciManagement>
-  <distributionManagement>
-  	<repository>
-  		<id>deployment-repository</id>
-  		<name>Deployment Repository</name>
-  		<url>file:///home/randomcoder.com/public_html/projects/${project.artifactId}/</url>  		
-  	</repository>
-  </distributionManagement>
   <profiles>
   	<profile>
   		<id>continuum</id>
