@@ -39,8 +39,7 @@ public class CalendarTagTest extends AbstractTagTestCase
 		
 		cal.set(Calendar.DATE, 15);
 		
-		tag.setShowDate(cal.getTime());
-		
+		tag.setShowDate(cal.getTime());		
 	}
 
 	@Override
