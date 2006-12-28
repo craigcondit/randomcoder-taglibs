@@ -52,6 +52,20 @@
   		</notifier>
   	</notifiers>
   </ciManagement>
+  <distributionManagement>
+  	<repository>
+  		<id>randomcoder-release-repository</id>
+  		<url>scpexe://strategichosts.com/home/maven/public_html/repository/release</url>  		
+  	</repository>
+  	<snapshotRepository>
+  		<id>randomcoder-snapshot-repository</id>
+  		<url>scpexe://strategichosts.com/home/maven/public_html/repository/snapshot</url>
+  	</snapshotRepository>
+  	<site>
+  		<id>randomcoder-site</id>
+  		<url>scpexe://strategichosts.com/home/maven/public_html/site/${project.artifactId}</url>
+  	</site>
+  </distributionManagement>
   <profiles>
   	<profile>
   		<id>continuum</id>
@@ -60,14 +74,15 @@
   				<name>continuum</name>
   			</property>
   		</activation>
+  		<!--
   		<distributionManagement>
-		  	<repository>
+		  	<snapshotRepository>
 		  		<id>continuum-repository</id>
 		  		<name>Continuum Repository</name>
-		  		<url>file:///home/continuum/public_html/${project.artifactId}/</url>
-		  	</repository>
+		  		<url>scpexe://strategichosts.com/home/continuum/public_html/${project.artifactId}/</url>
+		  	</snapshotRepository>
 		  	<site>
-		  		<url>file:///home/continuum/public_html/${project.artifactId}/site</url>
+		  		<url>scpexe://strategichosts.com/home/continuum/public_html/${project.artifactId}/site</url>
 		  	</site>
   		</distributionManagement>
   		<properties>
@@ -76,6 +91,7 @@
   			<maven.site.deploy.clean>true</maven.site.deploy.clean>
   			<siteDirectory>/home/continuum/public_html/${project.artifactId}/</siteDirectory>
   		</properties>
+  		-->
   	</profile>
   </profiles>
   <build>
@@ -134,6 +150,12 @@
   			</configuration>
   		</plugin>
     </plugins>
+    <extensions>
+    	<extension>
+    		<groupId>org.apache.maven.wagon</groupId>
+    		<artifactId>wagon-ssh-external</artifactId>
+    	</extension>
+    </extensions>
   </build>
   <reporting>
   	<plugins>
