@@ -4,7 +4,7 @@
   <groupId>com.randomcoder</groupId>
   <artifactId>randomcoder-taglibs</artifactId>
   <name>Randomcoder Taglibs</name>
-  <version>1.5.2-SNAPSHOT</version>
+  <version>1.5.2</version>
   <inceptionYear>2006</inceptionYear>
   <url>http://randomcoder.com/projects/taglibs/</url>
   <description>
@@ -35,9 +35,9 @@
   	</license>
   </licenses>
   <scm>
-  	<connection>scm:svn:http://randomcoder.com/repos/public/taglibs/trunk</connection>
-  	<developerConnection>scm:svn:https://randomcoder.com/repos/public/taglibs/trunk</developerConnection>
-  	<url>http://randomcoder.com/repos/public/taglibs/trunk</url>
+  	<connection>scm:svn:http://randomcoder.com/repos/public/taglibs/tags/1.5.2</connection>
+  	<developerConnection>scm:svn:https://randomcoder.com/repos/public/taglibs/tags/1.5.2</developerConnection>
+  	<url>http://randomcoder.com/repos/public/taglibs/tags/1.5.2</url>
   </scm>
   <ciManagement>
   	<system>continuum</system>
