@@ -1,14 +1,13 @@
 package com.randomcoder.taglibs.ui;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.URL;
 import java.text.*;
 import java.util.*;
 
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.jstl.core.Config;
-import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import com.randomcoder.taglibs.common.*;
@@ -60,7 +59,7 @@ public class CalendarTag extends BodyTagSupport
 	private boolean capitalizeDays = true;
 	private Integer maxWeekdayLength;
 	private Locale locale;
-	private ResourceBundle resourceBundle;
+	// private ResourceBundle resourceBundle;
 	private TimeZone timeZone;
 	private DateFormatSymbols dateFormatSymbols;
 
@@ -204,7 +203,6 @@ public class CalendarTag extends BodyTagSupport
 		selectedClass = null;
 		weekendClass = null;
 		locale = null;
-		resourceBundle = null;
 		timeZone = null;
 		dateFormatSymbols = null;
 		capitalizeDays = true;
@@ -241,8 +239,6 @@ public class CalendarTag extends BodyTagSupport
 
 			// get locale-specific stuff
 			locale = getDefaultLocale();
-			if (resourceBundle == null)
-				resourceBundle = getDefaultResourceBundle();
 			if (timeZone == null)
 				timeZone = getDefaultTimeZone();
 			if (dateFormatSymbols == null)
@@ -326,7 +322,7 @@ public class CalendarTag extends BodyTagSupport
 				// add current day
 				col++;
 
-				renderDay(out, current, dow, isSameDay(current, now), isSameDay(current, selected));
+				renderDay(out, current, dow, DateHelper.isSameDay(current, now), DateHelper.isSameDay(current, selected));
 
 				if (i == endDay)
 				{
@@ -360,33 +356,12 @@ public class CalendarTag extends BodyTagSupport
 		}
 	}
 
-	private boolean isSameDay(Calendar cal1, Calendar cal2)
-	{
-		if (cal1 == null || cal2 == null)
-			return false;
-		if (cal1.get(Calendar.YEAR) != cal2.get(Calendar.YEAR))
-			return false;
-		if (cal1.get(Calendar.MONTH) != cal2.get(Calendar.MONTH))
-			return false;
-		if (cal1.get(Calendar.DAY_OF_MONTH) != cal2.get(Calendar.DAY_OF_MONTH))
-			return false;
-		return true;
-	}
-
 	private Locale getDefaultLocale()
 	{
 		Locale result = (Locale) Config.find(pageContext, Config.FMT_LOCALE);
 		if (result == null)
 			result = Locale.getDefault();
 		return result;
-	}
-
-	private ResourceBundle getDefaultResourceBundle()
-	{
-		LocalizationContext result = (LocalizationContext) Config.find(pageContext, Config.FMT_LOCALIZATION_CONTEXT);
-		if (result == null)
-			return null; // this is bad :(
-		return result.getResourceBundle();
 	}
 
 	private TimeZone getDefaultTimeZone()
