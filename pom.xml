@@ -4,7 +4,7 @@
   <groupId>com.randomcoder</groupId>
   <artifactId>randomcoder-taglibs</artifactId>
   <name>Randomcoder Taglibs</name>
-  <version>1.5.3-SNAPSHOT</version>
+  <version>1.5.2-SNAPSHOT</version>
   <inceptionYear>2006</inceptionYear>
   <url>http://randomcoder.com/projects/taglibs/</url>
   <description>
