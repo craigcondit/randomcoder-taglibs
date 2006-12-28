@@ -1,14 +1,13 @@
 package com.randomcoder.taglibs.ui;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.URL;
 import java.text.*;
 import java.util.*;
 
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.jstl.core.Config;
-import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import com.randomcoder.taglibs.common.*;
@@ -72,11 +71,8 @@ public class CalendarHeadingTag extends TagSupport
 	private String prevContent = DEFAULT_PREV_CONTENT;
 	private String nextContent = DEFAULT_NEXT_CONTENT;
 	private Locale locale;
-	private ResourceBundle resourceBundle;
 	private TimeZone timeZone;
 	private DateFormatSymbols dateFormatSymbols;
-
-	private final CalendarDaySpec[] daySpecs = new CalendarDaySpec[32];
 
 	/**
 	 * Determins if month names should be capitalized (defaults to true).
@@ -285,24 +281,7 @@ public class CalendarHeadingTag extends TagSupport
 		super.setPageContext(pageContext);
 		this.pageContext = pageContext;
 	}
-
-	/**
-	 * Used by CalendarDayTag to apply customization to day rendering.
-	 * 
-	 * @param day day to apply the spec to, or null for default
-	 * @param spec day-specific parameters to apply
-	 */
-	void setDaySpec(Integer day, CalendarDaySpec spec)
-	{
-		if (day == null)
-			day = 0;
-		if (day < 0)
-			return;
-		if (day > 31)
-			return;
-		daySpecs[day] = spec;
-	}
-
+	
 	/**
 	 * Release state.
 	 */
@@ -319,7 +298,6 @@ public class CalendarHeadingTag extends TagSupport
 		prevClass = null;
 		nextClass = null;
 		locale = null;
-		resourceBundle = null;
 		timeZone = null;
 		captionFormat = DEFAULT_CAPTION_FORMAT;
 		dateFormatSymbols = null;
@@ -338,10 +316,6 @@ public class CalendarHeadingTag extends TagSupport
 		capitalizeMonths = true;
 		prevId = null;
 		nextId = null;
-
-		for (int i = 0; i < 31; i++)
-			daySpecs[i] = null;
-
 		pageContext = null;
 	}
 
@@ -358,8 +332,6 @@ public class CalendarHeadingTag extends TagSupport
 
 			// get locale-specific stuff
 			locale = getDefaultLocale();
-			if (resourceBundle == null)
-				resourceBundle = getDefaultResourceBundle();
 			if (timeZone == null)
 				timeZone = getDefaultTimeZone();
 			if (dateFormatSymbols == null)
@@ -404,14 +376,6 @@ public class CalendarHeadingTag extends TagSupport
 		if (result == null)
 			result = Locale.getDefault();
 		return result;
-	}
-
-	private ResourceBundle getDefaultResourceBundle()
-	{
-		LocalizationContext result = (LocalizationContext) Config.find(pageContext, Config.FMT_LOCALIZATION_CONTEXT);
-		if (result == null)
-			return null; // this is bad :(
-		return result.getResourceBundle();
 	}
 
 	private TimeZone getDefaultTimeZone()
