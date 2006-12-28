@@ -66,34 +66,6 @@
   		<url>scpexe://strategichosts.com/home/maven/public_html/site/${project.artifactId}</url>
   	</site>
   </distributionManagement>
-  <profiles>
-  	<profile>
-  		<id>continuum</id>
-  		<activation>
-  			<property>
-  				<name>continuum</name>
-  			</property>
-  		</activation>
-  		<!--
-  		<distributionManagement>
-		  	<snapshotRepository>
-		  		<id>continuum-repository</id>
-		  		<name>Continuum Repository</name>
-		  		<url>scpexe://strategichosts.com/home/continuum/public_html/${project.artifactId}/</url>
-		  	</snapshotRepository>
-		  	<site>
-		  		<url>scpexe://strategichosts.com/home/continuum/public_html/${project.artifactId}/site</url>
-		  	</site>
-  		</distributionManagement>
-  		<properties>
-  			<maven.site.deploy.live>true</maven.site.deploy.live>
-  			<maven.site.deploy.method>fs</maven.site.deploy.method>
-  			<maven.site.deploy.clean>true</maven.site.deploy.clean>
-  			<siteDirectory>/home/continuum/public_html/${project.artifactId}/</siteDirectory>
-  		</properties>
-  		-->
-  	</profile>
-  </profiles>
   <build>
     <plugins>
       <plugin>

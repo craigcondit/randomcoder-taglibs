@@ -1,14 +1,14 @@
 <site>
   <bannerLeft>
   	<src>http://randomcoder.com/images/randomcoder-logo.png</src>
-  	<href>http://randomcoder.com/</href>
+  	<href>../../../</href>
   </bannerLeft>
   <bannerRight>
   	<name>${project.name}</name>
   </bannerRight>
   <body>
   	<links>
-  		<item name="Home" href="http://randomcoder.com/" />
+  		<item name="Home" href="../../../" />
   	</links>
   	
   	${reports}
