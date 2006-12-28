@@ -79,8 +79,6 @@ public class CalendarDayTagTest extends AbstractTagTestCase
 		
 		String result = writer.toString();
 		
-		System.out.println(result);
-	
 		assertTrue("day-class", result.contains("day-class"));
 		assertTrue("day-id", result.contains("\"day-id\""));
 		assertTrue("dayParam", result.contains("dayParam=1"));
