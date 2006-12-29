@@ -5,7 +5,7 @@
   	<groupId>com.randomcoder</groupId>
   	<artifactId>randomcoder-base</artifactId>
   	<version>1</version>
-  </parent>mv
+  </parent>
   <groupId>com.randomcoder</groupId>
   <artifactId>randomcoder-taglibs</artifactId>
   <name>Randomcoder Taglibs</name>
@@ -22,6 +22,30 @@
   	<developerConnection>scm:svn:https://randomcoder.com/repos/public/randomcoder-taglibs/trunk</developerConnection>
   	<url>http://randomcoder.com/repos/public/randomcoder-taglibs/trunk</url>
   </scm>
+  <repositories>
+  	<repository>
+  		<id>randomcoder-release</id>
+  		<name>Randomcoder Release</name>
+  		<url>http://randomcoder.com/maven/repository/release</url>
+  		<releases>
+  			<enabled>true</enabled>
+  		</releases>
+  		<snapshots>
+  			<enabled>false</enabled>
+  		</snapshots>
+  	</repository>
+  	<repository>
+  		<id>randomcoder-snapshot</id>
+  		<name>Randomcoder Snapshot</name>
+  		<url>http://randomcoder.com/maven/repository/snapshot</url>
+  		<releases>
+  			<enabled>false</enabled>
+  		</releases>
+  		<snapshots>
+  			<enabled>true</enabled>
+  		</snapshots>
+  	</repository>
+  </repositories>
   <build>
     <plugins>
       <plugin>
