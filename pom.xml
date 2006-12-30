@@ -4,7 +4,7 @@
   <parent>
   	<groupId>com.randomcoder</groupId>
   	<artifactId>randomcoder-base</artifactId>
-  	<version>5</version>
+  	<version>6</version>
   </parent>
   <groupId>com.randomcoder</groupId>
   <artifactId>randomcoder-taglibs</artifactId>
@@ -46,12 +46,6 @@
       <url>http://randomcoder.com/maven/repository/snapshot</url>
     </repository>
   </repositories>  
-  <distributionManagement>
-  	<site>
-  		<id>randomcoder-site</id>
-  		<url>scpexe://strategichosts.com/home/maven/public_html/site/randomcoder-taglibs</url>
-  	</site>
-  </distributionManagement>
   <build>
     <plugins>
       <plugin>
