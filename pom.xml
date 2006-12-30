@@ -46,6 +46,12 @@
       <url>http://randomcoder.com/maven/repository/snapshot</url>
     </repository>
   </repositories>  
+  <distributionManagement>
+  	<site>
+  		<id>randomcoder-site</id>
+  		<url>scpexe://strategichosts.com/home/maven/public_html/site/randomcoder-taglibs</url>
+  	</site>
+  </distributionManagement>
   <build>
     <plugins>
       <plugin>
