@@ -22,6 +22,30 @@
   	<developerConnection>scm:svn:https://randomcoder.com/repos/public/randomcoder-taglibs/trunk</developerConnection>
   	<url>http://randomcoder.com/repos/public/randomcoder-taglibs/trunk</url>
   </scm>
+  <repositories>
+    <repository>
+      <releases>
+      	<enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>randomcoder-release</id>
+      <name>Randomcoder Release</name>
+      <url>http://randomcoder.com/maven/repository/release</url>
+    </repository>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+      	<enabled>true</enabled>
+      </snapshots>
+      <id>randomcoder-snapshot</id>
+      <name>Randomcoder Snapshot</name>
+      <url>http://randomcoder.com/maven/repository/snapshot</url>
+    </repository>
+  </repositories>  
   <build>
     <plugins>
       <plugin>
