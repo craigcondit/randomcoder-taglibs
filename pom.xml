@@ -98,7 +98,7 @@
   		<plugin>
   			<artifactId>maven-surefire-plugin</artifactId>
   			<configuration>
-  				<testFailureIgnore>true</testFailureIgnore>
+  				<testFailureIgnore>false</testFailureIgnore>
   			</configuration>
   		</plugin>
     </plugins>
