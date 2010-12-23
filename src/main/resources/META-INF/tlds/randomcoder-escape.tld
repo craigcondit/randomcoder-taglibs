@@ -35,28 +35,28 @@
 	<function>
 		<description>Attribute escape</description>
 		<name>attribute</name>
-		<function-class>com.randomcoder.taglibs.functions.EscapeElFunctions</function-class>
+		<function-class>org.randomcoder.taglibs.functions.EscapeElFunctions</function-class>
 		<function-signature>java.lang.String attribute(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<description>URL encode</description>
 		<name>urlencode</name>
-		<function-class>com.randomcoder.taglibs.functions.EscapeElFunctions</function-class>
+		<function-class>org.randomcoder.taglibs.functions.EscapeElFunctions</function-class>
 		<function-signature>java.lang.String urlencode(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<description>JavaScript double-quote escape</description>
 		<name>jsDouble</name>
-		<function-class>com.randomcoder.taglibs.functions.EscapeElFunctions</function-class>
+		<function-class>org.randomcoder.taglibs.functions.EscapeElFunctions</function-class>
 		<function-signature>java.lang.String jsDouble(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<description>JavaScript single-quote escape</description>
 		<name>jsSingle</name>
-		<function-class>com.randomcoder.taglibs.functions.EscapeElFunctions</function-class>
+		<function-class>org.randomcoder.taglibs.functions.EscapeElFunctions</function-class>
 		<function-signature>java.lang.String jsSingle(java.lang.String)</function-signature>
 	</function>
 

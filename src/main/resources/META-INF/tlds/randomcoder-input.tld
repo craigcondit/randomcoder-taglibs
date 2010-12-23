@@ -38,7 +38,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id="button-tag">
 		<name>button</name>
-		<tag-class>com.randomcoder.taglibs.input.ButtonTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.ButtonTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>button</display-name>
 		<description>
@@ -263,7 +263,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id="checkbox-tag">
 		<name>checkbox</name>
-		<tag-class>com.randomcoder.taglibs.input.CheckboxTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.CheckboxTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>checkbox</display-name>
 		<description>
@@ -494,7 +494,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	</tag><tag id="file-tag">
 		<name>file</name>
-		<tag-class>com.randomcoder.taglibs.input.FileTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.FileTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>file</display-name>
 		<description>
@@ -719,7 +719,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id="hidden-tag">
 		<name>hidden</name>
-		<tag-class>com.randomcoder.taglibs.input.HiddenTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.HiddenTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>hidden</display-name>
 		<description>
@@ -944,7 +944,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id="image-tag">
 		<name>image</name>
-		<tag-class>com.randomcoder.taglibs.input.ImageTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.ImageTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>textarea</display-name>
 		<description>
@@ -1192,7 +1192,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id="option-tag">
 		<name>option</name>
-		<tag-class>com.randomcoder.taglibs.input.OptionTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.OptionTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>option</display-name>
 		<description>
@@ -1370,7 +1370,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id="password-tag">
 		<name>password</name>
-		<tag-class>com.randomcoder.taglibs.input.PasswordTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.PasswordTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>password</display-name>
 		<description>
@@ -1610,7 +1610,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id="radio-tag">
 		<name>radio</name>
-		<tag-class>com.randomcoder.taglibs.input.RadioTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.RadioTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>radio</display-name>
 		<description>
@@ -1843,7 +1843,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id="reset-tag">
 		<name>reset</name>
-		<tag-class>com.randomcoder.taglibs.input.ResetTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.ResetTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>reset</display-name>
 		<description>
@@ -2068,7 +2068,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id="select-tag">
 		<name>select</name>
-		<tag-class>com.randomcoder.taglibs.input.SelectTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.SelectTag</tag-class>
 		<body-content>JSP</body-content>
 		<display-name>select</display-name>
 		<description>
@@ -2308,7 +2308,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id="selected-value-tag">
 		<name>selected-value</name>
-		<tag-class>com.randomcoder.taglibs.input.SelectedValueTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.SelectedValueTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>selected-value</display-name>
 		<description>
@@ -2328,7 +2328,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id="submit-tag">
 		<name>submit</name>
-		<tag-class>com.randomcoder.taglibs.input.SubmitTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.SubmitTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>submit</display-name>
 		<description>
@@ -2553,7 +2553,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id="text-tag">
 		<name>text</name>
-		<tag-class>com.randomcoder.taglibs.input.TextTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.TextTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>text</display-name>
 		<description>
@@ -2794,7 +2794,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id="textarea-tag">
 		<name>textarea</name>
-		<tag-class>com.randomcoder.taglibs.input.TextareaTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.input.TextareaTag</tag-class>
 		<body-content>empty</body-content>
 		<display-name>textarea</display-name>
 		<description>

@@ -11,7 +11,7 @@
 
 	<appender name="null" class="org.apache.log4j.varia.NullAppender" />
 	
-	<logger name="com.randomcoder">
+	<logger name="org.randomcoder">
 		<level value="debug" />
 	</logger>
 

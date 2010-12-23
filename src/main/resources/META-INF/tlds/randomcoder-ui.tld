@@ -38,7 +38,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id='calendar-tag'>
 		<name>calendar</name>
-		<tag-class>com.randomcoder.taglibs.ui.CalendarTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.ui.CalendarTag</tag-class>
 		<body-content>JSP</body-content>
 		<display-name>calendar</display-name>
 		<description>
@@ -130,7 +130,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id='calendar-day-tag'>
 		<name>calendar-day</name>
-		<tag-class>com.randomcoder.taglibs.ui.CalendarDayTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.ui.CalendarDayTag</tag-class>
 		<body-content>JSP</body-content>
 		<display-name>calendar-day</display-name>
 		<description>
@@ -230,7 +230,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id="calendar-heading-tag">
 		<name>calendar-heading</name>
-		<tag-class>com.randomcoder.taglibs.ui.CalendarHeadingTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.ui.CalendarHeadingTag</tag-class>
 		<body-content>EMPTY</body-content>
 		<display-name>calendar-heading</display-name>
 		<description>
@@ -411,7 +411,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id="pager-tag">
 		<name>pager</name>
-		<tag-class>com.randomcoder.taglibs.ui.PagerTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.ui.PagerTag</tag-class>
 		<body-content>EMPTY</body-content>
 		<display-name>pager</display-name>
 		<description>

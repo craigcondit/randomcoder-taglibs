@@ -38,7 +38,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id="inRole-tag">
 		<name>inRole</name>
-		<tag-class>com.randomcoder.taglibs.security.InRoleTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.security.InRoleTag</tag-class>
 		<body-content>JSP</body-content>
 		<display-name>inRole</display-name>
 		<description>
@@ -61,7 +61,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id="loggedIn-tag">
 		<name>loggedIn</name>
-		<tag-class>com.randomcoder.taglibs.security.LoggedInTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.security.LoggedInTag</tag-class>
 		<body-content>JSP</body-content>
 		<display-name>loggedIn</display-name>
 		<description>
@@ -73,7 +73,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id="notInRoleTag">
 		<name>notInRole</name>
-		<tag-class>com.randomcoder.taglibs.security.NotInRoleTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.security.NotInRoleTag</tag-class>
 		<body-content>JSP</body-content>
 		<display-name>notInRole</display-name>
 		<description>
@@ -93,7 +93,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id="notLoggedInTag">
 		<name>notLoggedIn</name>
-		<tag-class>com.randomcoder.taglibs.security.NotLoggedInTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.security.NotLoggedInTag</tag-class>
 		<body-content>JSP</body-content>
 		<display-name>notLoggedIn</display-name>
 		<description>

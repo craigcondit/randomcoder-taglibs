@@ -38,7 +38,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id="addParam-tag">
 		<name>addParam</name>
-		<tag-class>com.randomcoder.taglibs.url.AddParamTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.url.AddParamTag</tag-class>
 		<body-content>JSP</body-content>
 		<display-name>modify</display-name>
 		<description>
@@ -68,7 +68,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id="clearParams-tag">
 		<name>clearParams</name>
-		<tag-class>com.randomcoder.taglibs.url.ClearParamsTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.url.ClearParamsTag</tag-class>
 		<body-content>EMPTY</body-content>
 		<display-name>clearParams</display-name>
 		<description>
@@ -78,7 +78,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id='current-tag'>
 		<name>current</name>
-		<tag-class>com.randomcoder.taglibs.url.CurrentTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.url.CurrentTag</tag-class>
 		<body-content>EMPTY</body-content>
 		<display-name>current</display-name>
 		<description>
@@ -108,7 +108,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id='modify-tag'>
 		<name>modify</name>
-		<tag-class>com.randomcoder.taglibs.url.ModifyTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.url.ModifyTag</tag-class>
 		<body-content>JSP</body-content>
 		<display-name>modify</display-name>
 		<description>
@@ -148,7 +148,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	
 	<tag id="removeParam-tag">
 		<name>removeParam</name>
-		<tag-class>com.randomcoder.taglibs.url.RemoveParamTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.url.RemoveParamTag</tag-class>
 		<body-content>EMPTY</body-content>
 		<display-name>removeParam</display-name>
 		<description>
@@ -168,7 +168,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 	<tag id='setParam-tag'>
 		<name>setParam</name>
-		<tag-class>com.randomcoder.taglibs.url.SetParamTag</tag-class>
+		<tag-class>org.randomcoder.taglibs.url.SetParamTag</tag-class>
 		<body-content>JSP</body-content>
 		<display-name>setParam</display-name>
 		<description>
