@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.test.mock.jee;
+package org.randomcoder.taglibs.test.mock.jee;
 
 import java.io.*;
 

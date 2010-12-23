@@ -1,10 +1,10 @@
-package com.randomcoder.taglibs.ui;
+package org.randomcoder.taglibs.ui;
 
 import java.util.*;
 
 import javax.servlet.jsp.jstl.core.Config;
 
-import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
+import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
 public class CalendarDayTagTest extends AbstractTagTestCase
 {

@@ -1,6 +1,6 @@
-package com.randomcoder.taglibs.ui;
+package org.randomcoder.taglibs.ui;
 
-import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
+import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
 public class PagerTagTest extends AbstractTagTestCase
 {

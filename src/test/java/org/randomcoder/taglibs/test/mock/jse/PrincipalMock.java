@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.test.mock.jse;
+package org.randomcoder.taglibs.test.mock.jse;
 
 import java.security.Principal;
 

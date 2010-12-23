@@ -1,8 +1,8 @@
-package com.randomcoder.taglibs.test.mock.input;
+package org.randomcoder.taglibs.test.mock.input;
 
 import java.util.Map;
 
-import com.randomcoder.taglibs.input.InputTagBase;
+import org.randomcoder.taglibs.input.InputTagBase;
 
 public class InputTagBaseMock extends InputTagBase
 {

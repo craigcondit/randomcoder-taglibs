@@ -1,8 +1,8 @@
-package com.randomcoder.taglibs.input;
+package org.randomcoder.taglibs.input;
 
 import java.util.*;
 
-import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
+import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
 public class SelectTagTest extends AbstractTagTestCase
 {

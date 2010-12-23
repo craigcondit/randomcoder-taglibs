@@ -1,8 +1,8 @@
-package com.randomcoder.taglibs.input;
+package org.randomcoder.taglibs.input;
 
 import javax.servlet.jsp.JspException;
 
-import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
+import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
 public class OptionTagTest extends AbstractTagTestCase
 {

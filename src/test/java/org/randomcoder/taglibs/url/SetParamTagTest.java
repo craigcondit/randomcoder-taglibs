@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.url;
+package org.randomcoder.taglibs.url;
 
 import java.io.StringWriter;
 import java.util.*;
@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 import org.springframework.mock.web.*;
 
-import com.randomcoder.taglibs.test.mock.jee.JspWriterMock;
+import org.randomcoder.taglibs.test.mock.jee.JspWriterMock;
 
 public class SetParamTagTest extends TestCase
 {

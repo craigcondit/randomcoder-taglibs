@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.functions;
+package org.randomcoder.taglibs.functions;
 
 import junit.framework.TestCase;
 

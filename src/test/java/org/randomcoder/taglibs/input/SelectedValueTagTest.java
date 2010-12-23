@@ -1,10 +1,10 @@
-package com.randomcoder.taglibs.input;
+package org.randomcoder.taglibs.input;
 
 import java.util.Set;
 
 import javax.servlet.jsp.JspException;
 
-import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
+import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
 public class SelectedValueTagTest extends AbstractTagTestCase
 {

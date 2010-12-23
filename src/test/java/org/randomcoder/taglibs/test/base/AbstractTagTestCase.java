@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.test.base;
+package org.randomcoder.taglibs.test.base;
 
 import java.io.StringWriter;
 
@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 import org.springframework.mock.web.*;
 
-import com.randomcoder.taglibs.test.mock.jee.JspWriterMock;
+import org.randomcoder.taglibs.test.mock.jee.JspWriterMock;
 
 abstract public class AbstractTagTestCase extends TestCase
 {

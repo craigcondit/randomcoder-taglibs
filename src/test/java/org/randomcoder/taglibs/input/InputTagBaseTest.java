@@ -1,7 +1,7 @@
-package com.randomcoder.taglibs.input;
+package org.randomcoder.taglibs.input;
 
-import com.randomcoder.taglibs.test.base.AbstractTagTestCase;
-import com.randomcoder.taglibs.test.mock.input.InputTagBaseMock;
+import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
+import org.randomcoder.taglibs.test.mock.input.InputTagBaseMock;
 
 public class InputTagBaseTest extends AbstractTagTestCase
 {

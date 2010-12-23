@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.security;
+package org.randomcoder.taglibs.security;
 
 import javax.servlet.jsp.tagext.Tag;
 
@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 
 import org.springframework.mock.web.*;
 
-import com.randomcoder.taglibs.test.mock.jse.PrincipalMock;
+import org.randomcoder.taglibs.test.mock.jse.PrincipalMock;
 
 public class LoggedInTagTest extends TestCase
 {

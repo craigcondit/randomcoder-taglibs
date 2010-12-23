@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.security;
+package org.randomcoder.taglibs.security;
 
 import javax.servlet.jsp.tagext.Tag;
 
