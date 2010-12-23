@@ -4,7 +4,7 @@
   <parent>
   	<groupId>org.randomcoder</groupId>
   	<artifactId>randomcoder-base</artifactId>
-  	<version>9</version>
+  	<version>11</version>
   </parent>
   <groupId>org.randomcoder</groupId>
   <artifactId>randomcoder-taglibs</artifactId>
