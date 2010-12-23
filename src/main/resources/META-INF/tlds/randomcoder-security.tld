@@ -30,7 +30,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	<tlib-version>1.0</tlib-version>
 	<jsp-version>1.2</jsp-version>
 	<short-name>security</short-name>
-	<uri>http://randomcoder.com/tags-security</uri>
+	<uri>http://randomcoder.org/tags-security</uri>
 	<display-name>Security</display-name>
 	<description>
 		JSTL-compatible tag library to handle common security tasks.

@@ -26,7 +26,7 @@
 	-->
 	<tlib-version>1.0</tlib-version>
 	<short-name>rcesc</short-name>
-	<uri>http://randomcoder.com/tags-escape</uri>
+	<uri>http://randomcoder.org/tags-escape</uri>
 	<display-name>Escape</display-name>
 	<description>
 		EL escape functions.

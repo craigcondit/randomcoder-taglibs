@@ -30,7 +30,7 @@ POSSIBILITY OF SUCH DAMAGE.
 -->
 	<tlib-version>1.0</tlib-version>
 	<short-name>ui</short-name>
-	<uri>http://randomcoder.com/tags-ui</uri>
+	<uri>http://randomcoder.org/tags-ui</uri>
 	<display-name>UI</display-name>
 	<description>
 		JSP 2.0 implementation of common UI components.

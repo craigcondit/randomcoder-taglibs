@@ -30,7 +30,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	<tlib-version>1.0</tlib-version>
 	<jsp-version>1.2</jsp-version>
 	<short-name>input</short-name>
-	<uri>http://randomcoder.com/tags-input</uri>
+	<uri>http://randomcoder.org/tags-input</uri>
 	<display-name>Input</display-name>
 	<description>
 		JSTL-compatible tag library to handle XHTML form input.

@@ -30,7 +30,7 @@ POSSIBILITY OF SUCH DAMAGE.
 -->
 	<tlib-version>1.0</tlib-version>
 	<short-name>url</short-name>
-	<uri>http://randomcoder.com/tags-url</uri>
+	<uri>http://randomcoder.org/tags-url</uri>
 	<display-name>URL</display-name>
 	<description>
 		URL-manipulation tag library.

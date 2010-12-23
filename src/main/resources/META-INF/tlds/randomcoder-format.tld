@@ -26,7 +26,7 @@
 	-->
 	<tlib-version>1.0</tlib-version>
 	<short-name>rcfmt</short-name>
-	<uri>http://randomcoder.com/tags-format</uri>
+	<uri>http://randomcoder.org/tags-format</uri>
 	<display-name>Format</display-name>
 	<description>
 		EL formatting functions.
