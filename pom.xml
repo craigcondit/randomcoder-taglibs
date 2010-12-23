@@ -10,7 +10,7 @@
   <artifactId>randomcoder-taglibs</artifactId>
   <name>Randomcoder Taglibs</name>
   <packaging>jar</packaging>
-  <version>1.5.3-SNAPSHOT</version>
+  <version>1.5.3</version>
   <inceptionYear>2006</inceptionYear>
   <url>http://randomcoder.org/maven/site/randomcoder-taglibs/</url>
   <description>
@@ -18,9 +18,9 @@
   	designed to be simple and easy to use.
   </description>
   <scm>
-  	<connection>scm:svn:http://randomcoder.org/repos/public/randomcoder-taglibs/trunk</connection>
-  	<developerConnection>scm:svn:https://randomcoder.org/repos/public/randomcoder-taglibs/trunk</developerConnection>
-  	<url>http://randomcoder.org/repos/public/randomcoder-taglibs/trunk</url>
+  	<connection>scm:svn:http://randomcoder.org/repos/public/randomcoder-taglibs/tags/1.5.3</connection>
+  	<developerConnection>scm:svn:https://randomcoder.org/repos/public/randomcoder-taglibs/tags/1.5.3</developerConnection>
+  	<url>http://randomcoder.org/repos/public/randomcoder-taglibs/tags/1.5.3</url>
   </scm>
   <repositories>
     <repository>
