@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.ui;
+package org.randomcoder.taglibs.ui;
 
 import java.io.Serializable;
 

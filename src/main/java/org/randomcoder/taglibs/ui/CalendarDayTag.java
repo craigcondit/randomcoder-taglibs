@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.ui;
+package org.randomcoder.taglibs.ui;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.*;

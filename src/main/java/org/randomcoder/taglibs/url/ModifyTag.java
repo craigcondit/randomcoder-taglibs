@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.url;
+package org.randomcoder.taglibs.url;
 
 import java.io.*;
 import java.net.*;
@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.randomcoder.taglibs.common.*;
+import org.randomcoder.taglibs.common.*;
 
 /**
  * Tag class which modifies a URL.

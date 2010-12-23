@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.input;
+package org.randomcoder.taglibs.input;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;

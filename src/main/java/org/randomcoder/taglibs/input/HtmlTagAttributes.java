@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.input;
+package org.randomcoder.taglibs.input;
 
 /**
  * Interface containing setters for all common HTML attributes.

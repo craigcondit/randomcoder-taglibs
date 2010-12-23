@@ -26,4 +26,4 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre> 
  */
-package com.randomcoder.taglibs.functions;
+package org.randomcoder.taglibs.functions;

@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.input;
+package org.randomcoder.taglibs.input;
 
 import java.io.IOException;
 import java.util.*;
@@ -6,7 +6,7 @@ import java.util.*;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.randomcoder.taglibs.common.HtmlHelper;
+import org.randomcoder.taglibs.common.HtmlHelper;
 
 /**
  * Base class of all tags which produce &lt;input&gt; tags.

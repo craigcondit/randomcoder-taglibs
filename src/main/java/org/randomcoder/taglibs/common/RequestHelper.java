@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.common;
+package org.randomcoder.taglibs.common;
 
 import java.io.UnsupportedEncodingException;
 import java.net.*;

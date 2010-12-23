@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.url;
+package org.randomcoder.taglibs.url;
 
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.TagSupport;

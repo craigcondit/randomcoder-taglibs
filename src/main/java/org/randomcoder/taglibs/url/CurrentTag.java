@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.url;
+package org.randomcoder.taglibs.url;
 
 import java.io.IOException;
 import java.net.URL;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.*;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.randomcoder.taglibs.common.*;
+import org.randomcoder.taglibs.common.*;
 
 /**
  * Tag class which retrieves the current page's URL.

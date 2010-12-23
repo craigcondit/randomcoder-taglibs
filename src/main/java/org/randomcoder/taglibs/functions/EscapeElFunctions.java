@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.functions;
+package org.randomcoder.taglibs.functions;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

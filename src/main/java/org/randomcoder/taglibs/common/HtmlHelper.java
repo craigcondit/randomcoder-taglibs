@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.common;
+package org.randomcoder.taglibs.common;
 
 /**
  * Helper class containing HTML-specific code.

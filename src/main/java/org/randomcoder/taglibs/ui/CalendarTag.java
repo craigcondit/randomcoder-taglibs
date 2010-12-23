@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.ui;
+package org.randomcoder.taglibs.ui;
 
 import java.io.IOException;
 import java.net.URL;
@@ -10,7 +10,7 @@ import javax.servlet.jsp.*;
 import javax.servlet.jsp.jstl.core.Config;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import com.randomcoder.taglibs.common.*;
+import org.randomcoder.taglibs.common.*;
 
 /**
  * Tag class which implements a calendar control.

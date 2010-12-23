@@ -1,4 +1,4 @@
-package com.randomcoder.taglibs.input;
+package org.randomcoder.taglibs.input;
 
 /**
  * Tag class which produces &lt;input type="text"&gt;.

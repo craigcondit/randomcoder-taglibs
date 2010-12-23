@@ -1,10 +1,10 @@
-package com.randomcoder.taglibs.input;
+package org.randomcoder.taglibs.input;
 
 import java.io.IOException;
 
 import javax.servlet.jsp.*;
 
-import com.randomcoder.taglibs.common.HtmlHelper;
+import org.randomcoder.taglibs.common.HtmlHelper;
 
 /**
  * Tag class which produces &lt;textarea&gt;.
