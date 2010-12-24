@@ -38,6 +38,7 @@ import org.randomcoder.taglibs.common.HtmlHelper;
  */
 abstract public class InputTagBase extends TagSupport implements ScriptableInputTagAttributes
 {
+	private static final long serialVersionUID = 4169511989162728785L;
 
 	private final Map<String, String> params = new HashMap<String, String>();
 
@@ -110,6 +111,7 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
 
 	// attributes common to all INPUT tags
 
+	@Override
 	public void setDisabled(String disabled)
 	{
 		boolean dis = false;
@@ -126,6 +128,7 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
 			params.remove("disabled");
 	}
 
+	@Override
 	public void setReadonly(String readonly)
 	{
 		boolean ro = false;
@@ -142,11 +145,13 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
 			params.remove("readonly");
 	}
 
+	@Override
 	public void setTabindex(String tabindex)
 	{
 		params.put("tabindex", tabindex);
 	}
 
+	@Override
 	public void setAccesskey(String accesskey)
 	{
 		params.put("accesskey", accesskey);
@@ -154,26 +159,31 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
 
 	// attributes common to all HTML tags
 
+	@Override
 	public void setStyleClass(String styleClass)
 	{
 		params.put("class", styleClass);
 	}
 
+	@Override
 	public void setDir(String dir)
 	{
 		params.put("dir", dir);
 	}
 
+	@Override
 	public void setLang(String lang)
 	{
 		params.put("lang", lang);
 	}
 
+	@Override
 	public void setStyle(String style)
 	{
 		params.put("style", style);
 	}
 
+	@Override
 	public void setTitle(String title)
 	{
 		params.put("title", title);
@@ -181,21 +191,25 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
 
 	// scripting attributes common to all INPUT tags
 
+	@Override
 	public void setOnblur(String onblur)
 	{
 		params.put("onblur", onblur);
 	}
 
+	@Override
 	public void setOnchange(String onchange)
 	{
 		params.put("onchange", onchange);
 	}
 
+	@Override
 	public void setOnfocus(String onfocus)
 	{
 		params.put("onfocus", onfocus);
 	}
 
+	@Override
 	public void setOnselect(String onselect)
 	{
 		params.put("onselect", onselect);
@@ -203,51 +217,61 @@ abstract public class InputTagBase extends TagSupport implements ScriptableInput
 
 	// scripting attributes common to all HTML tags
 
+	@Override
 	public void setOnclick(String onclick)
 	{
 		params.put("onclick", onclick);
 	}
 
+	@Override
 	public void setOndblclick(String ondblclick)
 	{
 		params.put("ondblclick", ondblclick);
 	}
 
+	@Override
 	public void setOnkeydown(String onkeydown)
 	{
 		params.put("onkeydown", onkeydown);
 	}
 
+	@Override
 	public void setOnkeypress(String onkeypress)
 	{
 		params.put("onkeypress", onkeypress);
 	}
 
+	@Override
 	public void setOnkeyup(String onkeyup)
 	{
 		params.put("onkeyup", onkeyup);
 	}
 
+	@Override
 	public void setOnmousedown(String onmousedown)
 	{
 		params.put("onmousedown", onmousedown);
 	}
 
+	@Override
 	public void setOnmousemove(String onmousemove)
 	{
 		params.put("onmousemove", onmousemove);
 	}
 
+	@Override
 	public void setOnmouseout(String onmouseout)
 	{
 		params.put("onmouseout", onmouseout);
 	}
 
+	@Override
 	public void setOnmouseover(String onmouseover)
 	{
 		params.put("onmouseover", onmouseover);
 	}
 
+	@Override
 	public void setOnmouseup(String onmouseup)
 	{
 		params.put("onmouseup", onmouseup);
