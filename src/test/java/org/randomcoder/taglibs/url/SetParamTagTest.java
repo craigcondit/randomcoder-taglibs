@@ -11,6 +11,7 @@ import org.springframework.mock.web.*;
 
 import org.randomcoder.taglibs.test.mock.jee.JspWriterMock;
 
+@SuppressWarnings("javadoc")
 public class SetParamTagTest extends TestCase
 {
 	private SetParamTag tag;

@@ -3,6 +3,7 @@ package org.randomcoder.taglibs.input;
 import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 import org.randomcoder.taglibs.test.mock.input.InputTagBaseMock;
 
+@SuppressWarnings("javadoc")
 public class InputTagBaseTest extends AbstractTagTestCase
 {
 	InputTagBaseMock tag = null;

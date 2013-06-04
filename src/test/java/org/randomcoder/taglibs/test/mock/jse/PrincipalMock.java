@@ -2,6 +2,7 @@ package org.randomcoder.taglibs.test.mock.jse;
 
 import java.security.Principal;
 
+@SuppressWarnings("javadoc")
 public class PrincipalMock implements Principal
 {
 	private String name;

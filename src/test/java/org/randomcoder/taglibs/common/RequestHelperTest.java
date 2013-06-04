@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 
+@SuppressWarnings("javadoc")
 public class RequestHelperTest extends TestCase
 {
 	MockHttpServletRequest request;

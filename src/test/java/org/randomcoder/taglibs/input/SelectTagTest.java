@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
+@SuppressWarnings("javadoc")
 public class SelectTagTest extends AbstractTagTestCase
 {
 	private SelectTag tag;

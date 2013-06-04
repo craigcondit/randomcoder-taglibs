@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 
 import org.springframework.mock.web.*;
 
+@SuppressWarnings("javadoc")
 public class NotInRoleTagTest extends TestCase
 {
 	private NotInRoleTag tag;

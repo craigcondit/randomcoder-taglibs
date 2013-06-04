@@ -10,6 +10,7 @@ import org.springframework.mock.web.*;
 
 import org.randomcoder.taglibs.test.mock.jee.JspWriterMock;
 
+@SuppressWarnings("javadoc")
 public class ModifyTagTest extends TestCase
 {
 	private ModifyTag tag;

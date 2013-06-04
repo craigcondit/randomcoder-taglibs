@@ -4,6 +4,7 @@ import java.net.URL;
 
 import junit.framework.TestCase;
 
+@SuppressWarnings("javadoc")
 public class UrlHelperTest extends TestCase
 {
 	public void testIsUrlRelativeNull() throws Exception

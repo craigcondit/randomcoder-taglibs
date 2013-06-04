@@ -6,6 +6,7 @@ import javax.servlet.jsp.jstl.core.Config;
 
 import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
+@SuppressWarnings("javadoc")
 public class CalendarHeadingTagTest extends AbstractTagTestCase
 {
 	private CalendarHeadingTag tag;

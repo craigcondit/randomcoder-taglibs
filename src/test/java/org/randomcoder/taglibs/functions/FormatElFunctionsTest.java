@@ -2,6 +2,7 @@ package org.randomcoder.taglibs.functions;
 
 import junit.framework.TestCase;
 
+@SuppressWarnings("javadoc")
 public class FormatElFunctionsTest extends TestCase
 {
 	

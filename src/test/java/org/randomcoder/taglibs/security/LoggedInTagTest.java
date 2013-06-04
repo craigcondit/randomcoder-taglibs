@@ -8,6 +8,7 @@ import org.springframework.mock.web.*;
 
 import org.randomcoder.taglibs.test.mock.jse.PrincipalMock;
 
+@SuppressWarnings("javadoc")
 public class LoggedInTagTest extends TestCase
 {
 	private LoggedInTag tag;

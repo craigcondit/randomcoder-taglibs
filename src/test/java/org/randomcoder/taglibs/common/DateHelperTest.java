@@ -4,6 +4,7 @@ import java.util.*;
 
 import junit.framework.TestCase;
 
+@SuppressWarnings("javadoc")
 public class DateHelperTest extends TestCase
 {
 	public void testIsSameDay()

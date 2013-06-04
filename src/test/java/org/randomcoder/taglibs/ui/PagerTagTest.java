@@ -2,6 +2,7 @@ package org.randomcoder.taglibs.ui;
 
 import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
+@SuppressWarnings("javadoc")
 public class PagerTagTest extends AbstractTagTestCase
 {
 	private PagerTag tag;

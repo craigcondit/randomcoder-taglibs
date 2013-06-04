@@ -2,6 +2,7 @@ package org.randomcoder.taglibs.common;
 
 import junit.framework.TestCase;
 
+@SuppressWarnings("javadoc")
 public class HtmlHelperTest extends TestCase
 {
 	public void testEncodePCData()

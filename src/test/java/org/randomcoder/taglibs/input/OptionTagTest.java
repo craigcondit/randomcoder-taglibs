@@ -4,6 +4,7 @@ import javax.servlet.jsp.JspException;
 
 import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
+@SuppressWarnings("javadoc")
 public class OptionTagTest extends AbstractTagTestCase
 {
 	private OptionTag tag;

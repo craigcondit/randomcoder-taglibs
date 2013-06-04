@@ -6,6 +6,7 @@ import javax.servlet.jsp.JspException;
 
 import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
+@SuppressWarnings("javadoc")
 public class SelectedValueTagTest extends AbstractTagTestCase
 {
 	private SelectedValueTag tag;

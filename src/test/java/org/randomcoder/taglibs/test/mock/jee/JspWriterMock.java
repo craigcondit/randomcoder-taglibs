@@ -4,6 +4,7 @@ import java.io.*;
 
 import javax.servlet.jsp.JspWriter;
 
+@SuppressWarnings("javadoc")
 public class JspWriterMock extends JspWriter
 {
 	private Writer writer;

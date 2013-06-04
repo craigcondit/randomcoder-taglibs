@@ -10,6 +10,7 @@ import org.randomcoder.taglibs.test.mock.jee.JspWriterMock;
 
 import junit.framework.TestCase;
 
+@SuppressWarnings("javadoc")
 public class AddParamTagTest extends TestCase
 {
 	private AddParamTag tag;

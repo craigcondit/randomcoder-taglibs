@@ -10,6 +10,7 @@ import org.springframework.mock.web.*;
 
 import org.randomcoder.taglibs.test.mock.jee.JspWriterMock;
 
+@SuppressWarnings("javadoc")
 public class CurrentTagTest extends TestCase
 {
 	private static final String EXPECTED_RESULT = "http://www.example.com/context/servlet/index.jsp?param1=test1";

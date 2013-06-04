@@ -4,6 +4,7 @@ import javax.servlet.jsp.*;
 
 import junit.framework.TestCase;
 
+@SuppressWarnings("javadoc")
 public class TagHelperTest extends TestCase
 {
 	@Override

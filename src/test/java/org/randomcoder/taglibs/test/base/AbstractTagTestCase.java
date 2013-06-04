@@ -11,6 +11,7 @@ import org.springframework.mock.web.*;
 
 import org.randomcoder.taglibs.test.mock.jee.JspWriterMock;
 
+@SuppressWarnings("javadoc")
 abstract public class AbstractTagTestCase extends TestCase
 {
 	protected MockPageContext context;

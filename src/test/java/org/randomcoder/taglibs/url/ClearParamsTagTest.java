@@ -10,6 +10,7 @@ import org.randomcoder.taglibs.test.mock.jee.JspWriterMock;
 
 import junit.framework.TestCase;
 
+@SuppressWarnings("javadoc")
 public class ClearParamsTagTest extends TestCase
 {
 	private ClearParamsTag tag;

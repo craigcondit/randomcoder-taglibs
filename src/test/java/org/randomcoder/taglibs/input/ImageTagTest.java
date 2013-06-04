@@ -2,6 +2,7 @@ package org.randomcoder.taglibs.input;
 
 import org.randomcoder.taglibs.test.base.AbstractTagTestCase;
 
+@SuppressWarnings("javadoc")
 public class ImageTagTest extends AbstractTagTestCase
 {
 	private ImageTag tag;

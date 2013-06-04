@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.randomcoder.taglibs.input.InputTagBase;
 
+@SuppressWarnings("javadoc")
 public class InputTagBaseMock extends InputTagBase
 {
 	private static final long serialVersionUID = 6434610266875827823L;
