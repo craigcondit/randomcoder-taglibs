@@ -10,7 +10,7 @@
 	<artifactId>randomcoder-taglibs</artifactId>
 	<name>Randomcoder Taglibs</name>
 	<packaging>jar</packaging>
-	<version>1.6.3-SNAPSHOT</version>
+	<version>1.6.3</version>
 	<inceptionYear>2006</inceptionYear>
 	<url>https://randomcoder.org/nexus/content/repositories/releases/org/randomcoder/randomcoder-taglibs</url>
 	<description>
