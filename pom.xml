@@ -4,7 +4,7 @@
   <parent>
   	<groupId>org.randomcoder</groupId>
   	<artifactId>randomcoder-base</artifactId>
-  	<version>15</version>
+  	<version>16</version>
   </parent>
   <groupId>org.randomcoder</groupId>
   <artifactId>randomcoder-taglibs</artifactId>
@@ -18,9 +18,9 @@
   	designed to be simple and easy to use.
   </description>
 	<scm>
-		<connection>scm:git:https://randomcoder.org/scm/git/randomcoder-taglibs</connection>
-		<developerConnection>scm:git:https://randomcoder.org/scm/git/randomcoder-taglibs</developerConnection>
-		<url>https://randomcoder.org/gitlist/randomcoder-taglibs</url>
+		<connection>scm:git:https://scm.randomcoder.org/git/randomcoder-taglibs</connection>
+		<developerConnection>scm:git:https://randomcoder.org/git/randomcoder-taglibs</developerConnection>
+		<url>http://gitlist.randomcoder.org/randomcoder-taglibs</url>
 	</scm>
 	<distributionManagement>
 		<site>
