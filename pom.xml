@@ -19,7 +19,7 @@
   </description>
 	<scm>
 		<connection>scm:git:https://scm.randomcoder.org/git/randomcoder-taglibs</connection>
-		<developerConnection>scm:git:https://randomcoder.org/git/randomcoder-taglibs</developerConnection>
+		<developerConnection>scm:git:https://scm.randomcoder.org/git/randomcoder-taglibs</developerConnection>
 		<url>http://gitlist.randomcoder.org/randomcoder-taglibs</url>
 	</scm>
 	<distributionManagement>
