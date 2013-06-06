@@ -28,6 +28,9 @@
 			<url>dav:https://nexus.randomcoder.org/content/sites/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>
