@@ -231,7 +231,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	<tag id="calendar-heading-tag">
 		<name>calendar-heading</name>
 		<tag-class>org.randomcoder.taglibs.ui.CalendarHeadingTag</tag-class>
-		<body-content>EMPTY</body-content>
+		<body-content>empty</body-content>
 		<display-name>calendar-heading</display-name>
 		<description>
 			Renders an XHTML Calendar heading.
@@ -412,7 +412,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	<tag id="pager-tag">
 		<name>pager</name>
 		<tag-class>org.randomcoder.taglibs.ui.PagerTag</tag-class>
-		<body-content>EMPTY</body-content>
+		<body-content>empty</body-content>
 		<display-name>pager</display-name>
 		<description>
 			Renders an XHTML Pager control.

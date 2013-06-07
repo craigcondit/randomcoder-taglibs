@@ -69,7 +69,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	<tag id="clearParams-tag">
 		<name>clearParams</name>
 		<tag-class>org.randomcoder.taglibs.url.ClearParamsTag</tag-class>
-		<body-content>EMPTY</body-content>
+		<body-content>empty</body-content>
 		<display-name>clearParams</display-name>
 		<description>
 			Cooperates with url:modify to remove all parameters.
@@ -79,7 +79,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	<tag id='current-tag'>
 		<name>current</name>
 		<tag-class>org.randomcoder.taglibs.url.CurrentTag</tag-class>
-		<body-content>EMPTY</body-content>
+		<body-content>empty</body-content>
 		<display-name>current</display-name>
 		<description>
 			Renders the current page's URL, optionally to a variable.
@@ -149,7 +149,7 @@ POSSIBILITY OF SUCH DAMAGE.
 	<tag id="removeParam-tag">
 		<name>removeParam</name>
 		<tag-class>org.randomcoder.taglibs.url.RemoveParamTag</tag-class>
-		<body-content>EMPTY</body-content>
+		<body-content>empty</body-content>
 		<display-name>removeParam</display-name>
 		<description>
 			Cooperates with url:modify to remove a parameter.
