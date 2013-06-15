@@ -489,6 +489,15 @@ POSSIBILITY OF SUCH DAMAGE.
 				Starting page number. At least this property or start must be specified.
 			</description>
 		</attribute>
+		<attribute id="pager-pageOffset">
+			<name>pageOffset</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>int</type>
+			<description>
+				Offset for page numbers in rendered links (defaults to 0).
+			</description>
+		</attribute>
 		<attribute id="pager-pageParam">
 			<name>pageParam</name>
 			<rtexprvalue>true</rtexprvalue>
@@ -505,6 +514,15 @@ POSSIBILITY OF SUCH DAMAGE.
 			<type>int</type>
 			<description>
 				Starting element number. At least this property or page must be specified.
+			</description>
+		</attribute>
+		<attribute id="pager-startOffset">
+			<name>start</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>int</type>
+			<description>
+				Offset for start in rendered links (defaults to 0).
 			</description>
 		</attribute>
 		<attribute id="pager-startParam">

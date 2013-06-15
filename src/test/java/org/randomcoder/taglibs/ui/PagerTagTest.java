@@ -45,6 +45,21 @@ public class PagerTagTest extends AbstractTagTestCase
 		assertEquals("1 <a href=\"/page?limit=10&amp;start=10\">2</a> <a href=\"/page?limit=10&amp;start=20\">3</a> <a href=\"/page?limit=10&amp;start=10\">&gt;</a>", result);
 	}
 	
+	public void testTagCurrentUrlStartOffset() throws Exception
+	{
+		request.setQueryString(null);
+		request.setServerName("www.example.com");
+		request.setContextPath("");
+		request.setServletPath("/page");
+		request.setPathInfo(null);
+		tag.setLink(null);
+		tag.setStartOffset(1);
+		tag.doStartTag();
+		tag.doEndTag();
+		String result = writer.toString();
+		assertEquals("1 <a href=\"/page?limit=10&amp;start=11\">2</a> <a href=\"/page?limit=10&amp;start=21\">3</a> <a href=\"/page?limit=10&amp;start=11\">&gt;</a>", result);
+	}
+	
 	public void testTagFirstPage() throws Exception
 	{
 		tag.doStartTag();

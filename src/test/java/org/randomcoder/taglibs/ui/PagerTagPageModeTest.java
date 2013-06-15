@@ -44,7 +44,22 @@ public class PagerTagPageModeTest extends AbstractTagTestCase
 		String result = writer.toString();
 		assertEquals("1 <a href=\"/page?page.size=10&amp;page.page=1\">2</a> <a href=\"/page?page.size=10&amp;page.page=2\">3</a> <a href=\"/page?page.size=10&amp;page.page=1\">&gt;</a>", result);
 	}
-	
+
+	public void testTagCurrentUrlPageOffset() throws Exception
+	{
+		request.setQueryString(null);
+		request.setServerName("www.example.com");
+		request.setContextPath("");
+		request.setServletPath("/page");
+		request.setPathInfo(null);
+		tag.setPageOffset(1);
+		tag.setLink(null);
+		tag.doStartTag();
+		tag.doEndTag();
+		String result = writer.toString();
+		assertEquals("1 <a href=\"/page?page.size=10&amp;page.page=2\">2</a> <a href=\"/page?page.size=10&amp;page.page=3\">3</a> <a href=\"/page?page.size=10&amp;page.page=2\">&gt;</a>", result);
+	}
+
 	public void testTagFirstPage() throws Exception
 	{
 		tag.doStartTag();

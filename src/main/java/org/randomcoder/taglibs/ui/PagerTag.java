@@ -66,6 +66,8 @@ public class PagerTag extends TagSupport
 	private Integer start;
 	private int count = 0;
 	private int limit = 0;
+	private int pageOffset = 0;
+	private int startOffset = 0;
 
 	private int maxLinks = DEFAULT_MAX_LINKS;
 
@@ -161,6 +163,17 @@ public class PagerTag extends TagSupport
 	}
 
 	/**
+	 * Sets the offset for the start parameter in generated links (defaults to 0).
+	 * 
+	 * @param startOffset
+	 *          start offset
+	 */
+	public void setStartOffset(int startOffset)
+	{
+		this.startOffset = startOffset;
+	}
+
+	/**
 	 * Sets the starting page number (from 0).
 	 * 
 	 * @param page
@@ -169,6 +182,17 @@ public class PagerTag extends TagSupport
 	public void setPage(int page)
 	{
 		this.page = page;
+	}
+
+	/**
+	 * Sets the offset for the page parameter in generated links (defaults to 0).
+	 * 
+	 * @param pageOffset
+	 *          page offset
+	 */
+	public void setPageOffset(int pageOffset)
+	{
+		this.pageOffset = pageOffset;
 	}
 
 	/**
@@ -226,6 +250,8 @@ public class PagerTag extends TagSupport
 		start = null;
 		page = null;
 		link = null;
+		pageOffset = 0;
+		startOffset = 0;
 		pageContext = null;
 	}
 
@@ -248,15 +274,15 @@ public class PagerTag extends TagSupport
 			{
 				limit = 10;
 			}
-			
+
 			// figure out which mode we're operating in (start or page)
 			if (start == null && page == null)
 			{
 				throw new JspException("Either start or page must be specified on pager tag");
 			}
-			
+
 			boolean pageMode = (start == null);
-			
+
 			if (pageMode)
 			{
 				if (page < 0)
@@ -271,8 +297,7 @@ public class PagerTag extends TagSupport
 					start = 0;
 				}
 			}
-			
-				
+
 			// calculate page count
 			int pageCount = (int) Math.ceil((double) count / (double) limit);
 
@@ -286,7 +311,7 @@ public class PagerTag extends TagSupport
 			{
 				currentPage = (int) Math.floor((double) start / (double) limit);
 			}
-			
+
 			// special case - we're past end, so adjust accordingly
 			if (currentPage >= pageCount)
 			{
@@ -365,11 +390,11 @@ public class PagerTag extends TagSupport
 		Map<String, String> params = new HashMap<String, String>();
 		if (pageMode)
 		{
-			params.put(pageParam, df.format(linkPage));
+			params.put(pageParam, df.format(linkPage + pageOffset));
 		}
 		else
 		{
-			params.put(startParam, df.format(linkStart));
+			params.put(startParam, df.format(linkStart + startOffset));
 		}
 		params.put(limitParam, df.format(linkLimit));
 		URL generated = RequestHelper.appendParameters(request, targetURL, params);
