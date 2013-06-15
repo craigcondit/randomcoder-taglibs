@@ -45,6 +45,7 @@ public class PagerTag extends TagSupport
 
 	private static final String DEFAULT_LIMIT_PARAM = "limit";
 	private static final String DEFAULT_START_PARAM = "start";
+	private static final String DEFAULT_PAGE_PARAM = "page";
 
 	private static final String DEFAULT_PREV_CONTENT = "&#171;";
 	private static final String DEFAULT_NEXT_CONTENT = "&#187;";
@@ -55,20 +56,24 @@ public class PagerTag extends TagSupport
 
 	private String limitParam = DEFAULT_LIMIT_PARAM;
 	private String startParam = DEFAULT_START_PARAM;
+	private String pageParam = DEFAULT_PAGE_PARAM;
 
 	private String link = null;
 	private String prevContent = DEFAULT_PREV_CONTENT;
 	private String nextContent = DEFAULT_NEXT_CONTENT;
 
+	private Integer page;
+	private Integer start;
 	private int count = 0;
-	private int start = 0;
 	private int limit = 0;
 
 	private int maxLinks = DEFAULT_MAX_LINKS;
 
 	/**
 	 * Sets the total number of items in this view.
-	 * @param count item count
+	 * 
+	 * @param count
+	 *          item count
 	 */
 	public void setCount(int count)
 	{
@@ -77,7 +82,9 @@ public class PagerTag extends TagSupport
 
 	/**
 	 * Sets the number of items per page in this view.
-	 * @param limit page limit
+	 * 
+	 * @param limit
+	 *          page limit
 	 */
 	public void setLimit(int limit)
 	{
@@ -86,7 +93,9 @@ public class PagerTag extends TagSupport
 
 	/**
 	 * Sets the parameter name used for page limit (defaults to 'limit').
-	 * @param limitParam parameter name
+	 * 
+	 * @param limitParam
+	 *          parameter name
 	 */
 	public void setLimitParam(String limitParam)
 	{
@@ -95,7 +104,9 @@ public class PagerTag extends TagSupport
 
 	/**
 	 * Sets the URL to use when generating pager links (defaults to current page).
-	 * @param link url
+	 * 
+	 * @param link
+	 *          url
 	 */
 	public void setLink(String link)
 	{
@@ -105,7 +116,9 @@ public class PagerTag extends TagSupport
 	/**
 	 * Sets the maximum number of links to render on each side of current
 	 * (defaults to 10).
-	 * @param maxLinks number of links to render
+	 * 
+	 * @param maxLinks
+	 *          number of links to render
 	 */
 	public void setMaxLinks(int maxLinks)
 	{
@@ -116,7 +129,8 @@ public class PagerTag extends TagSupport
 	 * Sets the HTML content to use for the next link (defaults to a right angle
 	 * quote).
 	 * 
-	 * @param nextContent HTML content to render as next link
+	 * @param nextContent
+	 *          HTML content to render as next link
 	 */
 	public void setNextContent(String nextContent)
 	{
@@ -127,7 +141,8 @@ public class PagerTag extends TagSupport
 	 * Sets the HTML content to use for the previous link (defaults to a left
 	 * angle quote).
 	 * 
-	 * @param prevContent HTML content to render as previous link
+	 * @param prevContent
+	 *          HTML content to render as previous link
 	 */
 	public void setPrevContent(String prevContent)
 	{
@@ -136,7 +151,9 @@ public class PagerTag extends TagSupport
 
 	/**
 	 * Sets the starting item number (from 0).
-	 * @param start starting item number
+	 * 
+	 * @param start
+	 *          starting item number
 	 */
 	public void setStart(int start)
 	{
@@ -144,8 +161,32 @@ public class PagerTag extends TagSupport
 	}
 
 	/**
+	 * Sets the starting page number (from 0).
+	 * 
+	 * @param page
+	 *          starting page number
+	 */
+	public void setPage(int page)
+	{
+		this.page = page;
+	}
+
+	/**
+	 * Sets the parameter name used for the page (defaults to 'page').
+	 * 
+	 * @param pageParam
+	 *          parameter name
+	 */
+	public void setPageParam(String pageParam)
+	{
+		this.pageParam = pageParam;
+	}
+
+	/**
 	 * Sets the parameter name used for the first item (defaults to 'start').
-	 * @param startParam parameter name
+	 * 
+	 * @param startParam
+	 *          parameter name
 	 */
 	public void setStartParam(String startParam)
 	{
@@ -176,18 +217,21 @@ public class PagerTag extends TagSupport
 	{
 		limitParam = DEFAULT_LIMIT_PARAM;
 		startParam = DEFAULT_START_PARAM;
+		pageParam = DEFAULT_PAGE_PARAM;
 		maxLinks = DEFAULT_MAX_LINKS;
 		prevContent = DEFAULT_PREV_CONTENT;
 		nextContent = DEFAULT_NEXT_CONTENT;
 		count = 0;
 		limit = 0;
-		start = 0;
+		start = null;
+		page = null;
 		link = null;
 		pageContext = null;
 	}
 
 	/**
 	 * Renders the pager to the current page context's JSPWriter.
+	 * 
 	 * @return EVAL_PAGE
 	 */
 	@Override
@@ -201,16 +245,48 @@ public class PagerTag extends TagSupport
 
 			// make sure values are sane
 			if (limit < 1)
+			{
 				limit = 10;
-			if (start < 0)
-				start = 0;
-
+			}
+			
+			// figure out which mode we're operating in (start or page)
+			if (start == null && page == null)
+			{
+				throw new JspException("Either start or page must be specified on pager tag");
+			}
+			
+			boolean pageMode = (start == null);
+			
+			if (pageMode)
+			{
+				if (page < 0)
+				{
+					page = 0;
+				}
+			}
+			else
+			{
+				if (start < 0)
+				{
+					start = 0;
+				}
+			}
+			
+				
 			// calculate page count
 			int pageCount = (int) Math.ceil((double) count / (double) limit);
 
 			// calculate current page
-			int currentPage = (int) Math.floor((double) start / (double) limit);
-
+			int currentPage;
+			if (pageMode)
+			{
+				currentPage = page;
+			}
+			else
+			{
+				currentPage = (int) Math.floor((double) start / (double) limit);
+			}
+			
 			// special case - we're past end, so adjust accordingly
 			if (currentPage >= pageCount)
 			{
@@ -219,7 +295,7 @@ public class PagerTag extends TagSupport
 
 			if (currentPage > 0)
 			{
-				renderLink(out, (currentPage - 1) * limit, limit, prevContent);
+				renderLink(out, pageMode, (currentPage - 1), (currentPage - 1) * limit, limit, prevContent);
 				out.print(" ");
 			}
 
@@ -227,7 +303,7 @@ public class PagerTag extends TagSupport
 			int first = Math.max(0, currentPage - maxLinks);
 			for (int i = first; i < currentPage; i++)
 			{
-				renderLink(out, i * limit, limit, df.format(i + 1));
+				renderLink(out, pageMode, i, i * limit, limit, df.format(i + 1));
 				out.print(" ");
 			}
 
@@ -239,13 +315,13 @@ public class PagerTag extends TagSupport
 			for (int i = currentPage + 1; i < last; i++)
 			{
 				out.print(" ");
-				renderLink(out, i * limit, limit, df.format(i + 1));
+				renderLink(out, pageMode, i, i * limit, limit, df.format(i + 1));
 			}
 
 			if (currentPage + 1 < pageCount)
 			{
 				out.print(" ");
-				renderLink(out, (currentPage + 1) * limit, limit, nextContent);
+				renderLink(out, pageMode, currentPage + 1, (currentPage + 1) * limit, limit, nextContent);
 			}
 
 			return EVAL_PAGE;
@@ -261,13 +337,13 @@ public class PagerTag extends TagSupport
 		}
 	}
 
-	private void renderLink(JspWriter out, int linkStart, int linkLimit, String text) throws IOException
+	private void renderLink(JspWriter out, boolean pageMode, int linkPage, int linkStart, int linkLimit, String text) throws IOException
 	{
 		HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 		HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
 
 		DecimalFormat df = new DecimalFormat("####################");
-		
+
 		URL targetURL = null;
 		String output = null;
 		boolean relative = false;
@@ -287,7 +363,14 @@ public class PagerTag extends TagSupport
 		}
 
 		Map<String, String> params = new HashMap<String, String>();
-		params.put(startParam, df.format(linkStart));
+		if (pageMode)
+		{
+			params.put(pageParam, df.format(linkPage));
+		}
+		else
+		{
+			params.put(startParam, df.format(linkStart));
+		}
 		params.put(limitParam, df.format(linkLimit));
 		URL generated = RequestHelper.appendParameters(request, targetURL, params);
 

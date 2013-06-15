@@ -416,7 +416,7 @@ POSSIBILITY OF SUCH DAMAGE.
 		<display-name>pager</display-name>
 		<description>
 			Renders an XHTML Pager control.
-		</description>		
+		</description>
 		<attribute id="pager-count">
 			<name>count</name>
 			<rtexprvalue>true</rtexprvalue>
@@ -480,13 +480,31 @@ POSSIBILITY OF SUCH DAMAGE.
 				HTML content to use for the previous link (defaults to a left angle quote).
 			</description>
 		</attribute>
+		<attribute id="pager-page">
+			<name>page</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>int</type>
+			<description>
+				Starting page number. At least this property or start must be specified.
+			</description>
+		</attribute>
+		<attribute id="pager-pageParam">
+			<name>pageParam</name>
+			<rtexprvalue>true</rtexprvalue>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<description>
+				Parameter name to use for page (defaults to 'page').
+			</description>
+		</attribute>
 		<attribute id="pager-start">
 			<name>start</name>
 			<rtexprvalue>true</rtexprvalue>
-			<required>true</required>
+			<required>false</required>
 			<type>int</type>
 			<description>
-				Starting element number
+				Starting element number. At least this property or page must be specified.
 			</description>
 		</attribute>
 		<attribute id="pager-startParam">
