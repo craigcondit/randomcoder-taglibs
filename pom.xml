@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.randomcoder</groupId>
 		<artifactId>randomcoder-base</artifactId>
-		<version>23</version>
+		<version>24</version>
 	</parent>
 	<groupId>org.randomcoder</groupId>
 	<artifactId>randomcoder-taglibs</artifactId>
@@ -12,7 +12,7 @@
 	<packaging>jar</packaging>
 	<version>1.6.9-SNAPSHOT</version>
 	<inceptionYear>2006</inceptionYear>
-	<url>https://nexus.randomcoder.org/content/sites/randomcoder-taglibs/</url>
+	<url>https://randomcoder.org/nexus/content/sites/randomcoder-taglibs/</url>
 	<description>
 		The randomcoder taglibs package contains various useful tag libraries
 		designed to be simple and easy to use.
@@ -25,7 +25,7 @@
 	<distributionManagement>
 		<site>
 			<id>randomcoder-site</id>
-			<url>dav:https://nexus.randomcoder.org/content/sites/${project.artifactId}</url>
+			<url>dav:https://randomcoder.org/nexus/content/sites/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
 	<properties>
