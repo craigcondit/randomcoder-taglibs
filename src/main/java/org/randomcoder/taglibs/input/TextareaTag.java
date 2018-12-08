@@ -1,26 +1,26 @@
 package org.randomcoder.taglibs.input;
 
-import java.io.IOException;
-
-import javax.servlet.jsp.*;
-
 import org.randomcoder.taglibs.common.HtmlHelper;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import java.io.IOException;
 
 /**
  * Tag class which produces &lt;textarea&gt;.
- * 
+ *
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *   * Redistributions of source code must retain the above copyright notice,
  *     this list of conditions and the following disclaimer.
  *   * Redistributions in binary form must reproduce the above copyright notice,
  *     this list of conditions and the following disclaimer in the documentation
  *     and/or other materials provided with the distribution.
- *     
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -34,59 +34,51 @@ import org.randomcoder.taglibs.common.HtmlHelper;
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre>
  */
-public class TextareaTag extends InputTagBase
-{
+public class TextareaTag extends InputTagBase {
 
-	private static final long serialVersionUID = -905446055685214582L;
+  private static final long serialVersionUID = -905446055685214582L;
 
-	@Override
-	protected String getType()
-	{
-		return "textarea";
-	}
+  @Override protected String getType() {
+    return "textarea";
+  }
 
-	/**
-	 * Sets the rows HTML attribute.
-	 * @param rows value of rows attribute
-	 */
-	public void setRows(String rows)
-	{
-		getParams().put("rows", rows);
-	}
+  /**
+   * Sets the rows HTML attribute.
+   *
+   * @param rows value of rows attribute
+   */
+  public void setRows(String rows) {
+    getParams().put("rows", rows);
+  }
 
-	/**
-	 * Sets the cols HTML attribute.
-	 * @param cols value of cols attribute
-	 */
-	public void setCols(String cols)
-	{
-		getParams().put("cols", cols);
-	}
+  /**
+   * Sets the cols HTML attribute.
+   *
+   * @param cols value of cols attribute
+   */
+  public void setCols(String cols) {
+    getParams().put("cols", cols);
+  }
 
-	@Override
-	public int doEndTag() throws JspException
-	{
-		try
-		{
-			JspWriter out = pageContext.getOut();
+  @Override public int doEndTag() throws JspException {
+    try {
+      JspWriter out = pageContext.getOut();
 
-			out.write("<");
-			out.write(getType());
-			out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
-			if (getStyleId() != null)
-				out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
-			out.write(buildOptions());
-			out.write(">");
-			out.write(HtmlHelper.encodePCData(getValue()));
-			out.write("</");
-			out.write(getType());
-			out.write(">");
-		}
-		catch (IOException ioe)
-		{
-			throw new JspException(ioe);
-		}
+      out.write("<");
+      out.write(getType());
+      out.write(" name=\"" + HtmlHelper.encodeAttribute(getName()) + "\"");
+      if (getStyleId() != null)
+        out.write(" id=\"" + HtmlHelper.encodeAttribute(getStyleId()) + "\"");
+      out.write(buildOptions());
+      out.write(">");
+      out.write(HtmlHelper.encodePCData(getValue()));
+      out.write("</");
+      out.write(getType());
+      out.write(">");
+    } catch (IOException ioe) {
+      throw new JspException(ioe);
+    }
 
-		return EVAL_PAGE;
-	}
+    return EVAL_PAGE;
+  }
 }

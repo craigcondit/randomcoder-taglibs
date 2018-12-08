@@ -1,25 +1,26 @@
 package org.randomcoder.taglibs.url;
 
-import java.util.*;
-
-import javax.servlet.jsp.*;
+import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Tag class which adds a parameter to a URL.
- * 
+ *
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *   * Redistributions of source code must retain the above copyright notice,
  *     this list of conditions and the following disclaimer.
  *   * Redistributions in binary form must reproduce the above copyright notice,
  *     this list of conditions and the following disclaimer in the documentation
  *     and/or other materials provided with the distribution.
- *     
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -33,78 +34,66 @@ import javax.servlet.jsp.tagext.TagSupport;
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre>
  */
-public class AddParamTag extends TagSupport
-{
-	private static final long serialVersionUID = -1726710757304026189L;
+public class AddParamTag extends TagSupport {
+  private static final long serialVersionUID = -1726710757304026189L;
 
-	private String name;
-	private String value;
+  private String name;
+  private String value;
 
-	/**
-	 * Sets the parameter name.
-	 * 
-	 * @param name parameter name
-	 */
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+  /**
+   * Sets the parameter name.
+   *
+   * @param name parameter name
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	/**
-	 * Sets the parameter value.
-	 * 
-	 * @param value parameter value
-	 */
-	public void setValue(String value)
-	{
-		this.value = value;
-	}
+  /**
+   * Sets the parameter value.
+   *
+   * @param value parameter value
+   */
+  public void setValue(String value) {
+    this.value = value;
+  }
 
-	/**
-	 * Release state.
-	 */
-	@Override
-	public void release()
-	{
-		super.release();
-		cleanup();
-	}
+  /**
+   * Release state.
+   */
+  @Override public void release() {
+    super.release();
+    cleanup();
+  }
 
-	/**
-	 * Adds the given parameter to the URL.
-	 * 
-	 * @return EVAL_PAGE
-	 */
-	@Override
-	public int doEndTag() throws JspException
-	{
-		try
-		{
-			ModifyTag mtag = (ModifyTag) findAncestorWithClass(this, ModifyTag.class);
-			if (mtag == null)
-				throw new JspException("No modify tag parent found");
-			
-			Map<String, List<String>> params = mtag.getParams();
-			List<String> values = params.get(name);
-			if (values == null)
-			{
-				values = new ArrayList<String>();
-				params.put(name, values);
-			}
-			values.add(value);
+  /**
+   * Adds the given parameter to the URL.
+   *
+   * @return EVAL_PAGE
+   */
+  @Override public int doEndTag() throws JspException {
+    try {
+      ModifyTag mtag = (ModifyTag) findAncestorWithClass(this, ModifyTag.class);
+      if (mtag == null)
+        throw new JspException("No modify tag parent found");
 
-			return EVAL_PAGE;
-		}
-		finally
-		{
-			cleanup();
-		}
-	}
+      Map<String, List<String>> params = mtag.getParams();
+      List<String> values = params.get(name);
+      if (values == null) {
+        values = new ArrayList<String>();
+        params.put(name, values);
+      }
+      values.add(value);
 
-	private void cleanup()
-	{
-		name = null;
-		value = null;
-	}
+      return EVAL_PAGE;
+    } finally {
+      cleanup();
+    }
+  }
+
+  private void cleanup() {
+    name = null;
+    value = null;
+  }
 
 }

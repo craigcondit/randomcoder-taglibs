@@ -1,28 +1,34 @@
 package org.randomcoder.taglibs.common;
 
-import java.io.UnsupportedEncodingException;
-import java.net.*;
-import java.text.DecimalFormat;
-import java.util.*;
-import java.util.Map.Entry;
-
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.StringTokenizer;
 
 /**
  * Helper class containing servlet request-specific code.
- * 
+ *
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *   * Redistributions of source code must retain the above copyright notice,
  *     this list of conditions and the following disclaimer.
  *   * Redistributions in binary form must reproduce the above copyright notice,
  *     this list of conditions and the following disclaimer in the documentation
  *     and/or other materials provided with the distribution.
- *     
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -36,266 +42,247 @@ import javax.servlet.http.HttpServletRequest;
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre>
  */
-public class RequestHelper
-{
+public class RequestHelper {
 
-	private static final String REQUEST_URI_ATTRIBUTE = "javax.servlet.forward.request_uri";
-	private static final String QUERY_STRING_ATTRIBUTE = "javax.servlet.forward.query_string";
+  private static final String REQUEST_URI_ATTRIBUTE =
+      "javax.servlet.forward.request_uri";
+  private static final String QUERY_STRING_ATTRIBUTE =
+      "javax.servlet.forward.query_string";
 
-	private RequestHelper()
-	{}
+  private RequestHelper() {
+  }
 
-	/**
-	 * Parses out parameters in a given query string.
-	 * 
-	 * @param request HTTP request
-	 * @param query query string
-	 * @return parameter map
-	 * @throws UnsupportedEncodingException if request encoding is unknown
-	 */
-	public static Map<String, List<String>> parseParameters(HttpServletRequest request, String query) throws UnsupportedEncodingException
-	{
-		// get the request encoding
-		String encoding = request.getCharacterEncoding();
+  /**
+   * Parses out parameters in a given query string.
+   *
+   * @param request HTTP request
+   * @param query   query string
+   * @return parameter map
+   * @throws UnsupportedEncodingException if request encoding is unknown
+   */
+  public static Map<String, List<String>> parseParameters(
+      HttpServletRequest request, String query)
+      throws UnsupportedEncodingException {
+    // get the request encoding
+    String encoding = request.getCharacterEncoding();
 
-		// not found, fallback to UTF-8
-		if (encoding == null)
-			encoding = "UTF-8";
+    // not found, fallback to UTF-8
+    if (encoding == null)
+      encoding = "UTF-8";
 
-		Map<String, List<String>> data = new HashMap<String, List<String>>();
+    Map<String, List<String>> data = new HashMap<String, List<String>>();
 
-		// query not specified
-		if (query == null)
-			return data;
+    // query not specified
+    if (query == null)
+      return data;
 
-		StringTokenizer st = new StringTokenizer(query, "?&=", true);
+    StringTokenizer st = new StringTokenizer(query, "?&=", true);
 
-		String prev = null;
-		while (st.hasMoreTokens())
-		{
-			String tk = st.nextToken();
-			if ("?".equals(tk))
-				continue;
-			if ("&".equals(tk))
-				continue;
-			if ("=".equals(tk))
-			{
-				if (prev == null)
-					continue; // no previous entry...
-				
-				String value = ""; // empty string instead of null
-				
-				if (st.hasMoreTokens())
-					value = URLDecoder.decode(st.nextToken(), encoding);
+    String prev = null;
+    while (st.hasMoreTokens()) {
+      String tk = st.nextToken();
+      if ("?".equals(tk))
+        continue;
+      if ("&".equals(tk))
+        continue;
+      if ("=".equals(tk)) {
+        if (prev == null)
+          continue; // no previous entry...
 
-				String key = URLDecoder.decode(prev, encoding);
+        String value = ""; // empty string instead of null
 
-				List<String> params = data.get(key);
-				if (params == null)
-				{
-					params = new ArrayList<String>();
-					data.put(key, params);
-				}
-				params.add(value);
+        if (st.hasMoreTokens())
+          value = URLDecoder.decode(st.nextToken(), encoding);
 
-				prev = null;
-			}
-			else
-			{
-				// this is a key
-				prev = tk;
-			}
-		}
-		return data;
-	}
+        String key = URLDecoder.decode(prev, encoding);
 
-	/**
-	 * Generates a {@code URL} by appending parameters onto a base {@code URL}.
-	 * 
-	 * @param request HTTP request
-	 * @param url base url
-	 * @param additionalParams parameters to append
-	 * @return URL with merged parameters
-	 * @throws UnsupportedEncodingException if request encoding is unknown
-	 * @throws MalformedURLException if base url is not valid
-	 */
-	public static URL appendParameters(HttpServletRequest request, URL url, Map<String, String> additionalParams) throws UnsupportedEncodingException,
-			MalformedURLException
-	{
+        List<String> params = data.get(key);
+        if (params == null) {
+          params = new ArrayList<String>();
+          data.put(key, params);
+        }
+        params.add(value);
 
-		// get the request encoding
-		String encoding = request.getCharacterEncoding();
+        prev = null;
+      } else {
+        // this is a key
+        prev = tk;
+      }
+    }
+    return data;
+  }
 
-		// not found, fallback to UTF-8
-		if (encoding == null)
-			encoding = "UTF-8";
+  /**
+   * Generates a {@code URL} by appending parameters onto a base {@code URL}.
+   *
+   * @param request          HTTP request
+   * @param url              base url
+   * @param additionalParams parameters to append
+   * @return URL with merged parameters
+   * @throws UnsupportedEncodingException if request encoding is unknown
+   * @throws MalformedURLException        if base url is not valid
+   */
+  public static URL appendParameters(HttpServletRequest request, URL url,
+      Map<String, String> additionalParams)
+      throws UnsupportedEncodingException, MalformedURLException {
 
-		String queryString = url.getQuery();
-		String path = url.getPath();
+    // get the request encoding
+    String encoding = request.getCharacterEncoding();
 
-		Map<String, List<String>> params = RequestHelper.parseParameters(request, queryString);
+    // not found, fallback to UTF-8
+    if (encoding == null)
+      encoding = "UTF-8";
 
-		// merge new parameters
-		for (Entry<String, String> entry : additionalParams.entrySet())
-		{
-			List<String> values = new ArrayList<String>(1);
-			values.add(entry.getValue());
-			params.put(entry.getKey(), values);
-		}
+    String queryString = url.getQuery();
+    String path = url.getPath();
 
-		// convert to query string
-		StringBuilder queryBuf = new StringBuilder();
-		for (Entry<String, List<String>> entry : params.entrySet())
-		{
-			String key = entry.getKey();
-			for (String value : entry.getValue())
-			{
-				if (queryBuf.length() > 0)
-				{
-					queryBuf.append("&");
-				}
-				queryBuf.append(URLEncoder.encode(key, encoding));
-				queryBuf.append("=");
-				queryBuf.append(URLEncoder.encode(value, encoding));
-			}
-		}
+    Map<String, List<String>> params =
+        RequestHelper.parseParameters(request, queryString);
 
-		queryString = queryBuf.toString();
+    // merge new parameters
+    for (Entry<String, String> entry : additionalParams.entrySet()) {
+      List<String> values = new ArrayList<String>(1);
+      values.add(entry.getValue());
+      params.put(entry.getKey(), values);
+    }
 
-		if (queryString.length() > 0)
-			path += "?" + queryString;
+    // convert to query string
+    StringBuilder queryBuf = new StringBuilder();
+    for (Entry<String, List<String>> entry : params.entrySet()) {
+      String key = entry.getKey();
+      for (String value : entry.getValue()) {
+        if (queryBuf.length() > 0) {
+          queryBuf.append("&");
+        }
+        queryBuf.append(URLEncoder.encode(key, encoding));
+        queryBuf.append("=");
+        queryBuf.append(URLEncoder.encode(value, encoding));
+      }
+    }
 
-		URL result = new URL(url.getProtocol(), url.getHost(), url.getPort(), path);
+    queryString = queryBuf.toString();
 
-		return result;
-	}
+    if (queryString.length() > 0)
+      path += "?" + queryString;
 
-	/**
-	 * Generates a {@code URL} by appending parameters onto a base {@code URL}.
-	 * 
-	 * @param request HTTP request
-	 * @param url base url
-	 * @param params parameters to set
-	 * @return URL with merged parameters
-	 * @throws UnsupportedEncodingException if request encoding is unknown
-	 * @throws MalformedURLException if base url is not valid
-	 */
-	public static URL setParameters(HttpServletRequest request, URL url, Map<String, List<String>> params) throws UnsupportedEncodingException,
-			MalformedURLException
-	{
+    URL result = new URL(url.getProtocol(), url.getHost(), url.getPort(), path);
 
-		// get the request encoding
-		String encoding = request.getCharacterEncoding();
+    return result;
+  }
 
-		// not found, fallback to UTF-8
-		if (encoding == null)
-			encoding = "UTF-8";
+  /**
+   * Generates a {@code URL} by appending parameters onto a base {@code URL}.
+   *
+   * @param request HTTP request
+   * @param url     base url
+   * @param params  parameters to set
+   * @return URL with merged parameters
+   * @throws UnsupportedEncodingException if request encoding is unknown
+   * @throws MalformedURLException        if base url is not valid
+   */
+  public static URL setParameters(HttpServletRequest request, URL url,
+      Map<String, List<String>> params)
+      throws UnsupportedEncodingException, MalformedURLException {
 
-		String path = url.getPath();
+    // get the request encoding
+    String encoding = request.getCharacterEncoding();
 
-		// convert to query string
-		StringBuilder queryBuf = new StringBuilder();
-		for (Entry<String, List<String>> entry : params.entrySet())
-		{
-			String key = entry.getKey();
-			for (String value : entry.getValue())
-			{
-				if (queryBuf.length() > 0)
-				{
-					queryBuf.append("&");
-				}
-				queryBuf.append(URLEncoder.encode(key, encoding));
-				queryBuf.append("=");
-				queryBuf.append(URLEncoder.encode(value, encoding));
-			}
-		}
+    // not found, fallback to UTF-8
+    if (encoding == null)
+      encoding = "UTF-8";
 
-		String queryString = queryBuf.toString();
+    String path = url.getPath();
 
-		if (queryString.length() > 0)
-			path += "?" + queryString;
+    // convert to query string
+    StringBuilder queryBuf = new StringBuilder();
+    for (Entry<String, List<String>> entry : params.entrySet()) {
+      String key = entry.getKey();
+      for (String value : entry.getValue()) {
+        if (queryBuf.length() > 0) {
+          queryBuf.append("&");
+        }
+        queryBuf.append(URLEncoder.encode(key, encoding));
+        queryBuf.append("=");
+        queryBuf.append(URLEncoder.encode(value, encoding));
+      }
+    }
 
-		URL result = new URL(url.getProtocol(), url.getHost(), url.getPort(), path);
+    String queryString = queryBuf.toString();
 
-		return result;
-	}
+    if (queryString.length() > 0)
+      path += "?" + queryString;
 
-	/**
-	 * Gets the URL representing the current request.
-	 * @param request HTTP request
-	 * @return URL representing the current page
-	 * @throws MalformedURLException if request URL is malformed
-	 */
-	public static URL getCurrentUrl(HttpServletRequest request) throws MalformedURLException
-	{
-		StringBuilder buf = new StringBuilder();
+    URL result = new URL(url.getProtocol(), url.getHost(), url.getPort(), path);
 
-		String scheme = request.getScheme();
-		int port = request.getServerPort();
+    return result;
+  }
 
-		buf.append(scheme);
-		buf.append("://");
-		buf.append(request.getServerName());
+  /**
+   * Gets the URL representing the current request.
+   *
+   * @param request HTTP request
+   * @return URL representing the current page
+   * @throws MalformedURLException if request URL is malformed
+   */
+  public static URL getCurrentUrl(HttpServletRequest request)
+      throws MalformedURLException {
+    StringBuilder buf = new StringBuilder();
 
-		if ("http".equals(scheme) && port == 80)
-		{
-			// do nothing
-		}
-		else if ("https".equals(scheme) && port == 443)
-		{
-			// do nothing
-		}
-		else if (port < 0)
-		{
-			// do nothing
-		}
-		else
-		{
-			buf.append(":");
-			DecimalFormat dfPort = new DecimalFormat("#####");
-			buf.append(dfPort.format(port));
-		}
+    String scheme = request.getScheme();
+    int port = request.getServerPort();
 
-		String forwardUri = (String) request.getAttribute(REQUEST_URI_ATTRIBUTE);
-		if (forwardUri == null)
-		{
-			// use old style method
-			String contextPath = request.getContextPath();
-			if (contextPath != null)
-				buf.append(contextPath);
+    buf.append(scheme);
+    buf.append("://");
+    buf.append(request.getServerName());
 
-			String servletPath = request.getServletPath();
-			if (servletPath != null)
-				buf.append(servletPath);
+    if ("http".equals(scheme) && port == 80) {
+      // do nothing
+    } else if ("https".equals(scheme) && port == 443) {
+      // do nothing
+    } else if (port < 0) {
+      // do nothing
+    } else {
+      buf.append(":");
+      DecimalFormat dfPort = new DecimalFormat("#####");
+      buf.append(dfPort.format(port));
+    }
 
-			String pathInfo = request.getPathInfo();
-			if (pathInfo != null)
-				buf.append(pathInfo);
+    String forwardUri = (String) request.getAttribute(REQUEST_URI_ATTRIBUTE);
+    if (forwardUri == null) {
+      // use old style method
+      String contextPath = request.getContextPath();
+      if (contextPath != null)
+        buf.append(contextPath);
 
-			String queryString = request.getQueryString();
-			if (queryString != null && queryString.length() > 0)
-			{
-				if (!('?' == queryString.charAt(0)))
-					buf.append("?");
-				buf.append(queryString);
-			}
-		}
-		else
-		{
-			// use forwarded attributes
-			buf.append(forwardUri);
+      String servletPath = request.getServletPath();
+      if (servletPath != null)
+        buf.append(servletPath);
 
-			String queryString = (String) request.getAttribute(QUERY_STRING_ATTRIBUTE);
-			if (queryString != null && queryString.length() > 0)
-			{
-				if (!('?' == queryString.charAt(0)))
-					buf.append("?");
-				buf.append(queryString);
-			}
-		}
+      String pathInfo = request.getPathInfo();
+      if (pathInfo != null)
+        buf.append(pathInfo);
 
-		String name = buf.toString();
-		return new URL(name);
-	}
+      String queryString = request.getQueryString();
+      if (queryString != null && queryString.length() > 0) {
+        if (!('?' == queryString.charAt(0)))
+          buf.append("?");
+        buf.append(queryString);
+      }
+    } else {
+      // use forwarded attributes
+      buf.append(forwardUri);
+
+      String queryString =
+          (String) request.getAttribute(QUERY_STRING_ATTRIBUTE);
+      if (queryString != null && queryString.length() > 0) {
+        if (!('?' == queryString.charAt(0)))
+          buf.append("?");
+        buf.append(queryString);
+      }
+    }
+
+    String name = buf.toString();
+    return new URL(name);
+  }
 
 }

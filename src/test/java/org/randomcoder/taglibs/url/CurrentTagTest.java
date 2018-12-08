@@ -1,90 +1,80 @@
 package org.randomcoder.taglibs.url;
 
+import junit.framework.TestCase;
+import org.randomcoder.taglibs.test.mock.jee.JspWriterMock;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockPageContext;
+import org.springframework.mock.web.MockServletContext;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
 import java.io.StringWriter;
 
-import javax.servlet.jsp.*;
+@SuppressWarnings("javadoc") public class CurrentTagTest extends TestCase {
+  private static final String EXPECTED_RESULT =
+      "http://www.example.com/context/servlet/index.jsp?param1=test1";
+  private CurrentTag tag;
+  private MockPageContext context;
+  private MockHttpServletRequest request;
+  private StringWriter writer;
 
-import junit.framework.TestCase;
+  @Override protected void setUp() throws Exception {
+    tag = new CurrentTag();
+    writer = new StringWriter();
+    final JspWriterMock jspWriter = new JspWriterMock(writer);
+    request = new MockHttpServletRequest();
+    request.setProtocol("http");
+    request.setServerPort(80);
+    request.setServerName("www.example.com");
+    request.setContextPath("/context");
+    request.setServletPath("/servlet");
+    request.setPathInfo("/index.jsp");
+    request.setQueryString("?param1=test1");
+    context = new MockPageContext(new MockServletContext(), request) {
+      @Override public JspWriter getOut() {
+        return jspWriter;
+      }
+    };
+    tag.setPageContext(context);
+  }
 
-import org.springframework.mock.web.*;
+  @Override protected void tearDown() throws Exception {
+    tag.release();
+    tag = null;
+    request = null;
+    context = null;
+    writer.close();
+    writer = null;
+  }
 
-import org.randomcoder.taglibs.test.mock.jee.JspWriterMock;
+  public void testDoEndTagNullVar() throws Exception {
+    tag.doEndTag();
+    assertEquals(EXPECTED_RESULT, writer.getBuffer().toString());
+  }
 
-@SuppressWarnings("javadoc")
-public class CurrentTagTest extends TestCase
-{
-	private static final String EXPECTED_RESULT = "http://www.example.com/context/servlet/index.jsp?param1=test1";
-	private CurrentTag tag;
-	private MockPageContext context;
-	private MockHttpServletRequest request;
-	private StringWriter writer;
+  public void testDoEndTagScopeOnly() throws Exception {
+    try {
+      tag.setScope("page");
+      tag.setVar(null);
+      tag.doEndTag();
+      fail("Expected JspException");
+    } catch (JspException e) {
+      // pass
+    }
+  }
 
-	@Override
-	protected void setUp() throws Exception
-	{
-		tag = new CurrentTag();
-		writer = new StringWriter();
-		final JspWriterMock jspWriter = new JspWriterMock(writer);
-		request = new MockHttpServletRequest();		
-		request.setProtocol("http");
-		request.setServerPort(80);
-		request.setServerName("www.example.com");
-		request.setContextPath("/context");
-		request.setServletPath("/servlet");
-		request.setPathInfo("/index.jsp");
-		request.setQueryString("?param1=test1");
-		context = new MockPageContext(new MockServletContext(), request) 
-		{
-			@Override
-			public JspWriter getOut() { return jspWriter; }
-		};
-		tag.setPageContext(context);
-	}
+  public void testDoEndTagVarOnly() throws Exception {
+    tag.setVar("test");
+    tag.doEndTag();
+    assertEquals(EXPECTED_RESULT, context.getAttribute("test"));
+  }
 
-	@Override
-	protected void tearDown() throws Exception
-	{
-		tag.release();
-		tag = null;
-		request = null;
-		context = null;
-		writer.close();
-		writer = null;
-	}
-
-	public void testDoEndTagNullVar() throws Exception
-	{
-		tag.doEndTag();
-		assertEquals(EXPECTED_RESULT, writer.getBuffer().toString());
-	}
-	
-	public void testDoEndTagScopeOnly() throws Exception
-	{
-		try
-		{
-			tag.setScope("page");
-			tag.setVar(null);
-			tag.doEndTag();
-			fail("Expected JspException");
-		}
-		catch (JspException e)
-		{
-			// pass
-		}
-	}
-
-	public void testDoEndTagVarOnly() throws Exception
-	{
-		tag.setVar("test");
-		tag.doEndTag();
-		assertEquals(EXPECTED_RESULT, context.getAttribute("test"));
-	}
-
-	public void testDoEndTagVarScope() throws Exception
-	{
-		tag.setVar("testPage");
-		tag.setScope("page");
-		tag.doEndTag();
-		assertEquals(EXPECTED_RESULT, context.getAttribute("testPage", PageContext.PAGE_SCOPE));
-	}
+  public void testDoEndTagVarScope() throws Exception {
+    tag.setVar("testPage");
+    tag.setScope("page");
+    tag.doEndTag();
+    assertEquals(EXPECTED_RESULT,
+        context.getAttribute("testPage", PageContext.PAGE_SCOPE));
+  }
 }

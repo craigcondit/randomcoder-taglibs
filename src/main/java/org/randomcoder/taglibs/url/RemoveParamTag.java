@@ -1,23 +1,23 @@
 package org.randomcoder.taglibs.url;
 
-import javax.servlet.jsp.*;
+import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * Tag class which removes a parameter from a URL.
- * 
+ *
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *   * Redistributions of source code must retain the above copyright notice,
  *     this list of conditions and the following disclaimer.
  *   * Redistributions in binary form must reproduce the above copyright notice,
  *     this list of conditions and the following disclaimer in the documentation
  *     and/or other materials provided with the distribution.
- *     
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -31,60 +31,50 @@ import javax.servlet.jsp.tagext.TagSupport;
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre>
  */
-public class RemoveParamTag extends TagSupport
-{
-	private static final long serialVersionUID = -1726710757304026189L;
+public class RemoveParamTag extends TagSupport {
+  private static final long serialVersionUID = -1726710757304026189L;
 
-	private String name;
+  private String name;
 
-	/**
-	 * Sets the parameter to remove.
-	 * 
-	 * @param name parameter name
-	 */
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+  /**
+   * Sets the parameter to remove.
+   *
+   * @param name parameter name
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	/**
-	 * Release state.
-	 */
-	@Override
-	public void release()
-	{
-		super.release();
-		cleanup();
-	}
+  /**
+   * Release state.
+   */
+  @Override public void release() {
+    super.release();
+    cleanup();
+  }
 
-	/**
-	 * Removes the given parameter from the URL.
-	 * 
-	 * @return EVAL_PAGE
-	 */
-	@Override
-	public int doEndTag() throws JspException
-	{
-		try
-		{
-			ModifyTag mtag = (ModifyTag) findAncestorWithClass(this, ModifyTag.class);
-			if (mtag == null)
-				throw new JspException("No modify tag parent found");
+  /**
+   * Removes the given parameter from the URL.
+   *
+   * @return EVAL_PAGE
+   */
+  @Override public int doEndTag() throws JspException {
+    try {
+      ModifyTag mtag = (ModifyTag) findAncestorWithClass(this, ModifyTag.class);
+      if (mtag == null)
+        throw new JspException("No modify tag parent found");
 
-			mtag.getParams().remove(name);
+      mtag.getParams().remove(name);
 
-			return EVAL_PAGE;
+      return EVAL_PAGE;
 
-		}
-		finally
-		{
-			cleanup();
-		}
-	}
+    } finally {
+      cleanup();
+    }
+  }
 
-	private void cleanup()
-	{
-		name = null;
-	}
+  private void cleanup() {
+    name = null;
+  }
 
 }

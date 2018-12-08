@@ -2,19 +2,19 @@ package org.randomcoder.taglibs.input;
 
 /**
  * Interface containing setters for all common HTML attributes.
- * 
+ *
  * <pre>
  * Copyright (c) 2006, Craig Condit. All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  *   * Redistributions of source code must retain the above copyright notice,
  *     this list of conditions and the following disclaimer.
  *   * Redistributions in binary form must reproduce the above copyright notice,
  *     this list of conditions and the following disclaimer in the documentation
  *     and/or other materials provided with the distribution.
- *     
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -28,35 +28,39 @@ package org.randomcoder.taglibs.input;
  * POSSIBILITY OF SUCH DAMAGE.
  * </pre>
  */
-public interface HtmlTagAttributes
-{
-	/**
-	 * Sets the styleClass (HTML class) attribute.
-	 * @param styleClass value of styleClass attribute
-	 */
-	public void setStyleClass(String styleClass);
+public interface HtmlTagAttributes {
+  /**
+   * Sets the styleClass (HTML class) attribute.
+   *
+   * @param styleClass value of styleClass attribute
+   */
+  public void setStyleClass(String styleClass);
 
-	/**
-	 * Sets the dir HTML attribute.
-	 * @param dir value of dir attribute
-	 */
-	public void setDir(String dir);
+  /**
+   * Sets the dir HTML attribute.
+   *
+   * @param dir value of dir attribute
+   */
+  public void setDir(String dir);
 
-	/**
-	 * Sets the lang HTML attribute.
-	 * @param lang value of lang attribute
-	 */
-	public void setLang(String lang);
+  /**
+   * Sets the lang HTML attribute.
+   *
+   * @param lang value of lang attribute
+   */
+  public void setLang(String lang);
 
-	/**
-	 * Sets the style HTML attribute.
-	 * @param style value of lang attribute
-	 */
-	public void setStyle(String style);
+  /**
+   * Sets the style HTML attribute.
+   *
+   * @param style value of lang attribute
+   */
+  public void setStyle(String style);
 
-	/**
-	 * Sets the title HTML attribute.
-	 * @param title value of title attribute
-	 */
-	public void setTitle(String title);
+  /**
+   * Sets the title HTML attribute.
+   *
+   * @param title value of title attribute
+   */
+  public void setTitle(String title);
 }
