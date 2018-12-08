@@ -10,7 +10,7 @@
     <artifactId>randomcoder-taglibs</artifactId>
     <name>Randomcoder Taglibs</name>
     <packaging>jar</packaging>
-    <version>1.6.13</version>
+    <version>1.6.14-SNAPSHOT</version>
     <inceptionYear>2006</inceptionYear>
     <url>https://github.com/insideo/randomcoder-taglibs</url>
     <description>
@@ -24,7 +24,7 @@
             scm:git:git@github.com:insideo/randomcoder-taglibs.git
         </developerConnection>
         <url>https://github.com/insideo/randomcoder-taglibs</url>
-        <tag>randomcoder-taglibs-1.6.13</tag>
+        <tag>HEAD</tag>
     </scm>
     <developers>
         <developer>
